@@ -2,6 +2,7 @@
     require 'header.php';
 ?>
 
+<<<<<<< HEAD
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
         <div class="container">
@@ -27,6 +28,9 @@
             </div>
         </div>
     </nav>
+=======
+    
+>>>>>>> jolijn
 
     <header class="masthead text-center text-white d-flex">
         <div class="container my-auto">
@@ -214,7 +218,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
+<<<<<<< HEAD
                     <h2 class="section-heading text-uppercase">Neem contact op</h2>
+=======
+                    <h2 class="section-heading text-uppercase">Contact Us</h2>
+>>>>>>> jolijn
                     <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
                 </div>
             </div>
