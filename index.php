@@ -3,6 +3,7 @@
 ?>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
         <div class="container">
@@ -32,6 +33,8 @@
     
 >>>>>>> jolijn
 
+=======
+>>>>>>> 04ea3de05415a213810b26df43e25245d98e0852
     <header class="masthead text-center text-white d-flex">
         <div class="container my-auto">
             <div class="row">
@@ -219,10 +222,14 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
 <<<<<<< HEAD
+<<<<<<< HEAD
                     <h2 class="section-heading text-uppercase">Neem contact op</h2>
 =======
                     <h2 class="section-heading text-uppercase">Contact Us</h2>
 >>>>>>> jolijn
+=======
+                    <h2 class="section-heading text-uppercase">Neem contact op</h2>
+>>>>>>> 04ea3de05415a213810b26df43e25245d98e0852
                     <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
                 </div>
             </div>
