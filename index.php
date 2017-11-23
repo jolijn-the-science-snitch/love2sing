@@ -2,8 +2,6 @@
     require 'header.php';
 ?>
 
-    
-
     <header class="masthead text-center text-white d-flex">
         <div class="container my-auto">
             <div class="row">

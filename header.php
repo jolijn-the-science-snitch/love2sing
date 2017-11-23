@@ -1,7 +1,10 @@
-<!DOCTYPE html>
+<?php
+    require 'includes/functions.php';
+?>
+
 <html lang="en">
 
-  <head>
+<head>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -23,7 +26,72 @@
 
     <!-- Custom styles for this template -->
     <link href="css/creative.min.css" rel="stylesheet">
+    
+    <link href="css/index.css" rel="stylesheet">
 
-  </head>
+</head>
 
-  <body id="page-top">
+<body id="page-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="index.php">Love2Sing</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="#about">Over ons</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="#services">Fotoalbum</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="guestbook.php">Gastenboek</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+                        </li>
+
+                        <?php 
+            //dit gedeelte kunnen alleen de gebruikers zien            
+            if(isset($_SESSION['logIn']) && $_SESSION['logIn'] == 'true' && $_SESSION['userRights'] == 'user'){
+                echo '<li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="music.php">Muziek</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="facemap.php">Smoelenboek</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="logout.php">Log uit</a>
+                    </li>';
+            }
+            //dit gedeelte kan alleen de beheerder zien
+            elseif(isset($_SESSION['logIn']) && $_SESSION['logIn'] == 'true' && $_SESSION['userRights'] == 'admin'){
+                echo '<li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="adminPanel.php">Beheer</a>
+                    </li>                
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="music.php">Muziek</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="facemap.php">Smoelenboek</a>
+                    </li>              
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="logout.php">Log uit</a>
+                    </li>';
+            }
+            else{
+                echo '<li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="login.php">Login</a>
+                    </li>';
+            }
+        ?>
+
+                    </ul>
+                </div>
+            </div>
+    </nav>

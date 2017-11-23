@@ -36,15 +36,15 @@ function selectUser(){
         
         if($user[0] > 0){
             $_SESSION['logIn'] = 'true';
-            $_SESSION['username'] = $user[1] . ' ' . $user[2] . ' ' . $user[3];
+            $_SESSION['username'] = $user[1];
             $_SESSION['userId'] = $user[0];
-            $_SESSION['userRights'] = '1';
+            $_SESSION['userRights'] = 'user';
             
             header('Location: index.php');
         }
     }else{
         //select query voor de employees
-        $create = 'SELECT * FROM user WHERE username=:username AND userPassword=:password';
+        $create = 'SELECT * FROM admin WHERE adminUsername=:username AND adminPassword=:password';
     
         //zorgt dat de connectie wordt gestart vanuit de db
         $statement = $this->connect->prepare($create);
@@ -64,9 +64,9 @@ function selectUser(){
 
             if($user[0] > 0){
                 $_SESSION['logIn'] = 'true';
-                $_SESSION['username'] = $user[1] . ' ' . $user[2] . ' ' . $user[3];
+                $_SESSION['username'] = $user[1];
                 $_SESSION['userId'] = $user[0];
-                $_SESSION['userRights'] = '0';
+                $_SESSION['userRights'] = 'admin';
 
                 header('Location: index.php');
             }
@@ -75,6 +75,7 @@ function selectUser(){
     }
     
 }
+    
 }
 
 ?>
