@@ -77,4 +77,8 @@ function selectUser(){
 }
 }
 
+function contactform () {
+    
+}
+
 ?>
