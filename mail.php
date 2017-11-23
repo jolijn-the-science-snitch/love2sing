@@ -28,6 +28,6 @@ if (isset($_POST['contactName']) && isset($_POST['contactEmail']) && isset($_POS
     mail($to,$subject, $message, $headers);
 }
 else {
-    echo "error";
+    echo "mail is niet verzonden";
 }
 ?>
