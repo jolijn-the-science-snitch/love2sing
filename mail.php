@@ -12,10 +12,12 @@ if (isset($_POST['contactName']) && isset($_POST['contactEmail']) && isset($_POS
     <h2 style='font-size: 18px;'>Het volgende bericht is gestuurd:</h2>
     
     <p style='font-size: 14px;'>". $contactMessage."</p>
-    <h2 style='font-size: 18px;'>Gegevens:</h2>
-    <b>Naam: </b>".$contactName."<br>
-    <b>E-mail: </b>".$contactEmail."<br>
-    <b>Verstuurd op: </b>".date("Y-m-d");
+    <div style='font-size: 14px;'>
+        <h2 style='font-size: 18px;'>Gegevens:</h2>
+        <b>Naam: </b>".$contactName."<br>
+        <b>E-mail: </b>".$contactEmail."<br>
+        <b>Verstuurd op: </b>".date("Y-m-d")."
+    </div>";
     $headers = 'From: webmaster@example.com' . "\r\n" .
     'Reply-To: '.$contactEmail.'' . "\r\n" .
     'X-Mailer: PHP/' . phpversion();
