@@ -4,7 +4,7 @@ if (isset($_POST['contactName']) && isset($_POST['contactEmail']) && isset($_POS
     $contactEmail = $_POST['contactEmail'];
     $contactMessage = nl2br($_POST['contactMessage']);
 
-    $to = "whnijsink@gmail.com";
+    $to = "love2singtestmail@gmail.com";
     $subject = "Contactformulier van koor";
     $message = "
     <h1 style='font-size: 22px;'>Het contact formulier is ingevuld door ".$contactName."</h1>
@@ -16,7 +16,7 @@ if (isset($_POST['contactName']) && isset($_POST['contactEmail']) && isset($_POS
         <h2 style='font-size: 18px;'>Gegevens:</h2>
         <b>Naam: </b>".$contactName."<br>
         <b>E-mail: </b>".$contactEmail."<br>
-        <b>Verstuurd op: </b>".date("Y-m-d")."
+        <b>Verstuurd op: </b>".date("d-m-Y H:i:s")."
     </div>";
     $headers = 'From: webmaster@example.com' . "\r\n" .
     'Reply-To: '.$contactEmail.'' . "\r\n" .
