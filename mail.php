@@ -24,10 +24,16 @@ if (isset($_POST['contactName']) && isset($_POST['contactEmail']) && isset($_POS
     $headers .= "MIME-Version: 1.0\r\n";
     $headers.="Content-type: text/html; charset=\"UTF-8\" \r\n";
 
-    echo $message;
-    mail($to,$subject, $message, $headers);
+    //echo $message;
+    if(mail($to,$subject, $message, $headers)){
+        echo "1";
+    }
+    else { 
+        echo "0";
+    }
 }
 else {
-    echo "mail is niet verzonden";
+    echo "2";
 }
+// er mag alleen een 0 voor een fout worden geprint, en een 1 voor succes, alle andere tekens zorgen voor een foutmelding met technische fout
 ?>
