@@ -209,17 +209,60 @@
         </div>
     </section>
 
+    <!-- scripts voor contactformulier -->
+
+    <script>
+        function sendButton(buttonText, pointerStyle,loading) {
+            if (loading) {
+                buttonText = '<i class="fa fa-circle-o-notch fa-spin"></i> ' + buttonText;
+            }
+            document.getElementById('sendMessageButton').innerHTML = buttonText;
+            document.getElementById('name').style.pointerEvents = pointerStyle;
+            document.getElementById('email').style.pointerEvents = pointerStyle;
+            document.getElementById('contactMessage').style.pointerEvents = pointerStyle;
+        }
+
+        var firstTime = true;
+
+        function mail() {
+            if (!firstTime) {
+                var iframeContent = document.getElementById('contactIframe').contentWindow.document.body.innerHTML;
+                if (iframeContent == "1") { // 1: mail met contactgegevens is verzonden
+                    document.getElementById("contactForm").style.display = "none"; // contact formulier onzichtbaar maken
+                    message("success", "Bericht verzonden", "Uw bericht is succesvol verzonden, wij reageren z.s.m.");
+                } else if (iframeContent == "0") { // 0: mail met contactgegevens is niet verzonden
+                    sendButton('Verstuur bericht opnieuw', 'auto',false);
+                    message("warning", "Bericht verzenden mislukt", "Probeer het opnieuw");
+                } else {
+                    sendButton('Verstuur bericht opnieuw', 'auto', false);
+                    message("danger", "Bericht verzenden mislukt", "Er is een technishe fout opgetreden");
+                }
+            } else {
+                firstTime = false;
+            }
+        }
+
+        function message(type, title, content) {
+            // type = success/info/warning/danger
+            document.getElementById("message").innerHTML = '<div id="messagebox" class="alert alert-' + type + ' alert-dismissable fade in message"><a href="#" class="close" data-dismiss="alert" aria-label="close">×</a><strong>' + title + '</strong> ' + content + '</div>';
+            setTimeout(function() {
+                document.getElementById("messagebox").style.opacity = "1"
+            }, 100); // vloeiend binnenkomen en zichtbaar maken        
+        }
+
+    </script>
+
     <section id="contact">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading text-uppercase">Neem contact op</h2>
-                    <h3 class="section-subheading text-muted" style="display:none;">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h3 class="section-subheading text-muted">Wij reageren zo snel mogelijk</h3>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <form id="contactForm" name="sentMessage" novalidate method="post" action="mail.php">
+                    <form id="contactForm" name="sentMessage" method="post" action="mail.php" target="contact" onsubmit="sendButton('Bericht versturen...','none',true)">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -244,6 +287,11 @@
                             </div>
                         </div>
                     </form>
+
+                    <div id="message"></div>
+
+                    <iframe name="contact" src="mail.php" id="contactIframe" onload="mail();"></iframe>
+
                 </div>
             </div>
         </div>
