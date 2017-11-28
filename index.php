@@ -211,6 +211,8 @@
 
     <!-- scripts voor contactformulier -->
 
+    <script src="js/functions.js"></script>
+
     <script>
         function sendButton(buttonText, pointerStyle,loading) {
             if (loading) {
@@ -242,14 +244,7 @@
             }
         }
 
-        function message(type, title, content) {
-            // type = success/info/warning/danger
-            document.getElementById("message").innerHTML = '<div id="messagebox" class="alert alert-' + type + ' alert-dismissable fade in message"><a href="#" class="close" data-dismiss="alert" aria-label="close">×</a><strong>' + title + '</strong> ' + content + '</div>';
-            setTimeout(function() {
-                document.getElementById("messagebox").style.opacity = "1"
-            }, 100); // vloeiend binnenkomen en zichtbaar maken        
-        }
-
+        
     </script>
 
     <section id="contact">
