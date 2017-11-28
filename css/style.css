@@ -11,3 +11,8 @@
 #message {
     margin-top: 10px;
 }
+#addcomponistiframe {
+    border: 0px;
+    width: 100%;
+    height: 500px;
+}

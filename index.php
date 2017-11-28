@@ -214,11 +214,8 @@
     <script src="js/functions.js"></script>
 
     <script>
-        function sendButton(buttonText, pointerStyle,loading) {
-            if (loading) {
-                buttonText = '<i class="fa fa-circle-o-notch fa-spin"></i> ' + buttonText;
-            }
-            document.getElementById('sendMessageButton').innerHTML = buttonText;
+        function contactForm(buttonText, pointerStyle,loading,buttonid) {
+            sendButton(buttonText, loading, buttonid);
             document.getElementById('name').style.pointerEvents = pointerStyle;
             document.getElementById('email').style.pointerEvents = pointerStyle;
             document.getElementById('contactMessage').style.pointerEvents = pointerStyle;
@@ -257,7 +254,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <form id="contactForm" name="sentMessage" method="post" action="mail.php" target="contact" onsubmit="sendButton('Bericht versturen...','none',true)">
+                    <form id="contactForm" name="sentMessage" method="post" action="mail.php" target="contact" onsubmit="contactForm('Bericht versturen...','none',true,'sendMessageButton')">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
