@@ -239,9 +239,7 @@
             } else {
                 firstTime = false;
             }
-        }
-
-        
+        }    
     </script>
 
     <section id="contact">
