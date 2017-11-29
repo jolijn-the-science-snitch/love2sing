@@ -97,7 +97,7 @@ function upload($file,$type,$naam) {
             $result .= "2";           
             // check of er al een bestand is met dezelfde naam, zo ja: foutcode 2
         }
-        if ($_FILES["mp3"]["size"] > 2500000) {
+        if ($file["size"] > 2500000) {
             $uploadOk = 0;
             $result .= "3";
             // check of het bestand te groot is, zo ja: foutcode 3
