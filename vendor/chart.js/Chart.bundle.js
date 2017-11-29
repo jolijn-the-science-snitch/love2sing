@@ -12491,22 +12491,22 @@ defaults._set('global', {
 		titleFontStyle: 'bold',
 		titleSpacing: 2,
 		titleMarginBottom: 6,
-		titleFontColor: '#fff',
+		titleFontColor: '#343a40',
 		titleAlign: 'left',
 		bodySpacing: 2,
-		bodyFontColor: '#fff',
+		bodyFontColor: '#343a40',
 		bodyAlign: 'left',
 		footerFontStyle: 'bold',
 		footerSpacing: 2,
 		footerMarginTop: 6,
-		footerFontColor: '#fff',
+		footerFontColor: '#343a40',
 		footerAlign: 'left',
 		yPadding: 6,
 		xPadding: 6,
 		caretPadding: 2,
 		caretSize: 5,
 		cornerRadius: 6,
-		multiKeyBackground: '#fff',
+		multiKeyBackground: '#343a40',
 		displayColors: true,
 		borderColor: 'rgba(0,0,0,0)',
 		borderWidth: 0,
@@ -13431,7 +13431,7 @@ defaults._set('global', {
 	elements: {
 		arc: {
 			backgroundColor: defaults.global.defaultColor,
-			borderColor: '#fff',
+			borderColor: '#343a40',
 			borderWidth: 2
 		}
 	}

@@ -40,7 +40,7 @@ body {
     font-weight: normal;
     text-align: center;
     text-transform: uppercase;
-    color: #ffffff;
+    color: #343a40;
 }
 
 .login-container {
@@ -69,7 +69,7 @@ body {
 
 .login input[type="email"],
 .login input[type="password"] {
-    background: #ffffff;
+    background: #343a40;
     border-color: #bbb;
     color: #555;
 }
@@ -85,7 +85,7 @@ body {
 .login input[type="submit"] {
     background: #857991;
     border-color: transparent;
-    color: #ffffff;
+    color: #343a40;
     cursor: pointer;
 }
 
