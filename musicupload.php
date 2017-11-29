@@ -37,8 +37,7 @@ if (isset($_POST["title"]) && isset($_POST["componist"]) && isset($_POST["genre"
 
     // check of componistId gevonden is, zo nee:
     // - foutmelding weergeven
-    // - formulier onzichtbaar maken
-    // - componist toevoegen iframe zichtbaar maken
+    // - componist toevoegen zichtbaar maken
     $componistExist = false; 
     if (empty($componistId)) {
         if (!empty($_POST["componistName"]) && !empty($_POST["componistDate"])) {
@@ -119,7 +118,6 @@ if (isset($_POST["title"]) && isset($_POST["componist"]) && isset($_POST["genre"
             $fileUpload["pdf"] = upload($_FILES["pdf"],"pdf",$name);
             $musicPdf = $fileUrl[$name];
         }
-
         // (fout) meldingen weergeven
         // code's: 
         // 0    technische fout
@@ -127,7 +125,7 @@ if (isset($_POST["title"]) && isset($_POST["componist"]) && isset($_POST["genre"
         // 2    bestand bestaat al
         // 3    bestand is te groot
         // 4    bestandstype is verkeerd
-        // rest er is geen bestand gekozen of bijgevoegd
+        // 5    er is geen bestand gekozen of bijgevoegd
 
         foreach ($fileUpload as $key => $value) {
             if (preg_match('/1/',$value)) {
@@ -271,7 +269,7 @@ if (isset($_POST["title"]) && isset($_POST["componist"]) && isset($_POST["genre"
                                 <div class="clearfix"></div>
                                 <div id="success"></div>
                                 <button id="uploadButton" class="btn btn-primary btn-xl text-uppercase" type="submit">Uploaden</button>
-                                <button id="addComponistButton" class="btn btn-primary btn-xl text-uppercase" onclick="addComponist()" type="button">Componist toevoegen</button>
+                                
                             </div>
 
                             <div id="message"></div>
