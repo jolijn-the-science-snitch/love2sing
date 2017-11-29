@@ -1,3 +1,8 @@
+<?php
+    require 'includes/functions.php';
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,6 +21,7 @@
     <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
+    <link href="css/editPassword.css" rel="stylesheet">
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -55,7 +61,7 @@
                             <a href="cards.php">Foto's toevoegen fotoalbum</a>
                         </li>
                         <li>
-                            <a href="cards.php">Wachtwoord wijzigen</a>
+                            <a href="editPassword.php">Wachtwoord wijzigen</a>
                         </li>
                     </ul>
                 </li>
