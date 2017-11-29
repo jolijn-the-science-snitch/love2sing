@@ -110,12 +110,12 @@ if (isset($_POST["title"]) && isset($_POST["componist"]) && isset($_POST["genre"
 
         if (isset($_FILES["mp3"]["name"])) {
             $name = "mp3-file";
-            $fileUpload["mp3"] = upload($_FILES["mp3"],"mp3",$name);   
+            $fileUpload["mp3"] = upload($_FILES["mp3"],"mp3",$name,"mp3bestand");   
             $musicMp3 = $fileUrl[$name];
         }
         if (isset($_FILES["pdf"]["name"])) {
             $name = "pdf-file";
-            $fileUpload["pdf"] = upload($_FILES["pdf"],"pdf",$name);
+            $fileUpload["pdf"] = upload($_FILES["pdf"],"pdf",$name,"pdfbestand");
             $musicPdf = $fileUrl[$name];
         }
         // (fout) meldingen weergeven
@@ -192,7 +192,7 @@ if (isset($_POST["title"]) && isset($_POST["componist"]) && isset($_POST["genre"
                                     <datalist id="componistlist">
 
                                         <?php
-    $stmt2 = $db->prepare("SELECT componistId, componistName FROM componist ORDER BY componistName");
+                                    $stmt2 = $db->prepare("SELECT componistId, componistName FROM componist ORDER BY componistName");
                                  $stmt2->execute();
                                  while ($row = $stmt2->fetch())
                                  {
@@ -282,12 +282,9 @@ if (isset($_POST["title"]) && isset($_POST["componist"]) && isset($_POST["genre"
                     function addComponist() {
                         document.getElementById('addcomponist').style.display = 'block';
                         document.getElementById('componistName').value = document.getElementById('componist').value;
-
                         document.getElementById('componistinput').style.display = 'none';
                     }
                 </script>
-
-
             </div>
         </div>
     </div>
