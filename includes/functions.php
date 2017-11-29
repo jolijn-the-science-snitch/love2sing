@@ -87,6 +87,15 @@ class DbHelper{
 // 4    bestandstype is verkeerd
 // 5    er is geen bestand gekozen of bijgevoegd
 
+// aanroepen:
+// Simpele manier:
+// upload($_FILES["file_input_name"],"type",tijdelijke naam,"bestandsnaam op server zonder extensie");
+
+// Uitgebreide manier: 
+// $name = "mp3-file"; // tijdelijke naam voor het uitlezen van opslaglocatie
+// $var = upload($_FILES["file_input_name"],"type",tijdelijke naam,"bestandsnaam op server zonder       extensie");   $var krijgt gereturnde foutcodes terug
+// $opslaglocatievoordb = $fileUrl[$name]; // variable maken met opslaglocatie van bestand in database
+
 $fileUrl = null;
 function upload($file,$type,$name,$fileName) {    
     $fileUrl[$name] = null;
@@ -139,4 +148,42 @@ function upload($file,$type,$name,$fileName) {
         }
     }
 }
+
+// mail versturen
+
+// code's: 
+// 0    technische fout
+// 1    gelukt
+
+// aanroepen:
+// sendMail(onderwerp,bericht,beantwoorden naar) // als er geen beantwoorden naar nodig is null invoeren
+
+// Uitgebreide manier: 
+// $var = sendMail(onderwerp,bericht,beantwoorden naar) // foutcode wordt doorgegeven aan $var
+
+//  inloggen op gmail
+//  love2singtestmail@gmail.com
+//  love2singmail
+//  php.ini en sendmail.ini aanpassen, zie trello->programming rules
+
+function sendMail($subject,$message,$replyTo) {
+    $to = "love2singtestmail@gmail.com";
+    
+    if ($replyTo == null) {
+        $replyTo = "love2singtestmail@gmail.com";
+    }
+    $headers = 'From: love2singtestmail@gmail.com' . "\r\n" .
+    'Reply-To: '.$replyTo.'' . "\r\n" .
+    'X-Mailer: PHP/' . phpversion();
+    $headers .= "MIME-Version: 1.0\r\n";
+    $headers.="Content-type: text/html; charset=\"UTF-8\" \r\n";
+
+    if(mail($to,$subject, $message, $headers)){
+        return 1;
+    }
+    else { 
+        return 0;
+    }
+}
+
 ?>
