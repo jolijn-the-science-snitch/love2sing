@@ -78,18 +78,31 @@ class DbHelper{
 }
 
 // bestand uploaden
+
+// code's: 
+// 0    technische fout
+// 1    gelukt
+// 2    bestand bestaat al
+// 3    bestand is te groot
+// 4    bestandstype is verkeerd
+// 5    er is geen bestand gekozen of bijgevoegd
+
 $fileUrl = null;
-function upload($file,$type,$naam) {
-    $fileUrl[$naam] = null;
+function upload($file,$type,$name,$fileName) {    
+    $fileUrl[$name] = null;
     if ($file["error"] == 4) {
         return 5;
     }
     else {
         $target_dir = "uploads/";
-        $target_file = $target_dir . basename($file["name"]);
+        if ($fileName != null) {
+            $target_file = $target_dir . $fileName . "." . $type;
+        }
+        else {
+            $target_file = $target_dir . basename($file["name"]);
+        }
         $uploadOk = 1;
-        $fileType = pathinfo($target_file,PATHINFO_EXTENSION);
-
+        $fileType = pathinfo(basename($file["name"]),PATHINFO_EXTENSION);
         $result = "";
 
         if (file_exists($target_file)) {
@@ -115,7 +128,7 @@ function upload($file,$type,$naam) {
         else {
             if (move_uploaded_file($file["tmp_name"], $target_file)) {
                 global $fileUrl;
-                $fileUrl[$naam] = $target_file;
+                $fileUrl[$name] = $target_file;
                 return 1;
                 // bestand is succesvol geupload
             }
