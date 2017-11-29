@@ -72,14 +72,14 @@
             //dit gedeelte kan alleen de beheerder zien
             elseif(isset($_SESSION['logIn']) && $_SESSION['logIn'] == 'true' && $_SESSION['userRights'] == 'admin'){
                 echo '<li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="adminPanel.php">Beheer</a>
-                    </li>                
-                    <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="music.php">Muziek</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="facemap.php">Smoelenboek</a>
-                    </li>              
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="admin.php">Beheer</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="logout.php">Log uit</a>
                     </li>';

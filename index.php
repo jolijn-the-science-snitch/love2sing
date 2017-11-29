@@ -7,13 +7,12 @@
             <div class="row">
                 <div class="col-lg-10 mx-auto">
                     <h1 class="text-uppercase">
-                        <strong>Your Favorite Source of Free Bootstrap Themes</strong>
+                        <strong>Love2Sing</strong>
                     </h1>
                     <hr>
                 </div>
                 <div class="col-lg-8 mx-auto">
-                    <p class="text-faded mb-5">Start Bootstrap can help you build better websites using the Bootstrap CSS framework! Just download your template and start going, no strings attached!</p>
-                    <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Find Out More</a>
+                    <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Ga verder</a>
                 </div>
             </div>
         </div>
@@ -179,8 +178,8 @@
 
     <section class="bg-dark text-white">
         <div class="container text-center">
-            <h2 class="mb-4">Free Download at Start Bootstrap!</h2>
-            <a class="btn btn-light btn-xl sr-button" href="http://startbootstrap.com/template-overviews/creative/">Download Now!</a>
+            <h2 class="mb-4">Bekijk nog meer foto's van ons koor!</h2>
+            <a class="btn btn-light btn-xl sr-button" href="photoalbum.php">Ga naar foto album</a>
         </div>
     </section>
 
@@ -188,8 +187,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading text-uppercase">Neem contact op</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h2 class="section-heading text-uppercase">Contact</h2>
+                    <h3 class="section-subheading text-muted">Wij nemen zo snel mogelijke conact met u op.</h3>
                 </div>
             </div>
             <div class="row">
@@ -198,28 +197,24 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input class="form-control" id="name" type="text" placeholder="Your Name *" required data-validation-required-message="Please enter your name.">
+                                    <input class="form-control" id="name" type="text" placeholder="Naam *" required data-validation-required-message="Please enter your name.">
                                     <p class="help-block text-danger"></p>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" id="email" type="email" placeholder="Your Email *" required data-validation-required-message="Please enter your email address.">
-                                    <p class="help-block text-danger"></p>
-                                </div>
-                                <div class="form-group">
-                                    <input class="form-control" id="phone" type="tel" placeholder="Your Phone *" required data-validation-required-message="Please enter your phone number.">
+                                    <input class="form-control" id="email" type="email" placeholder="Email *" required data-validation-required-message="Please enter your email address.">
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <textarea class="form-control" id="message" placeholder="Your Message *" required data-validation-required-message="Please enter a message."></textarea>
+                                    <textarea class="form-control" id="message" placeholder="Uw bericht *" required data-validation-required-message="Please enter a message."></textarea>
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
                             <div class="clearfix"></div>
                             <div class="col-lg-12 text-center">
                                 <div id="success"></div>
-                                <button id="sendMessageButton" class="btn btn-primary btn-xl text-uppercase" type="submit">Send Message</button>
+                                <button id="sendMessageButton" class="btn btn-primary btn-xl text-uppercase" type="submit">Verstuur bericht</button>
                             </div>
                         </div>
                     </form>
