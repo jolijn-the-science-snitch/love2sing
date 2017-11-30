@@ -188,7 +188,7 @@ while ($row = $stmt2->fetch())
         <form id="musicForm" name="uploadMusic" method="post" onsubmit="sendButton('Muziek uploaden...',true,'uploadButton')" enctype="multipart/form-data">
             <div id="musicform" <?= $formStyle ?> >
                 <div class="row">
-                    <div class="col">
+                    <div class="col md6">
                         <h3>Informatie muziekstuk</h3>
                         <div class="form-group">
                             Titel
@@ -224,7 +224,7 @@ while ($row = $stmt2->fetch())
                             </div>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col md6">
 
                         <h3>Audio</h3>
                         <div class="form-group">
@@ -316,3 +316,8 @@ while ($row = $stmt2->fetch())
 
 <!-- melingen weergeven -->
 <?= $message ?>
+
+
+<?php
+    include("adminpagefooter.php");
+?>
