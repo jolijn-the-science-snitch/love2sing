@@ -76,7 +76,7 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-            <i class="fa fa-fw fa-sign-out"></i>Teurg naar website</a>
+            <i class="fa fa-fw fa-sign-out"></i>Terug naar website</a>
                 </li>
             </ul>
         </div>
