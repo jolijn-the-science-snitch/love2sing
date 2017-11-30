@@ -1,12 +1,15 @@
 <?php
-require 'header.php';
+    include("adminpageheader.php");
 ?>
 
 <!-- javascripts inporteren -->
 <script src="js/functions.js"></script>
 
 <?php
-include("includes/functions.php");
+
+// check $_SESSION['userRights'] == 'admin'
+
+//include("includes/functions.php");
 // moet vervangen worden door inlog check
 $user= "root";
 $password= "";

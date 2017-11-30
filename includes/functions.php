@@ -242,6 +242,7 @@ function editUserStart($case){
         //zorgt ervoor dat wanneer alles correct is, de gegevens worden doorgestuurd naar de db
         print $userEdit[$case];
     
+    }
 }
     
 function editUser(){

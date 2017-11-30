@@ -1,5 +1,5 @@
 <?php
-    require 'adminHeader.php';
+    include("adminpageheader.php");
     $view = new DbHelper();
 
     if(isset ($_REQUEST['editPassword'])){
@@ -19,6 +19,4 @@
         </form>
     </div>
 
-    <?php
-    require 'adminFooter.php';
-?>
+

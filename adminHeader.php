@@ -22,6 +22,8 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
     <link href="css/editPassword.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -52,16 +54,16 @@
           </a>
                     <ul class="sidenav-second-level collapse" id="collapseComponents">
                         <li>
-                            <a href="navbar.php">Uploaden muziek</a>
+                            <a href="musicupload.php" target="iframe" onClick="viewName(this);">Uploaden muziek</a>
                         </li>
                         <li>
-                            <a href="cards.php">Persoon toevoegen smoelenboek</a>
+                            <a href="cards.php" target="iframe" onClick="viewName(this);">Persoon toevoegen smoelenboek</a>
                         </li>
                         <li>
-                            <a href="cards.php">Foto's toevoegen fotoalbum</a>
+                            <a href="cards.php" target="iframe" onClick="viewName(this);">Foto's toevoegen fotoalbum</a>
                         </li>
                         <li>
-                            <a href="editPassword.php">Wachtwoord wijzigen</a>
+                            <a href="editPassword.php" target="iframe" onClick="viewName(this);">Wachtwoord wijzigen</a>
                         </li>
                     </ul>
                 </li>
@@ -88,5 +90,13 @@
                 <li class="breadcrumb-item">
                     <a href="#">Love2Sing</a>
                 </li>
-                <li class="breadcrumb-item active">Home</li>
+                <li class="breadcrumb-item active" id="pageName">Home</li>
             </ol>
+            
+           <script>
+           function viewName(element) {
+               document.getElementById("pageName").innerHTML = element.innerHTML;
+            }
+            </script>
+          
+             <iframe src="" id="adminiframe" name="iframe"></iframe>
