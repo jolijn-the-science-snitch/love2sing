@@ -46,7 +46,7 @@
             </div>
         </div>
         <div class="container" style="text-align:center;">
-            <iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;height=450&amp;wkst=1&amp;hl=nl&amp;bgcolor=%23808080&amp;" style="border-width:0" width="450" height="450" frameborder="0" scrolling="no"></iframe>
+            <iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;height=450&amp;wkst=1&amp;hl=nl&amp;bgcolor=%23ffffff&amp;src=kmhu140epkhr7rq6fb2i5t837c%40group.calendar.google.com&amp;color=%23691426&amp;ctz=Europe%2FAmsterdam" style="border-width:0" width="450" height="450" frameborder="0" scrolling="no"></iframe>
         </div>
     </section>
 
@@ -97,10 +97,10 @@
                     <div class="col-lg-12 text-center">
                         <h3 class="section-subheading text-muted">Of kom een keertje langs!<br><br></h3>
                     </div>
-                    <div class="section-heading text-center" style="float:left; padding-right:20px;">
+                    <div class="section-heading text-center" style="margin:auto; position:absolute;">
                         <p><strong>De Roef</strong><br>Zuiderzeepad 1<br>3844 JV Harderwijk</p>
                     </div>
-                    <div class="section-heading text-center" style="float:left;">
+                    <div class="section-heading text-center" style="margin:auto; position:absolute;">
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2437.8307614435207!2d5.60690031531079!3d52.33721625751214!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c6316035c49a25%3A0x253fdf15a0417bbd!2sMultifunctioneel+zalen-+en+vergadercentrum+&#39;de+Roef&#39;!5e0!3m2!1sen!2snl!4v1511981850025" width="400" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
                     </div>
 
