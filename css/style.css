@@ -25,3 +25,6 @@
 #adminbody {
     background: white;
 }
+button {
+    cursor: pointer;
+}
