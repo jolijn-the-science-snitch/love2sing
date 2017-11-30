@@ -1,8 +1,28 @@
+header {
+    position: relative;
+    width: 100%;
+    min-height: auto;
+    .background-cover;
+    background-position: center;
+    background-image: url('../img/header.jpg');
+    text-align: center;
+    color: white;
+}
+
+.bg-dark {
+    background-color: #857991!important;
+}
+
+.btn-primary:hover {
+    background-color: #685e79;
+    border-color: #685e79;
+}
+
 /* 'Open Sans' font from Google Fonts */
 
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700);
 body {
-    background: #4d4d4d;
+    background: #343a40;
     font-family: 'Open Sans', sans-serif;
 }
 
@@ -40,7 +60,7 @@ body {
     font-weight: normal;
     text-align: center;
     text-transform: uppercase;
-    color: #fff;
+    color: #343a40;
 }
 
 .login-container {
@@ -85,7 +105,7 @@ body {
 .login input[type="submit"] {
     background: #857991;
     border-color: transparent;
-    color: #fff;
+    color: #343a40;
     cursor: pointer;
 }
 

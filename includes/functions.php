@@ -216,6 +216,50 @@ function sendMail($subject,$message,$replyTo) {
         return 0;
     }
 }
+    //EDIT USER FUNCTION
+    
+function editUserStart($case){
+    //select query die de gegevens van de klant ophaald zodat hij/zij deze kan veranderen
+    $create = "SELECT * FROM user WHERE userId = :id";
+    
+    //deze functie zorgt ervoor dat de gegevens uit de databse worden gehaald
+    $statement = $this-> connect -> prepare($create);
+    
+    //zorgt ervoor dat het juiste id wordt gepakt
+    $statement->bindParam(':id', $_SESSION['editPassword'], PDO::PARAM_STR);
+    
+    $statement -> execute();
+    
+    $user = $statement->fetchAll();
+    
+    $userEdit = $user[0];
+    
+    
+    //zorgt ervoor dat wanneer de klant iets vergeet, deze melding in beeld komt
+    if(!isset($case)){
+        echo "<p>Er is een fout opgetreden met het wijzigen van uw gegevens. Probeer het opnieuw.</p>";
+    }else{
+        //zorgt ervoor dat wanneer alles correct is, de gegevens worden doorgestuurd naar de db
+        print $userEdit[$case];
+    
+}
+    
+function editUser(){
+    //update query voor de gebruikers
+    $edit = "UPDATE user SET  
+    userPassword = :password
+    WHERE userId = :id";
+    
+    //bereid de db voor
+    $statement = $this -> connect ->prepare($edit);
+    
+    //de gegevens die gewijzigd mogen worden (het id wordt NIET aangepast)
+    $statement->bindParam(':id', $_SESSION['userId'], PDO::PARAM_STR);
+    $statement->bindParam(':password', $_POST['password'], PDO::PARAM_STR);
+    
+    $statement->execute();
+}
+    
 
 
 
