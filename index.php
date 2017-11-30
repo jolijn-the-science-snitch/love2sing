@@ -94,7 +94,7 @@
                                     Category
                                 </div>
                                 <div class="project-name">
-                                    Project Name
+                                    Project Naampje
                                 </div>
                             </div>
                         </div>
