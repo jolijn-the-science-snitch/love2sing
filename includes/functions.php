@@ -27,7 +27,7 @@ class DbHelper{
 
         $statement->execute();
 
-        //controlleerd of alles klopt
+        //controleert of alles klopt
         $result = $statement->fetchAll();
 
         //functie userrights
@@ -55,7 +55,7 @@ class DbHelper{
 
             $statement->execute();
 
-            //controlleerd of alles klopt
+            //controleert of alles klopt
             $result = $statement->fetchAll();
 
             //functie userrights
@@ -167,7 +167,7 @@ function upload($file,$type,$name,$fileName) {
 //  php.ini en sendmail.ini aanpassen, zie trello->programming rules
 
 function sendMail($subject,$message,$replyTo) {
-    $to = "love2singtestmail@gmail.com";
+    $to = "nandobo@gmail.com";
     
     if ($replyTo == null) {
         $replyTo = "love2singtestmail@gmail.com";

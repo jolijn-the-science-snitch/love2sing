@@ -33,25 +33,49 @@
     </div>
 </nav>
 
-    <header>
-      
+    <!--<header class="masthead text-center text-white d-flex">
+        <div class="container my-auto">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
                     <h1 class="text-uppercase">
                         <strong>Gastenboek</strong>
                     </h1>
                     <hr>
-                
+                </div>
                 <div class="col-lg-8 mx-auto">
-                    <p class="text-faded mb-5">Welkom bij ons gastenboek! Laat een bericht achter of bekijk eerder geschreven berichten.</p>
-                    <a class="btn btn-primary btn-xl js-scroll-trigger" href="viewGuestbook.php">Bekijk gastenboek</a>
                     <a class="btn btn-primary btn-xl js-scroll-trigger" href="addtoGuestbook.php?gb=true">Schrijf in gastenboek</a>
                 </div>
-         
-    </header>
+            </div>
+        </div>
+    </header> !-->
 
     <body>
-    </body>
-    <?php
-    require 'footer.php';
+
+        <?php
+ 
+        //koppelen aan database
+        include("dbconnection.php");
+        
+        //query om de benodigde data uit de tabel op te halen
+        $stmt= $db->prepare("SELECT * FROM guestbook");
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            if($stmt->rowCount() > 0){
+                while($row =$stmt->fetch()){
+                    echo"
+                    <b>Titel: </b>".$row['guestbookTitle']."<br>
+                    <b>Bericht: </b>
+                     <p>
+                    ".$row['guestbookMessage']."
+                    </p>
+                    ".$row['guestbookDate']."
+                    ";
+               }
+          }
+   
+    
+    
     ?>
 
 
+    </body>
