@@ -18,7 +18,7 @@
                         <a class="nav-link js-scroll-trigger" href="#services">Fotoalbum</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="guestbook.php">Gastenboek</a>
+                        <a class="nav-link js-scroll-trigger" href="viewGuestbook.php">Gastenboek</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>

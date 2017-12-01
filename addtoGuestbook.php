@@ -24,7 +24,7 @@
                         <a class="nav-link js-scroll-trigger" href="#services">Fotoalbum</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="guestbook.php">Gastenboek</a>
+                        <a class="nav-link js-scroll-trigger" href="viewGuestbook.php">Gastenboek</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
@@ -55,7 +55,7 @@
 
 
                 <div class="submit">
-                    <input type="submit" name="verzenden" value="Verzend bericht" id="button-blue" />
+                    <input type="submit" name="verzenden" value="Verzend bericht" id="button-purple" />
                     <div class="ease"></div>
                 </div>
             </form>
@@ -64,43 +64,82 @@
 
 
         <?php
-   if(isset($_GET['gb'])){
-        
-        if(isset($_POST['verzenden'])){
-            //variables
-            $title= $_POST['titel'];
-            $message= $_POST['bericht'];
-            $date= date("Y-m-d");
+    //script beveiligd tegen XSS injecties dmv htmlentities in combinatie met ENT_QUOTES
+    //dus &,<,>,",' worden in de database opgeslagen als hun html-entiteiten
+if (isset($_POST['verzenden'])) {
+    $valid = true;
+    $title = htmlentities(trim($_POST['titel'],ENT_QUOTES));
+    //checken of er een titel is ingevuld
+    if (empty($title)) {
+        echo "<p class='error'>Vul alstublieft een titel in</p>";
+        $valid = false;
+    }
+    $message = htmlentities(trim($_POST['bericht'],ENT_QUOTES));
+    //checken of er een bericht is ingevuld
+    if (empty($message)) {
+        echo "<p class='error'>Vul alstublieft een bericht in</p>";
+        $valid = false;
+    }
+    $date= date("Y-m-d");
+    //automatisch eerste letter hoofdletter maken
+    $title= ucfirst(strtolower($title));
+    $message = ucfirst(strtolower($message));
+    
+    //als de velden gecheckt zijn de data in de database gooien
+    if ($valid== true) {
             
             //connect database
             include("dbconnection.php");
             
-            //insert in de tabel
+            //veilige insert in de tabel
             $stmt= $db->prepare("INSERT INTO guestbook (guestbookTitle, guestbookMessage, guestbookDate) VALUES('$title','$message','$date')");
             $stmt->execute();
-            echo "Bedankt voor het schrijven in ons gastenboek!";
+            //echo "Bedankt voor het schrijven in ons gastenboek!";
+    }
+}/*
             
             //verstuur mail
+            $titel= $stmt= ($db->prepare("SELECT guestbookTitle FROM guestbook");
+                            $stmt->execute(););
+            $bericht= $stmt= ($db->prepare("SELECT guestbookMessage FROM guestbook");
+                                $stmt->execute(););
+            $berichtdatum= $stmt= ($db->prepare("SELECT guestbookDate FROM guestbook");
+                                $stmt->execute(););
+            
             $subject= "Nieuw gastenboek bericht";
-            $message= "<!DOCTYPE html>
+            $message= "
+<!DOCTYPE html>
 <html lang='en'>
     
     <body>
         <p>Er is een nieuw verzoek voor een bericht in het gastenboek:</p>
-        <h1>Titel</h1>
-        <p>Bericht</p>
+        <h1>".$titel."</h1>
+        <p>".$bericht."
+        ".$berichtdatum."</p>
         <p>Wilt u dit bericht toevoegen aan het gastenboek of verwijderen?</p>
+        <div id='formmail'
+            <form class='form' id='form2' method='POST'>
+                <div class='submit'>
+                    <input type='submit' name='toevoegen' value='Toevoegen' id='button-blue' />
+                    <input type='submit' name='verwijderen' value='Verwijderen' id='button-blue' />
+                </div>
+            </form>
+        </div>
     </body>
 
-</html>";
+</html>
+";
+            //als $toevoegen isset, UPDATE guestbook SET approved = 1 WHERE guestbookId = ?
+            //als $verwijderen isset, UPDATE guestbook SET approved = 0 WHERE guestbookId = ?
             $replyTo= null;
                 
            echo sendMail($subject,$message,$replyTo); 
+           */
             
             
-        }
+        
            
-   }
+   
    
    ?>
 

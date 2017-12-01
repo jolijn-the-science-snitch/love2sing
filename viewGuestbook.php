@@ -23,7 +23,7 @@
                     <a class="nav-link js-scroll-trigger" href="#services">Fotoalbum</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="guestbook.php">Gastenboek</a>
+                    <a class="nav-link js-scroll-trigger" href="viewGuestbook.php">Gastenboek</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
@@ -32,6 +32,8 @@
         </div>
     </div>
 </nav>
+<br>
+<br>
 
     <!--<header class="masthead text-center text-white d-flex">
         <div class="container my-auto">
@@ -49,27 +51,52 @@
         </div>
     </header> !-->
 
-    <body>
 
+
+
+    <body>
+        <h1 class="guestbook-header">Gastenboek</h1>
+                
+                <div class="col-lg-8 mx-auto">
+                    <p class="guestbook-text">Welkom bij ons gastenboek! Wilt u ook een bericht achterlaten? Klik dan <a class="page-reference" href="addtoGuestbook.php?gb=true">hier!</a></p>
+                </div>
+        
         <?php
  
         //koppelen aan database
         include("dbconnection.php");
         
         //query om de benodigde data uit de tabel op te halen
-        $stmt= $db->prepare("SELECT * FROM guestbook");
+        //zodra emailfunctie werkt, query aanpassen: WHERE approved = 1
+        $stmt= $db->prepare("SELECT * FROM guestbook ORDER BY guestbookDate DESC");
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
             if($stmt->rowCount() > 0){
                 while($row =$stmt->fetch()){
-                    echo"
-                    <b>Titel: </b>".$row['guestbookTitle']."<br>
-                    <b>Bericht: </b>
-                     <p>
-                    ".$row['guestbookMessage']."
-                    </p>
-                    ".$row['guestbookDate']."
-                    ";
+                    echo'
+<article class="gb-entry">
+  <div class="gb-entry-info-box">
+    <div class="gb-entry-info-box-row">
+    </div>
+    <div class="gb-entry-info-box-row">
+      <div class="gb-entry-info-box-row-value">
+        '.$row["guestbookTitle"].'
+      </div>
+      <br class="clearfloat">
+    </div>
+  </div>
+  <div class="gb-entry-message-box">
+    <div class="gb-entry-message">
+      '.$row["guestbookMessage"].'
+      
+      <br>
+      <br>  
+        '.$row["guestbookDate"].'
+        
+    </div>
+  </div>
+</article>
+                    ';
                }
           }
    

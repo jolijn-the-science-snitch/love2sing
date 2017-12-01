@@ -167,7 +167,7 @@ function upload($file,$type,$name,$fileName) {
 //  php.ini en sendmail.ini aanpassen, zie trello->programming rules
 
 function sendMail($subject,$message,$replyTo) {
-    $to = "nandobo@gmail.com";
+    $to = "love2singtestmail@gmail.com";
     
     if ($replyTo == null) {
         $replyTo = "love2singtestmail@gmail.com";
