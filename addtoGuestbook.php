@@ -40,6 +40,9 @@
         <?php
     //script beveiligd tegen XSS injecties dmv htmlentities in combinatie met ENT_QUOTES
     //dus &,<,>,",' worden in de database opgeslagen als hun html-entiteiten
+//connect database hier anders kan de $_GET van het goedkeuren of weigeren er niet bij
+include("dbconnection.php");
+
 if (isset($_POST['verzenden'])) {
     $valid = true;
     $title = htmlentities(trim($_POST['titel'],ENT_QUOTES));
@@ -62,22 +65,29 @@ if (isset($_POST['verzenden'])) {
     //als de velden gecheckt zijn de data in de database gooien
     if ($valid== true) {
             
-            //connect database
-            include("dbconnection.php");
+            
             
             //veilige insert in de tabel
             $stmt= $db->prepare("INSERT INTO guestbook (guestbookTitle, guestbookMessage, guestbookDate) VALUES('$title','$message','$date')");
             $stmt->execute();
             echo "Uw verzoek om een bericht te plaatsen in ons gastenboek is verstuurd! Zodra deze is goedgekeurd wordt het bericht in ons gastenboek geplaatst.";
          
-            //verstuur mail
-            $titel= $db->prepare("SELECT guestbookTitle FROM guestbook");
-            $titel->execute();
-            $bericht= $db->prepare("SELECT guestbookMessage FROM guestbook");
-            $bericht->execute();
-            $berichtdatum= $db->prepare("SELECT guestbookDate FROM guestbook");
-            $berichtdatum->execute();
+            //verstuur mail  
+            $titel = $title;
+            $bericht = $message;
+            $berichtdatum = $date;
             
+            $id = $db->lastInsertId(); // krijg het id van het zojuist geinserte gastenboek item
+
+            // $berichtdatumpdo= $db->prepare("SELECT guestbookDate FROM guestbook"); Selecteer alle gastenboekdata, niet nodig en niet relevant, want je hebt de variablen al geinsert, die kan je ook gebruiken in de mail
+            // $berichtdatumpdo->execute(); is geen string met kollom inhoud, maar een pdo statement
+
+
+// !!!!!!!!!!!!!!
+
+// localhost/nando/love2sing/addtoGuestbook.php aanpassen naar url waar de website staat
+
+// !!!!!!!!!!!!!!
             $subject= "Nieuw gastenboek bericht";
             $message= "
 <!DOCTYPE html>
@@ -89,27 +99,16 @@ if (isset($_POST['verzenden'])) {
         <p>".$bericht."
         ".$berichtdatum."</p>
         <p>Wilt u dit bericht toevoegen aan het gastenboek of verwijderen?</p>
-        <div id='formmail'
-            <form class='form' id='form2' method='POST'>
-                <div class='submit'>
-                    <input type='submit' name='toevoegen' value='Toevoegen' id='button-purple' />
-                    <input type='submit' name='weigeren' value='Weigeren' id='button-purple' />
-                </div>
-            </form>
-        </div>
+        
+        <a href='localhost/nando/love2sing/addtoGuestbook.php?toevoegen=true&id=".$id."' id='button-purple'>Toevoegen</a>
+        <a href='localhost/nando/love2sing/addtoGuestbook.php?weigeren=true&id=".$id."' id='button-purple'>Weigeren</a>
+             
     </body>
 
 </html>
 ";
-        //dit zou er moeten gebeuren als je op de knoppen drukt
-        if(isset($_POST['toevoegen'])){
-           $approve= $db->prepare("UPDATE guestbook SET approved = 1;");
-            $approve->execute();
-      }             
-        if(isset($_POST['weigeren'])){
-            $approve= $db->prepare("UPDATE guestbook SET approved = 0;");
-            $approve->execute();
-        }
+        //goedkeuren van bericht
+       
         
                    
             $replyTo= null;
@@ -120,6 +119,22 @@ if (isset($_POST['verzenden'])) {
 }
    
    
+   ?>
+
+
+   <?php
+        // alleen bij het zojuist toegevoegde bericht de status aanpassen d.m.v. de WHERE
+        // en even een $_GET van gemaakt, want een post wil niet vanuit de mail
+        if(isset($_GET['toevoegen']) && isset($_GET['id'])){
+            $approve= $db->prepare("UPDATE guestbook SET guestbookApproved = 1 WHERE guestbookId = ?;");
+            $approve->execute(array($_GET['id']));
+            echo $approve->rowCount();
+        }             
+        if(isset($_GET['weigeren']) && isset($_GET['id'])){
+            $approve= $db->prepare("UPDATE guestbook SET guestbookApproved = 0 WHERE guestbookId = ?;");
+            $approve->execute(array($_GET['id']));
+            echo $approve->rowCount();
+        }
    ?>
 
             <?php
