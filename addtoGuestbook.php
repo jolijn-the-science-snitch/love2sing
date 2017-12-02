@@ -7,34 +7,8 @@
         <link rel="stylesheet" type="text/css" href="guestbook.css">
         <link rel="stylesheet" type="text/css" href="css/creative.min.css">
     </head>
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="#page-top">Love2Sing</a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#about">Over ons</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#services">Fotoalbum</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="viewGuestbook.php">Gastenboek</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <!--<header>
+<!--
+<header>
 
     <h1 class="text-uppercase">
         <strong>Gastenboek</strong>
@@ -94,17 +68,15 @@ if (isset($_POST['verzenden'])) {
             //veilige insert in de tabel
             $stmt= $db->prepare("INSERT INTO guestbook (guestbookTitle, guestbookMessage, guestbookDate) VALUES('$title','$message','$date')");
             $stmt->execute();
-            //echo "Bedankt voor het schrijven in ons gastenboek!";
-    }
-}/*
-            
+            echo "Uw verzoek om een bericht te plaatsen in ons gastenboek is verstuurd! Zodra deze is goedgekeurd wordt het bericht in ons gastenboek geplaatst.";
+         
             //verstuur mail
-            $titel= $stmt= ($db->prepare("SELECT guestbookTitle FROM guestbook");
-                            $stmt->execute(););
-            $bericht= $stmt= ($db->prepare("SELECT guestbookMessage FROM guestbook");
-                                $stmt->execute(););
-            $berichtdatum= $stmt= ($db->prepare("SELECT guestbookDate FROM guestbook");
-                                $stmt->execute(););
+            $titel= $db->prepare("SELECT guestbookTitle FROM guestbook");
+            $titel->execute();
+            $bericht= $db->prepare("SELECT guestbookMessage FROM guestbook");
+            $bericht->execute();
+            $berichtdatum= $db->prepare("SELECT guestbookDate FROM guestbook");
+            $berichtdatum->execute();
             
             $subject= "Nieuw gastenboek bericht";
             $message= "
@@ -120,8 +92,8 @@ if (isset($_POST['verzenden'])) {
         <div id='formmail'
             <form class='form' id='form2' method='POST'>
                 <div class='submit'>
-                    <input type='submit' name='toevoegen' value='Toevoegen' id='button-blue' />
-                    <input type='submit' name='verwijderen' value='Verwijderen' id='button-blue' />
+                    <input type='submit' name='toevoegen' value='Toevoegen' id='button-purple' />
+                    <input type='submit' name='weigeren' value='Weigeren' id='button-purple' />
                 </div>
             </form>
         </div>
@@ -129,16 +101,23 @@ if (isset($_POST['verzenden'])) {
 
 </html>
 ";
-            //als $toevoegen isset, UPDATE guestbook SET approved = 1 WHERE guestbookId = ?
-            //als $verwijderen isset, UPDATE guestbook SET approved = 0 WHERE guestbookId = ?
+        //dit zou er moeten gebeuren als je op de knoppen drukt
+        if(isset($_POST['toevoegen'])){
+           $approve= $db->prepare("UPDATE guestbook SET approved = 1;");
+            $approve->execute();
+      }             
+        if(isset($_POST['weigeren'])){
+            $approve= $db->prepare("UPDATE guestbook SET approved = 0;");
+            $approve->execute();
+        }
+        
+                   
             $replyTo= null;
                 
-           echo sendMail($subject,$message,$replyTo); 
-           */
-            
-            
-        
-           
+           echo sendMail($subject,$message,$replyTo);             
+}
+ 
+}
    
    
    ?>

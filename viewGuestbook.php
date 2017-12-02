@@ -7,31 +7,6 @@
     <link rel="stylesheet" type="text/css" href="css/creative.min.css">
 </head>
     
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-    <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">Love2Sing</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#about">Over ons</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#services">Fotoalbum</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="viewGuestbook.php">Gastenboek</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
 <br>
 <br>
 
@@ -67,8 +42,7 @@
         include("dbconnection.php");
         
         //query om de benodigde data uit de tabel op te halen
-        //zodra emailfunctie werkt, query aanpassen: WHERE approved = 1
-        $stmt= $db->prepare("SELECT * FROM guestbook ORDER BY guestbookDate DESC");
+        $stmt= $db->prepare("SELECT * FROM guestbook WHERE approved = 1 ORDER BY guestbookDate DESC");
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
             if($stmt->rowCount() > 0){
