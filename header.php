@@ -1,37 +1,4 @@
-<<<<<<< HEAD
-<!DOCTYPE html>
-<html lang="en">
-
-  <head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Love2Sing</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom fonts for this template -->
-    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-
-    <!-- Plugin CSS -->
-    <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="css/creative.min.css" rel="stylesheet">
-
-  </head>
-
-  <body id="page-top">
-=======
-<?php
-require 'includes/functions.php';
-?>
+<?php require 'includes/functions.php'; ?>
 
 <html lang="en">
 
@@ -57,7 +24,7 @@ require 'includes/functions.php';
 
         <!-- Custom styles for this template -->
         <link href="css/creative.min.css" rel="stylesheet">
-        <link href="css/style.css" rel="stylesheet">    
+        <link href="css/style.css" rel="stylesheet">
         <link href="css/index.css" rel="stylesheet">
 
        <script src="js/functions.js"></script>
@@ -82,6 +49,9 @@ require 'includes/functions.php';
                             <a class="nav-link js-scroll-trigger" href="#services">Fotoalbum</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="overzicht.php">Smoelenboek</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link js-scroll-trigger" href="guestbook.php">Gastenboek</a>
                         </li>
                         <li class="nav-item">
@@ -89,18 +59,18 @@ require 'includes/functions.php';
                         </li>
 
 
-                        <?php 
-                        //dit gedeelte kunnen alleen de gebruikers zien            
+                        <?php
+                        //dit gedeelte kunnen alleen de gebruikers zien
                         if(userpage()){
                             echo '<li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="music.php">Muziek</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="facemap.php">Smoelenboek</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="logout.php">Log uit</a>
-                    </li>';
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="facemap.php">Smoelenboek</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="logout.php">Log uit</a>
+                        </li>';
                         }
                         //dit gedeelte kan alleen de beheerder zien
                         elseif(adminpage()){
@@ -112,6 +82,9 @@ require 'includes/functions.php';
                     </li>
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="admin/">Beheer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="insert.php">Leden Toevoegen</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="logout.php">Log uit</a>
@@ -128,4 +101,3 @@ require 'includes/functions.php';
                 </div>
             </div>
         </nav>
->>>>>>> e3dc7ca5a55c6d46ee04d2b510dfb5e71023b32c

@@ -1,4 +1,6 @@
-<?php require_once('./partials/header.php'); ?>
+<?php
+    require_once(__DIR__ . '/admin/adminpageheader.php');
+?>
 <body>
 	<div class="container">
 
@@ -22,7 +24,7 @@
             <h5>
                 <?php
                 if (isset($_SESSION['uploadError'])) {
-                    echo 'Fout: ' . $_SESSION['uploadError'];
+                    echo 'Melding: ' . $_SESSION['uploadError'];
                 }
                 ?>
             </h5><br><br>
@@ -63,6 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ));
 
     if ($result === true) {
+        $_SESSION['uploadError'] = 'Succesvol toegevoegd!';
         header('Location: /KBS/love2sing/insert.php'); exit;
     }
 } else {

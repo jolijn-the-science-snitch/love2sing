@@ -4,3 +4,7 @@
 .idea/vcs.xml
 .idea/jsLibraryMappings.xml
 admin/uploads
+node_modules
+uploads
+vendor
+

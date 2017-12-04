@@ -1,6 +1,4 @@
-<<<<<<< HEAD
 </body>
-=======
 <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -14,6 +12,4 @@
     <script src="js/creative.min.js"></script>
 
   </body>
-
->>>>>>> e3dc7ca5a55c6d46ee04d2b510dfb5e71023b32c
 </html>
