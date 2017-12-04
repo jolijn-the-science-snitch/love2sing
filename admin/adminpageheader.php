@@ -1,5 +1,10 @@
 <?php
+// laad functies in, en start sessie
 require '../includes/functions.php';
+// controleer of gebruiker admin rechten heeft
+if (!adminpage()) {
+    header('Location: ../index.php');
+}
 ?>
 
 <html lang="en">

@@ -51,4 +51,8 @@ button {
     width: 100%;
     height: 450px;
 }
-   
+
+.loginmessage {
+    max-width: 400px;
+    margin: auto;
+}

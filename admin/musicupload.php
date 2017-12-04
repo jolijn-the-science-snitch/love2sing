@@ -1,20 +1,5 @@
 <?php
-    include("adminpageheader.php");
-?>
-
-<!-- javascripts inporteren -->
-
-<?php
-
-// check $_SESSION['userRights'] == 'admin'
-
-//include("includes/functions.php");
-// moet vervangen worden door inlog check
-$user= "root";
-$password= "";
-$db = new PDO('mysql:host=localhost;dbname=love2sing', $user, $password);
-//
-
+    include("adminpageheader.php"); 
 $formStyle = ""; // formulier zichtbaar
 $message = ""; // melding is leeg
 $uploadMoreStyle = 'style="display: none;"'; // upload meer button onzichtbaar

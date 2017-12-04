@@ -16,8 +16,7 @@ if (isset($_POST['contactName']) && isset($_POST['contactEmail']) && isset($_POS
         <b>Naam: </b>".$contactName."<br>
         <b>E-mail: </b>".$contactEmail."<br>
         <b>Verstuurd op: </b>".date("d-m-Y H:i:s")."
-    </div>";
-    
+    </div>"; 
     $result = sendMail("Contactformulier van koor",$message,$contactEmail);
     echo $result;
 }

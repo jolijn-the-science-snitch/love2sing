@@ -29,6 +29,8 @@ require 'includes/functions.php';
         <link href="css/style.css" rel="stylesheet">    
         <link href="css/index.css" rel="stylesheet">
 
+       <script src="js/functions.js"></script>
+
     </head>
 
     <body id="page-top">
@@ -58,7 +60,7 @@ require 'includes/functions.php';
 
                         <?php 
                         //dit gedeelte kunnen alleen de gebruikers zien            
-                        if(isset($_SESSION['logIn']) && $_SESSION['logIn'] == 'true' && $_SESSION['userRights'] == 'user'){
+                        if(userpage()){
                             echo '<li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="music.php">Muziek</a>
                     </li>
@@ -70,7 +72,7 @@ require 'includes/functions.php';
                     </li>';
                         }
                         //dit gedeelte kan alleen de beheerder zien
-                        elseif(isset($_SESSION['logIn']) && $_SESSION['logIn'] == 'true' && $_SESSION['userRights'] == 'admin'){
+                        elseif(adminpage()){
                             echo '<li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="music.php">Muziek</a>
                     </li>
@@ -78,7 +80,7 @@ require 'includes/functions.php';
                         <a class="nav-link js-scroll-trigger" href="facemap.php">Smoelenboek</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="/admin/">Beheer</a>
+                        <a class="nav-link js-scroll-trigger" href="admin/">Beheer</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="logout.php">Log uit</a>
