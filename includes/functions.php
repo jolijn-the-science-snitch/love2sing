@@ -260,7 +260,6 @@ function editUser(){
     
     $statement->execute();
 }
-}
     
 
 
