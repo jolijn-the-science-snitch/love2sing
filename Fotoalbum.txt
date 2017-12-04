@@ -1,0 +1,52 @@
+<?php
+$msg = "";
+//als de knop word ingedrukt
+if (isset($_POST['upload'])) {
+    
+// pad naar foto's
+$target = "Source files/".basename($_FILES['photoalbumUrl']['photoalbumDescription']);
+
+//Database verbinding
+$db ="mysql:host=localhost;dbname=love2sing;port=3306";
+$user = "admin";
+$pass = "admin";
+$pdo = new PDO($db, $user, $pass);
+
+//Krijg alle resultaten
+$image = $_FILES['photoalbumUrl']['photoalbumDescription'];
+$text = $_POST['photoalbumDescription'];
+
+$sql = "INSERT INTO images(photoalbumUrl, photoalbumDescription) VALUES ('$image', '$text')";
+mysqli_query($db, $sql); //plaats in de database
+
+//foto verplaatsen naar fotoalbum
+if (move_uploaded_file($_FILES,['tmp_name']['name'], $target)) {
+    $msg = "Image uploaded successfully";
+}else{
+    $msg = "There was a problem uploading image";
+}
+}
+
+
+?>
+<html>
+    <head>
+        <title>Foto uploaden</title>
+    </head>  
+    <body>
+        <div id="content">
+            <form method="post" action="test.php" enctype="multipart/form-data">
+                <input type ="hidden" name="size" value="1000000">
+                <div>
+                    <input type ="file" name="image">
+                </div>
+                <div>
+                    <textarea name="text" cols="40" rows="4" placeholder="Vertel wat over deze foto."></textarea>
+                </div>
+                <input type ="submit" name ="upload" value ="Upload Image">
+                <div>
+            </form>
+            
+        </div>
+    </body>
+</html>
