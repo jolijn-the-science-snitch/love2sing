@@ -47,7 +47,7 @@ if (!adminpage()) {
                         </a>
                     </li>
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-                        <a class="nav-link" href="charts.php" target="iframe" onClick="viewName(this);">
+                        <a class="nav-link" href="calendar.php" target="iframe" onClick="viewName(this);">
                             <i class="fa fa-fw fa fa-calendar"></i>
                             <span class="nav-link-text">Kalender</span>
                         </a>
@@ -62,10 +62,10 @@ if (!adminpage()) {
                                 <a href="musicupload.php" target="iframe" onClick="viewName(this,'componentsParent');">Uploaden muziek</a>
                             </li>
                             <li>
-                                <a href="cards.php" target="iframe" onClick="viewName(this,'componentsParent');">Persoon toevoegen smoelenboek</a>
+                                <a href="adduser.php" target="iframe" onClick="viewName(this,'componentsParent');">Persoon toevoegen smoelenboek</a>
                             </li>
                             <li>
-                                <a href="cards.php" target="iframe" onClick="viewName(this,'componentsParent');">Foto's toevoegen fotoalbum</a>
+                                <a href="addphoto.php" target="iframe" onClick="viewName(this,'componentsParent');">Foto's toevoegen fotoalbum</a>
                             </li>
                             <li>
                                 <a href="editPassword.php" target="iframe" onClick="viewName(this,'componentsParent');">Wachtwoord wijzigen</a>
