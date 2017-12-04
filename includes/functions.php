@@ -131,7 +131,7 @@ class DbHelper{
 // $opslaglocatievoordb = $fileUrl[$name]; // variable maken met opslaglocatie van bestand in database
 
 $fileUrl = null;
-function upload($file,$type,$name,$fileName) {    
+function upload($file,$type,$name,$fileName = null) {    
     $fileUrl[$name] = null;
     if ($file["error"] == 4) {
         return 5;
@@ -142,7 +142,8 @@ function upload($file,$type,$name,$fileName) {
             $target_file = $target_dir . $fileName . "." . $type;
         }
         else {
-            $target_file = $target_dir . basename($file["name"]);
+            $fileName = $type ."-". date("Y-m-d-h-i-s-u") . "-" . rand(1000,9999);
+            $target_file = $target_dir . $fileName . "." . $type;
         }
         $uploadOk = 1;
         $fileType = pathinfo(basename($file["name"]),PATHINFO_EXTENSION);
