@@ -159,7 +159,14 @@ function upload($file,$type,$name,$fileName = null) {
             $result .= "3";
             // check of het bestand te groot is, zo ja: foutcode 3
         }
-        if($fileType != $type) {
+        if (is_array($type)) {
+            if(in_array($fileType,$type)) {
+                $uploadOk = 0;
+                $result .= "4";
+                // check of het bestand geen $type type is, zo ja: foutcode 4
+            }
+        }
+        elseif ($type != $fileType) {
             $uploadOk = 0;
             $result .= "4";
             // check of het bestand geen $type type is, zo ja: foutcode 4
