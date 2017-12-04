@@ -10,7 +10,7 @@ $file = $_FILES['jpeg'];
 $type = "jpg";
 $name = "image";
 $fileName = "test";
-$resultaat = upload($file,$type,$name,$fileName);
+$resultaat = upload($file,$type,$name);
 $imgurl = $fileUrl[$name];        
 
 // pad naar foto's
