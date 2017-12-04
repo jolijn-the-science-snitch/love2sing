@@ -4,14 +4,15 @@
 .guestbook-header {
     font-family: 'Open Sans', sans-serif;
     color: #FFFFFF;
-    padding-left: 42%;
+    text-align: center;
 }
 
 .guestbook-text {
      font-family: 'Open Sans', sans-serif;
     color: #FFFFFF;
-    padding-left: 20%;
+    text-align: center;
 }
+
 
 
 #feedback-page{

@@ -179,10 +179,10 @@ function sendMail($subject,$message,$replyTo) {
     $headers.="Content-type: text/html; charset=\"UTF-8\" \r\n";
 
     if(mail($to,$subject, $message, $headers)){
-        return 1;
+       // return 1;
     }
     else { 
-        return 0;
+       // return 0;
     }
 }
 

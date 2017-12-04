@@ -33,7 +33,7 @@
         <h1 class="guestbook-header">Gastenboek</h1>
                 
                 <div class="col-lg-8 mx-auto">
-                    <p class="guestbook-text">Welkom bij ons gastenboek! Wilt u ook een bericht achterlaten? Klik dan <a class="page-reference" href="addtoGuestbook.php?gb=true">hier!</a></p>
+                    <p class="guestbook-text">Welkom bij ons gastenboek! Wilt u ook een bericht achterlaten? Klik dan <a class="page-reference" href="addtoGuestbook.php?gb=true"><b>hier!</b></a></p>
                 </div>
         
         <?php
@@ -41,8 +41,8 @@
         //koppelen aan database
         include("dbconnection.php");
         
-        //query om de benodigde data uit de tabel op te halen
-        $stmt= $db->prepare("SELECT * FROM guestbook WHERE approved = 1 ORDER BY guestbookDate DESC");
+        //d.m.v. prepare, veilige query om de benodigde data uit de tabel op te halen
+        $stmt= $db->prepare("SELECT * FROM guestbook WHERE guestbookApproved = 1 ORDER BY guestbookDate DESC");
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
             if($stmt->rowCount() > 0){
