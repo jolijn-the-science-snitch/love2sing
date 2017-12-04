@@ -21,10 +21,3 @@ function sendButton(buttonText, loading, buttonid) {
     }
     document.getElementById(buttonid).innerHTML = buttonText;
 }
-
-$('button').on('click', function() {
-  var $inp = $('input');  
-  $inp.attr('type') === 'password' ? 
-    $inp.attr('type', 'text') 
-  : $inp.attr('type', 'password')
-});

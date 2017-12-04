@@ -1,15 +1,12 @@
 <?php
-    include("adminpageheader.php");
+require 'header.php';
 ?>
 
 <!-- javascripts inporteren -->
 <script src="js/functions.js"></script>
 
 <?php
-
-// check $_SESSION['userRights'] == 'admin'
-
-//include("includes/functions.php");
+include("includes/functions.php");
 // moet vervangen worden door inlog check
 $user= "root";
 $password= "";
@@ -22,7 +19,7 @@ $uploadMoreStyle = 'style="display: none;"'; // upload meer button onzichtbaar
 $addComponistStyle = 'style="display: none;"'; // componist toevoegen iframe onzichtbaar
 
 // checken of het formulier is verzonden
-if (isset($_POST["title"]) && isset($_POST["componist"]) && isset($_POST["pitch"])) {
+if (isset($_POST["title"]) && isset($_POST["componist"]) && isset($_POST["genre"]) && isset($_POST["pitch"])) {
     $message = "<script>"; // begin van mogelijkheid om meldingen weer te geven
 
     // componistId bij componist naam selecteren
@@ -39,7 +36,8 @@ if (isset($_POST["title"]) && isset($_POST["componist"]) && isset($_POST["pitch"
     }
 
     // check of componistId gevonden is, zo nee:
-    // foutmelding weergeven
+    // - foutmelding weergeven
+    // - componist toevoegen zichtbaar maken
     $componistExist = false; 
     if (empty($componistId)) {
         if (!empty($_POST["componistName"]) && !empty($_POST["componistDate"])) {
@@ -79,7 +77,7 @@ if (isset($_POST["title"]) && isset($_POST["componist"]) && isset($_POST["pitch"
         }
         else {
             $message .= 'message("danger", "' . $componist . ' is niet bekend", "Vul <a href=\"javascript:addComponist()\" class=\"alert-link\">hier</a> de gegevens van de componist in, zodat dit muziekstuk kan worden toegevoegd"); ';
-            //            $formStyle = ' style="display: none;" ';
+//            $formStyle = ' style="display: none;" ';
             $addComponistStyle = "";
         }
     }
@@ -101,22 +99,23 @@ if (isset($_POST["title"]) && isset($_POST["componist"]) && isset($_POST["pitch"
 
         $musicName = $_POST["title"];
         $musicPitch = $_POST["pitch"];
+        $genre = $_POST["genre"];
         $musicMp3 = null;
         $musicPdf = null;
 
         // controleren of er een bestand verzonden is, en zo ja: 
         // - bestand een tijdelijke naam geven waarmee opslaglocatie kan worden uitgelezen
-        // - bestand uploaden functie aanroepen uit functions.php
+        // - bestand uploaden functie aanroepen uit functions.php:81
         // - url naar bestand omzetten in variable die in database wordt opgeslagen
 
         if (isset($_FILES["mp3"]["name"])) {
             $name = "mp3-file";
-            $fileUpload["mp3"] = upload($_FILES["mp3"],"mp3",$name,"mp3bestand");   
+            $fileUpload["mp3"] = upload($_FILES["mp3"],"mp3",$name);   
             $musicMp3 = $fileUrl[$name];
         }
         if (isset($_FILES["pdf"]["name"])) {
             $name = "pdf-file";
-            $fileUpload["pdf"] = upload($_FILES["pdf"],"pdf",$name,"pdfbestand");
+            $fileUpload["pdf"] = upload($_FILES["pdf"],"pdf",$name);
             $musicPdf = $fileUrl[$name];
         }
         // (fout) meldingen weergeven
@@ -168,17 +167,6 @@ if (isset($_POST["title"]) && isset($_POST["componist"]) && isset($_POST["pitch"
 }
 ?>
 
-<?php
-// componist naam en geboortedatum ophalen en weergeven in datalist
-$componistDatalist = "";
-$stmt2 = $db->prepare("SELECT componistName FROM componist ORDER BY componistName");
-$stmt2->execute();
-while ($row = $stmt2->fetch())
-{
-    $componistDatalist .= '<option value="'.$row["componistName"].'" />';
-}
-?>
-
 <section id="musicupload">
     <div class="container">
         <div class="row">
@@ -186,132 +174,122 @@ while ($row = $stmt2->fetch())
                 <h2 class="section-heading text-uppercase">Upload muziek</h2>
             </div>
         </div>
-        <form id="musicForm" name="uploadMusic" method="post" onsubmit="sendButton('Muziek uploaden...',true,'uploadButton')" enctype="multipart/form-data">
-            <div id="musicform" <?= $formStyle ?> >
-                <div class="row">
-                    <div class="col">
-                        <h3>Informatie muziekstuk</h3>
-                        <div class="form-group">
-                            Titel
-                            <input class="form-control" id="title" name="title" type="text" placeholder="titel muziekstuk" required data-validation-required-message="Vul a.u.b een titel in">
-                            <p class="help-block text-danger"></p>
-                        </div>
-                        <div class="form-group" id="componistinput">
-                            Componist <span id="successText" class="text-success"></span>
-                            <input class="form-control" list="componistlist" name="componist" id="componist" placeholder="componist" required data-validation-required-message="Vul a.u.b een componist in" onkeyup="checkdatalist(0)" onfocusout="checkdatalist(0)">
-                            <datalist id="componistlist">
-                                <?= $componistDatalist ?>
-                            </datalist>
-                            <p class="help-block text-danger"></p>
-                        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <form id="musicForm" name="uploadMusic" method="post" onsubmit="sendButton('Muziek uploaden...',true,'uploadButton'); checkdatalist()" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3>Informatie muziekstuk</h3>
+                            <div id="musicform" <?= $formStyle ?> >
+                                <div class="form-group">
+                                    Titel
+                                    <input class="form-control" id="title" name="title" type="text" placeholder="Titel muziekstuk" required data-validation-required-message="Vul a.u.b een titel in">
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                                <div class="form-group" id="componistinput">
+                                    Componist
+                                    <input class="form-control" list="componistlist" name="componist" id="componist" placeholder="componist" required data-validation-required-message="Vul a.u.b een genre in" onkeyup="checkdatalist()">
+                                    <datalist id="componistlist">
 
-                       <div class="form-group">
-                            Pitch <span class="glyphicon glyphicon-ok"></span>
-                            <input class="form-control" id="pitch" name="pitch" type="text" placeholder="pitch" required data-validation-required-message="Vul a.u.b een titel in">
-                            <p class="help-block text-danger"></p>
-                        </div>
+                                        <?php
+    $stmt2 = $db->prepare("SELECT componistId, componistName FROM componist ORDER BY componistName");
+                                 $stmt2->execute();
+                                 while ($row = $stmt2->fetch())
+                                 {
+                                     echo '<option value="'.$row["componistName"].'" />';
+                                 }
+                                        ?>
 
-                       
-                        <div id="addcomponist" style="display: none;"> 
-                            <h3>Componist</h3>
-                            <div class="form-group">
-                                Naam
-                                <input class="form-control" id="componistName" name="componistName" type="text" placeholder="Componist naam" 
-                                       required data-validation-required-message="Vul a.u.b een naam in" >
+                                    </datalist>
+                                    <p class="help-block text-danger"></p>
+
+                                    <script>
+                                        function checkdatalist() {
+                                            messageCount = 0;
+                                            var val=$("#componist").val();
+                                            var obj=$("#componistlist").find("option[value='"+val+"']")
+                                            if(obj !=null && obj.length>0) {
+                                                document.getElementById('message').innerHTML = "";
+                                                return true;
+                                            }
+                                            else {
+                                                document.getElementById('message').innerHTML = "";
+                                                message("info", "Deze componist is onbekend", 'Klik <a href="javascript:addComponist()" class="alert-link">hier</a> om de componist aan te maken'); // don't allow form submission
+                                                return false;
+                                            }
+                                        }
+                                    </script>
+
+                                </div>
+
+                                <div class="form-group">
+                                    Genre
+                                    <input class="form-control" list="genrelist" name="genre" id="genre" placeholder="genre" required data-validation-required-message="Vul a.u.b een genre in">
+                                    <datalist id="genrelist">
+                                        <option value="Klassiek">
+                                        <option value="Pop">
+                                        <option value="Jazz">
+                                        <option value="Opera">
+                                        <option value="Nog een">
+                                    </datalist>
+                                    <p class="help-block text-danger"></p>
+                                </div>
+
+                                <div id="addcomponist" style="display: none;"> 
+                                    <h3>Componist</h3>
+                                    <div class="form-group">
+                                        Naam
+                                        <input class="form-control" id="componistName" name="componistName" type="text" placeholder="Componist naam" >
+                                    </div>
+                                    <div class="form-group">
+                                        Geboortedatum
+                                        <input class="form-control" id="componistDate" name="componistDate" type="date" >
+                                    </div>
+                                </div>
+
+                                <h3>Audio</h3>
+                                <div class="form-group">
+                                    <input class="form-control" id="mp3" name="mp3" type="file" placeholder="Titel muziekstuk" accept=".mp3">
+                                    <p class="help-block text-danger"></p>
+                                </div>
+
+                                <div class="form-group">
+                                    Pitch <span class="glyphicon glyphicon-ok"></span>
+                                    <input class="form-control" id="pitch" name="pitch" type="text" placeholder="Titel muziekstuk" required data-validation-required-message="Vul a.u.b een titel in">
+                                    <p class="help-block text-danger"></p>
+                                </div>
+
+                                <h3>Bladmuziek</h3>
+                                <div class="form-group">
+
+                                    <input class="form-control" id="pdf" name="pdf" type="file" placeholder="Titel muziekstuk" accept=".pdf">
+                                    <p class="help-block text-danger"></p>
+                                </div>
+
+                                <div class="clearfix"></div>
+                                <div id="success"></div>
+                                <button id="uploadButton" class="btn btn-primary btn-xl text-uppercase" type="submit">Uploaden</button>
+                                
                             </div>
-                            <div class="form-group">
-                                Geboortedatum
-                                <input class="form-control" id="componistDate" name="componistDate" type="date" required data-validation-required-message="Vul a.u.b een datum in"  >
-                            </div>
+
+                            <div id="message"></div>
+                            <a id="uploadMore" class="btn btn-primary btn-xl text-uppercase" href="musicupload.php" <?= $uploadMoreStyle ?> >Upload nog een muziekstuk</a>
                         </div>
                     </div>
-                    <div class="col">
+                </form>
 
-                        <h3>Audio</h3>
-                        <div class="form-group">
-                            MP3 bestand
-                            <input class="form-control" id="mp3" name="mp3" type="file" placeholder="Titel muziekstuk" accept=".mp3">
-                            <p class="help-block text-danger"></p>
-                        </div>
+                <script>
+                    function addComponist() {
+                        document.getElementById('addcomponist').style.display = 'block';
+                        document.getElementById('componistName').value = document.getElementById('componist').value;
 
-                        
-                        <h3>Bladmuziek</h3>
-                        <div class="form-group">
-                            PDF bestand
-                            <input class="form-control" id="pdf" name="pdf" type="file" placeholder="Titel muziekstuk" accept=".pdf">
-                            <p class="help-block text-danger"></p>
-                        </div>
-
-
-
-                    </div>
-                    <div class="w-100"></div>
-
-                    <div class="col">
-
-                        <div class="clearfix"></div>
-                        <div id="success"></div>
-                        <button id="uploadButton" class="btn btn-primary btn-xl text-uppercase" type="submit" onclick="checkdatalist(1);">Uploaden</button>
-
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">     
-                    <div id="message"></div>
-                    <a id="uploadMore" class="btn btn-primary btn-xl text-uppercase" href="musicupload.php" <?= $uploadMoreStyle ?> >Upload nog een muziekstuk</a>
-                </div>
-            </div>
-        </form>
-
-        <script>
-            function addComponist() {
-                var messageobj =  document.getElementById('message');
-                messageobj.innerHTML = "";
-                document.getElementById('addcomponist').style.display = 'block';
-                document.getElementById('componistName').value = document.getElementById('componist').value;
-                document.getElementById('componistinput').style.display = 'none';
-            }
-        </script>
-
-        <script>
-            var status = 1;
-            function checkdatalist(i) {
-                messageCount = 0;
-                var val=$("#componist").val();
-                var obj=$("#componistlist").find("option[value='"+val+"']")
-                
-                var required = true;
-                var messageobj =  document.getElementById('message');
-
-                var successText = document.getElementById("successText");
-                var componistName = document.getElementById("componistName");
-                var componistDate = document.getElementById("componistDate");
-                if(obj !=null && obj.length>0) {
-                    successText.innerHTML = "&#10003;"; // succesvinkje weergeven 
-                    messageobj.innerHTML = ""; // meldingen verwijderen
-                    required = false;
-                    status = 1;
-                }
-                else {       
-                    if (status == 1 || messageobj.innerHTML == "" || i == 1) { 
-                        successText.innerHTML = ""; // succesvinkje verwijderen
-                        messageobj.innerHTML = ""; // meldingen verwijderen
-                        required = true; // 
-                        status = 0;
-                        if (i == 1) {
-                            message("danger", "Deze componist is onbekend", 'Klik <a href="javascript:addComponist()" class="alert-link">hier</a> om de componist aan te maken'); 
-                        }
-                        else {
-                            message("info", "Deze componist is onbekend", 'Klik <a href="javascript:addComponist()" class="alert-link">hier</a> om de componist aan te maken'); 
-                        }                
+                        document.getElementById('componistinput').style.display = 'none';
                     }
-                }
-                componistName.required = required;
-                componistDate.required = required;
-            }
-        </script>
+                </script>
 
+
+            </div>
+        </div>
     </div>
 </section>
 
