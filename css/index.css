@@ -28,11 +28,20 @@ body {
 
 .login {
     padding-top: 100px;
+<<<<<<< HEAD
     width: 400px;
+=======
+    max-width: 90%;
+>>>>>>> origin/wim
     margin: auto;
     font-size: 16px;
 }
 
+@media only screen and (min-width: 560px){
+    .login {
+        max-width: 400px;
+    }
+}
 
 /* Reset top and bottom margins from certain elements */
 
