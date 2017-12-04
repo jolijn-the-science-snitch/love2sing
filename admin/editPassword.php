@@ -19,4 +19,6 @@
         </form>
     </div>
 
-
+<?php
+    include("adminpagefooter.php");
+?>
