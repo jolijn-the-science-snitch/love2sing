@@ -64,7 +64,7 @@ if (!adminpage()) {
                                 <a href="adduser.php" target="iframe" onClick="viewName(this,'componentsParent');">Persoon toevoegen smoelenboek</a>
                             </li>
                             <li>
-                                <a href="addphoto.php" target="iframe" onClick="viewName(this,'componentsParent');">Foto's toevoegen fotoalbum</a>
+                                <a href="uploadfoto.php" target="iframe" onClick="viewName(this,'componentsParent');">Foto's toevoegen fotoalbum</a>
                             </li>
                             <li>
                                 <a href="editPassword.php" target="iframe" onClick="viewName(this,'componentsParent');">Wachtwoord wijzigen</a>
