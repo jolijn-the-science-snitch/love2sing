@@ -7,11 +7,11 @@ if (isset($_POST['text'])) {
 //Upload functie aanroepen
     
 $file = $_FILES['jpeg'];
-$type = "jpg";
+$type =  array ("jpg", "jpeg");
 $name = "image";
 $fileName = "test";
-$resultaat = upload($file,$type,$name);
-$imgurl = $fileUrl[$name];        
+$resultaat = fileUpload($file,$type);
+$imgurl = $resultaat[0];        
 
 // pad naar foto's
 
@@ -23,13 +23,21 @@ $pdo = new PDO($db, $user, $pass);
 
 //Beschrijving foto
 $text = $_POST['text'];
-if ($resultaat == 1) {
+if ($resultaat[1] == 1) {
     
 $sql = "INSERT INTO photoalbum(photoalbumUrl, photoalbumDescription) VALUES ('$imgurl', '$text')";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
-echo $stmt->rowCount();
+if ($stmt->rowCount()== 1) {
+    message("Success","Opgeslagen in database", ""); 
 }
+    else {
+        message("danger","Niet opgeslagen in database", "");
+    }
+}
+else {
+        message("danger","Niet opgeslagen in database", "");
+    }
 }
 ?>
 <section id="musicupload">
@@ -62,7 +70,8 @@ echo $stmt->rowCount();
                         <div class="clearfix"></div>
                         <div id="success"></div>
                         <button id="uploadButton" class="btn btn-primary btn-xl text-uppercase" type="submit" >Uploaden</button>
-
+                        <div id="message"></div>
+                        <?= $message ?>
                     </div>
                 </div>
             </div>
