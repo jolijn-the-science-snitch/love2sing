@@ -92,18 +92,25 @@ if (isset($_POST["title"]) && isset($_POST["componist"]) && isset($_POST["pitch"
         // - url naar bestand omzetten in variable die in database wordt opgeslagen
 
         if (isset($_FILES["mp3"]["name"])) {
-            $result = fileUpload($_FILES["mp3"],array("mp3","pdf"));   
-            if ($result[0] == 5) {
+            $result = fileUpload($_FILES["mp3"],"mp3");   
+            if ($result[1] == 5) {
                 message("info", "Er is geen mp3 bijgevoegd", "Dit muziekstuk heeft geen mp3");
             } 
-            $musicMp3 = $result[1];
+            $musicMp3 = $result[0];
         }
+        else {
+            message("info", "Er is geen mp3 bijgevoegd", "Dit muziekstuk heeft geen mp3");
+        }
+        
         if (isset($_FILES["pdf"]["name"])) {
             $result = fileUpload($_FILES["pdf"],"pdf");
-            if ($result[0] == 5) {
+            if ($result[1] == 5) {
                 message("info", "Er is geen pdf bijgevoegd", "Dit muziekstuk heeft geen pdf");
             } 
-            $musicPdf = $result[1];
+            $musicPdf = $result[0];
+        }
+        else {
+            message("info", "Er is geen pdf bijgevoegd", "Dit muziekstuk heeft geen pdf");
         }
         // nadat alles gereed is de query uitvoeren
         $stmt->execute();
