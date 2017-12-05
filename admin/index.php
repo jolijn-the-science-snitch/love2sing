@@ -69,6 +69,7 @@ if (!adminpage()) {
                             <li>
                                 <a href="editPassword.php" target="iframe" onClick="viewName(this,'componentsParent');">Wachtwoord wijzigen</a>
                             </li>
+                            
                         </ul>
                     </li>
 
@@ -86,7 +87,21 @@ if (!adminpage()) {
                             </li>
                         </ul>
                     </li>
-
+                    
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseText" data-parent="#exampleAccordion" id="textParent">
+                            <i class="fa fa-fw fa-pencil"></i>
+                            <span class="nav-link-text">Tekst wijzigen</span>
+                        </a>
+                        <ul class="sidenav-second-level collapse" id="collapseText">
+                            <li>
+                                <a href="guestbookposts.php" target="iframe" onClick="viewName(this,'textParent');">Homepagina</a>
+                            </li>
+                            <li>
+                                <a href="contactformresults.php" target="iframe" onClick="viewName(this,'textParent');">Login scherm</a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
 
 

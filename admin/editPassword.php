@@ -34,18 +34,18 @@ if(isset ($_REQUEST['editPassword'])){
                 <div class="col md6" >
                     <h3>Het wachtwoord van de huidige ingelogde account wijzigen</h3>
                     <p>
-                    Nieuw wachtwoord: 
-                    <br>
-                    <input type="password" class="form-control" name="password" placeholder="Nieuw wachtwoord" required="" autofocus="">
+                        Nieuw wachtwoord: 
+                        <br>
+                        <input type="password" class="form-control" name="password" placeholder="Nieuw wachtwoord" required="" autofocus="">
                     </p>
                     <p>
-                    Herhaal nieuwe wachtwoord: 
-                    <br>
-                    <input type="password" class="form-control" name="repeatPassword" placeholder="Herhaal wachtwoord" required="">
+                        Herhaal nieuwe wachtwoord: 
+                        <br>
+                        <input type="password" class="form-control" name="repeatPassword" placeholder="Herhaal wachtwoord" required="">
                     </p>
                     <p><button type="submit" class="btn btn-primary btn-xl text-uppercase" name="editPassword" >Verander wachtwoord</button></p>
                 </div>
-                <div  class="col md6"></div> 
+                <div  class="col md6 invisibleOnPhone"></div> 
             </div>
             <div class="row">
                 <div class="col">     
@@ -58,5 +58,5 @@ if(isset ($_REQUEST['editPassword'])){
     </div>
 </section>
 <?php
-include("adminpagefooter.php");
+    include("adminpagefooter.php");
 ?>

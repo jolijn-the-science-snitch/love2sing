@@ -37,8 +37,11 @@ button {
     } 
 
 }
-
-
+@media only screen and (max-width: 960px){
+    .invisibleOnPhone {
+        display: none;
+    }
+}
 
 .calendar-container {
     font-size: 800px;
