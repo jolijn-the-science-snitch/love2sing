@@ -28,11 +28,8 @@ body {
 
 .login {
     padding-top: 100px;
-<<<<<<< HEAD
     width: 400px;
-=======
     max-width: 90%;
->>>>>>> origin/wim
     margin: auto;
     font-size: 16px;
 }

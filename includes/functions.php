@@ -175,6 +175,7 @@ function upload($file,$type,$name,$fileName = null) {
     }
 }
 
+
 // bestand uploaden
 
 // code's: 
@@ -336,5 +337,6 @@ function userpage() {
 
 $view = new DbHelper();
 $db = $view -> returndb();
+
 
 ?>

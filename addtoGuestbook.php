@@ -1,6 +1,5 @@
 <?php
     require 'header.php';
-    include 'includes/functions.php';
 ?>
 
     <head>
@@ -39,8 +38,7 @@
 
         <?php
     //script beveiligd tegen XSS injecties dmv htmlentities in combinatie met ENT_QUOTES
-//connect database hier anders kan de $_GET van het goedkeuren of weigeren er niet bij
-include("dbconnection.php");
+//database is al geconnect in functions.php
 
 if (isset($_POST['verzenden'])) {
     $valid = true;
