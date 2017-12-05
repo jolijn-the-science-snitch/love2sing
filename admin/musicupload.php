@@ -92,7 +92,7 @@ if (isset($_POST["title"]) && isset($_POST["componist"]) && isset($_POST["pitch"
         // - url naar bestand omzetten in variable die in database wordt opgeslagen
 
         if (isset($_FILES["mp3"]["name"])) {
-            $result = fileUpload($_FILES["mp3"],array("mp3","pdf"));   
+            $result = fileUpload($_FILES["mp3"],"mp3");   
             if ($result[0] == 5) {
                 message("info", "Er is geen mp3 bijgevoegd", "Dit muziekstuk heeft geen mp3");
             } 
