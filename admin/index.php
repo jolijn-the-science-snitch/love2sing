@@ -6,7 +6,6 @@ if (!adminpage()) {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
