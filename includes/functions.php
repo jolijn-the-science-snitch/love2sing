@@ -103,6 +103,13 @@ class DbHelper{
         $statement->bindParam(':password', $_POST['password'], PDO::PARAM_STR);
 
         $statement->execute();
+        
+        if ($statement->rowCount() == 1) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
     }
 
     function returndb() {
