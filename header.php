@@ -48,7 +48,7 @@ require 'includes/functions.php';
                             <a class="nav-link js-scroll-trigger" href="#about">Over ons</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="Fotoalbum.php">Fotoalbum</a>
+                            <a class="nav-link js-scroll-trigger" href="photoalbum.php">Fotoalbum</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link js-scroll-trigger" href="#agenda">Agenda</a>
