@@ -112,23 +112,7 @@ class DbHelper{
 
 
 // bestand uploaden
-
-// code's: 
-// 0    technische fout
-// 1    gelukt
-// 2    bestand bestaat al
-// 3    bestand is te groot
-// 4    bestandstype is verkeerd
-// 5    er is geen bestand gekozen of bijgevoegd
-
-// aanroepen:
-// Simpele manier:
-// upload($_FILES["file_input_name"],"type",tijdelijke naam,"bestandsnaam op server zonder extensie");
-
-// Uitgebreide manier: 
-// $name = "mp3-file"; // tijdelijke naam voor het uitlezen van opslaglocatie
-// $var = upload($_FILES["file_input_name"],"type",tijdelijke naam,"bestandsnaam op server zonder       extensie");   $var krijgt gereturnde foutcodes terug
-// $opslaglocatievoordb = $fileUrl[$name]; // variable maken met opslaglocatie van bestand in database
+// OUDE FUNCTIE: GEBUIK fileUpload()
 
 $fileUrl = null;
 function upload($file,$type,$name,$fileName = null) {    
@@ -191,6 +175,106 @@ function upload($file,$type,$name,$fileName = null) {
     }
 }
 
+// bestand uploaden
+
+// code's: 
+// 0    technische fout
+// 1    gelukt
+
+// 3    bestand is te groot
+// 4    bestandstype is verkeerd
+// 5    er is geen bestand gekozen of bijgevoegd
+
+// fileUpload($file,$type) genereert automatisch meldingen, zie message($type,$title,$content) voor vereisten om melding weer te geven
+
+// aanroepen:
+// fileUpload($_FILES["file_input_name"],"filetype");   //(filetype zonder .) 
+
+// Uitgebreide manier: 
+// $result = fileUpload($_FILES["file_input_name"],array("filetype1","filetype2")); //(filetype zonder .) 
+// $result[0] foutcodes
+// $result[1] opslaglocatie van bestand in database
+
+function fileUpload($file,$type) {    
+    if ($file["error"] == 4) {
+        return array(null,5);
+    }
+    else {
+        $target_dir = "uploads/";
+        
+        $uploadOk = 1;
+        $fileType = pathinfo(basename($file["name"]),PATHINFO_EXTENSION);
+        $result = "";
+                
+        while (true) {
+            $fileName = $fileType ."-". date("Y-m-d-h-i-s-u") . "-" . rand(1000,9999);
+            $target_file = $target_dir . $fileName . "." . $fileType;
+            if (!file_exists($target_file)) {
+                break;
+            }
+        }
+        
+        if ($file["size"] > 2500000) {
+            $uploadOk = 0;
+            $result .= "3";
+            
+            message("warning", $file["name"] . " is niet opgeslagen", "Het bestand " . $file["name"] . " is te groot ". $file["size"] / 1000000 . "MB, max 2.5MB"); 
+            // check of het bestand te groot is, zo ja: foutcode 3
+        }
+        if (is_array($type)) {
+            if(!in_array($fileType,$type)) {
+                $uploadOk = 0;
+                $result .= "4";
+                
+                message("warning", $file["name"]. " is niet opgeslagen", "Het bestand " . $file["name"] . " is geen ".implode (", ", $type)); 
+                // check of het bestand geen $type type is, zo ja: foutcode 4
+            }
+        }
+        elseif ($type != $fileType) {
+            $uploadOk = 0;
+            $result .= "4";
+            
+            message("warning", $file["name"]. " is niet opgeslagen", "Het bestand " . $file["name"] . " is geen ".$type); 
+            // check of het bestand geen $type type is, zo ja: foutcode 4
+        }
+
+        if ($uploadOk == 0) {
+            return array($target_file,$result);
+            // er zijn fouten opgetreden, de foutcodes worden gereturnd
+        } 
+        else {
+            if (move_uploaded_file($file["tmp_name"], $target_file)) {
+                message("success", $file["name"]. " is geupload", "Het bestand " .$file["name"] . " is succesvol opgeslagen op de server"); 
+                
+                return array($target_file,1);       
+                // bestand is succesvol geupload
+            }
+            else {
+                message("danger", $file["name"]." is niet opgeslagen", "Er is een technische fout opgetreden"); 
+                        
+                return array($target_file,0);
+                // er is een probleem opgetreden met uploaden
+            }
+        }
+    }
+}
+
+// meldingen weergeven
+
+/* 
+type = success/info/warning/danger
+
+Plaats <div id="message"></div> waar je de meldingen wilt weergeven
+Plaats daaronder <?= $message ?>
+*/
+
+$message = null;
+function message($type,$title,$content) {
+    global $message;
+    $message .= '<script>
+    message("'.$type.'","'.$title.'","'.$content.'");
+    </script>';
+}
 
 // mail versturen
 

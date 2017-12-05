@@ -7,8 +7,6 @@ $addComponistStyle = 'style="display: none;"'; // componist toevoegen iframe onz
 
 // checken of het formulier is verzonden
 if (isset($_POST["title"]) && isset($_POST["componist"]) && isset($_POST["pitch"])) {
-    $message = "<script>"; // begin van mogelijkheid om meldingen weer te geven
-
     // componistId bij componist naam selecteren
     $stmt = $db->prepare("SELECT componistId FROM componist WHERE componistName = :componist");
     $stmt->bindParam(':componist', $componist);
@@ -40,8 +38,7 @@ if (isset($_POST["title"]) && isset($_POST["componist"]) && isset($_POST["pitch"
 
 
             if($stmt->rowCount() == 1) {
-                $message .= 'message("success", "Componist opgeslagen", "'.$componistName.' is succesvol toegevoegd");';
-
+                message("success", "Componist opgeslagen", "'.$componistName.' is succesvol toegevoegd");
                 $stmt = $db->prepare("SELECT componistId FROM componist WHERE componistName = :componist");
                 $stmt->bindParam(':componist', $componist);
                 $componist = $_POST["componist"];
@@ -58,11 +55,11 @@ if (isset($_POST["title"]) && isset($_POST["componist"]) && isset($_POST["pitch"
                 }
             }
             else {
-                $message .= 'message("danger", "Componist is niet opgeslagen", "Er is een technishe fout opgetreden");';
+                message("danger", "Componist is niet opgeslagen", "Er is een technishe fout opgetreden");
             }
         }
         else {
-            $message .= 'message("danger", "' . $componist . ' is niet bekend", "Vul <a href=\"javascript:addComponist()\" class=\"alert-link\">hier</a> de gegevens van de componist in, zodat dit muziekstuk kan worden toegevoegd"); ';
+            message("danger", "' . $componist . ' is niet bekend", "Vul <a href=\"javascript:addComponist()\" class=\"alert-link\">hier</a> de gegevens van de componist in, zodat dit muziekstuk kan worden toegevoegd"); 
             //            $formStyle = ' style="display: none;" ';
             $addComponistStyle = "";
         }
@@ -89,66 +86,46 @@ if (isset($_POST["title"]) && isset($_POST["componist"]) && isset($_POST["pitch"
         $musicPdf = null;
 
         // controleren of er een bestand verzonden is, en zo ja: 
-        // - bestand een tijdelijke naam geven waarmee opslaglocatie kan worden uitgelezen
         // - bestand uploaden functie aanroepen uit functions.php
+        //      - functie maakt meldingen aan
+        //      - hier een melding maken als er geen bestand is bijgevoegd
         // - url naar bestand omzetten in variable die in database wordt opgeslagen
 
         if (isset($_FILES["mp3"]["name"])) {
-            $name = "mp3-file";
-            $fileUpload["mp3"] = upload($_FILES["mp3"],"mp3",$name,"mp3bestand");   
-            $musicMp3 = $fileUrl[$name];
+            $result = fileUpload($_FILES["mp3"],"mp3");   
+            if ($result[1] == 5) {
+                message("info", "Er is geen mp3 bijgevoegd", "Dit muziekstuk heeft geen mp3");
+            } 
+            $musicMp3 = $result[0];
         }
+        else {
+            message("info", "Er is geen mp3 bijgevoegd", "Dit muziekstuk heeft geen mp3");
+        }
+        
         if (isset($_FILES["pdf"]["name"])) {
-            $name = "pdf-file";
-            $fileUpload["pdf"] = upload($_FILES["pdf"],"pdf",$name,"pdfbestand");
-            $musicPdf = $fileUrl[$name];
+            $result = fileUpload($_FILES["pdf"],"pdf");
+            if ($result[1] == 5) {
+                message("info", "Er is geen pdf bijgevoegd", "Dit muziekstuk heeft geen pdf");
+            } 
+            $musicPdf = $result[0];
         }
-        // (fout) meldingen weergeven
-        // code's: 
-        // 0    technische fout
-        // 1    gelukt
-        // 2    bestand bestaat al
-        // 3    bestand is te groot
-        // 4    bestandstype is verkeerd
-        // 5    er is geen bestand gekozen of bijgevoegd
-
-        foreach ($fileUpload as $key => $value) {
-            if (preg_match('/1/',$value)) {
-                $message .= 'message("success", "' . $key . ' is succesvol opgeslagen", "Het bestand ' . basename($_FILES[$key]["name"]) . ' is succesvol toegevoegd"); ';
-            }
-            elseif (preg_match('/2/',$value)) {
-                $message .= 'message("warning", "' . $key . ' is niet opgeslagen", "Het bestand ' . basename($_FILES[$key]["name"]) . ' bestaat al"); ';
-            }
-            elseif (preg_match('/3/',$value)) {
-                $message .= 'message("warning", "' . $key . ' is niet opgeslagen", "Het bestand ' . basename($_FILES[$key]["name"]) . ' is te groot '. $_FILES["pdf"]["size"] / 1000000 .'MB, max 2.5MB"); ';
-            }
-            elseif (preg_match('/4/',$value)) {
-                $message .= 'message("warning", "' . $key . ' is niet opgeslagen", "Het bestand ' . basename($_FILES[$key]["name"]) . ' is geen pdf"); ';
-            }
-            elseif (preg_match('/0/',$value)) {
-                $message .= 'message("danger", "' . $key . ' is niet opgeslagen", "Er is een technische fout opgetreden"); ';
-            }
-            else {
-                $message .= 'message("info", "Er is geen ' . $key . ' bijgevoegd", "Dit muziekstuk heeft geen ' . $key . '"); ';
-            }
-        }    
-
+        else {
+            message("info", "Er is geen pdf bijgevoegd", "Dit muziekstuk heeft geen pdf");
+        }
         // nadat alles gereed is de query uitvoeren
         $stmt->execute();
 
         if($stmt->rowCount() == 1) {
-            $message .= 'message("success", "Muziekstuk opgeslagen", "Het muziekstuk is succesvol toegevoegd");';
+            message("success", "Muziekstuk opgeslagen", "Het muziekstuk is succesvol toegevoegd");
             $formStyle = ' style="display: none;" ';
             $uploadMoreStyle = '';
             // na succesvol uitvoeren van query een meling weergeven, het uploadformulier onzichtbaar maken en de upload meer knop zichtbaar maken
         }
         else {
-            $message .= 'message("danger", "Muziekstuk is niet opgeslagen", "Het muziekstuk is niet toegevoegd");';
+           message("danger", "Muziekstuk is niet opgeslagen", "Het muziekstuk is niet toegevoegd");
             // bij het mislukken van de query een foutmelding weergeven
         }
     } 
-
-    $message .= "</script>"; // einde van mogelijkheid om meldingen weer te geven
 }
 ?>
 
@@ -243,6 +220,7 @@ while ($row = $stmt2->fetch())
             <div class="row">
                 <div class="col">     
                     <div id="message"></div>
+                    <?= $message ?>
                     <a id="uploadMore" class="btn btn-primary btn-xl text-uppercase" href="musicupload.php" <?= $uploadMoreStyle ?> >Upload nog een muziekstuk</a>
                 </div>
             </div>
@@ -300,7 +278,6 @@ while ($row = $stmt2->fetch())
 </section>
 
 <!-- melingen weergeven -->
-<?= $message ?>
 
 
 <?php
