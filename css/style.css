@@ -12,8 +12,6 @@
     margin-top: 10px;
     margin-bottom: 10px;
 }
-
-
 .edittext {
     width: 100%;
     text-align: center;
@@ -47,11 +45,16 @@ button {
     } 
 
 }
+<<<<<<< HEAD
 @media only screen and (max-width: 960px){
     .invisibleOnPhone {
         display: none;
     }
 }
+=======
+
+
+>>>>>>> nando
 
 .calendar-container {
     font-size: 800px;

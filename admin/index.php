@@ -6,6 +6,10 @@ if (!adminpage()) {
 }
 ?>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> nando
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,7 +38,11 @@ if (!adminpage()) {
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
             <a class="navbar-brand" href="#">Love2Sing</a>
+<<<<<<< HEAD
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" id="menuButton">
+=======
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+>>>>>>> nando
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -64,12 +72,19 @@ if (!adminpage()) {
                                 <a href="adduser.php" target="iframe" onClick="viewName(this,'componentsParent');">Persoon toevoegen smoelenboek</a>
                             </li>
                             <li>
+<<<<<<< HEAD
                                 <a href="uploadfoto.php" target="iframe" onClick="viewName(this,'componentsParent');">Foto's toevoegen fotoalbum</a>
+=======
+                                <a href="addphoto.php" target="iframe" onClick="viewName(this,'componentsParent');">Foto's toevoegen fotoalbum</a>
+>>>>>>> nando
                             </li>
                             <li>
                                 <a href="editPassword.php" target="iframe" onClick="viewName(this,'componentsParent');">Wachtwoord wijzigen</a>
                             </li>
+<<<<<<< HEAD
                             
+=======
+>>>>>>> nando
                         </ul>
                     </li>
 
@@ -87,6 +102,7 @@ if (!adminpage()) {
                             </li>
                         </ul>
                     </li>
+<<<<<<< HEAD
                     
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
                         <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseText" data-parent="#exampleAccordion" id="textParent">
@@ -102,6 +118,9 @@ if (!adminpage()) {
                             </li>
                         </ul>
                     </li>
+=======
+
+>>>>>>> nando
                 </ul>
 
 
@@ -143,6 +162,7 @@ if (!adminpage()) {
                         else {
                             content += '<li class="breadcrumb-item"><i class="fa fa-fw fa-home"></i><span class="nav-link-text">Home</span></li>';
                         }
+<<<<<<< HEAD
                         
                         
                         document.getElementById("pageName").innerHTML = content;
@@ -150,6 +170,9 @@ if (!adminpage()) {
                             $("#menuButton").click();
                             $('.tooltip').remove();
                         }                    
+=======
+                        document.getElementById("pageName").innerHTML = content;
+>>>>>>> nando
                     }
                 </script>
 
