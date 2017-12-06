@@ -1,6 +1,4 @@
-<?php
-require 'includes/functions.php';
-?>
+<?php require 'includes/functions.php'; ?>
 
 <html lang="en">
 
@@ -26,7 +24,7 @@ require 'includes/functions.php';
 
         <!-- Custom styles for this template -->
         <link href="css/creative.min.css" rel="stylesheet">
-        <link href="css/style.css" rel="stylesheet">    
+        <link href="css/style.css" rel="stylesheet">
         <link href="css/index.css" rel="stylesheet">
 
        <script src="js/functions.js"></script>
@@ -54,6 +52,9 @@ require 'includes/functions.php';
                             <a class="nav-link js-scroll-trigger" href="#agenda">Agenda</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="overzicht.php">Smoelenboek</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link js-scroll-trigger" href="guestbook.php">Gastenboek</a>
                         </li>
                         <li class="nav-item">
@@ -61,18 +62,18 @@ require 'includes/functions.php';
                         </li>
 
 
-                        <?php 
-                        //dit gedeelte kunnen alleen de gebruikers zien            
+                        <?php
+                        //dit gedeelte kunnen alleen de gebruikers zien
                         if(userpage()){
                             echo '<li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="music.php">Muziek</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="facemap.php">Smoelenboek</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="logout.php">Log uit</a>
-                    </li>';
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="facemap.php">Smoelenboek</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="logout.php">Log uit</a>
+                        </li>';
                         }
                         //dit gedeelte kan alleen de beheerder zien
                         elseif(adminpage()){
@@ -84,6 +85,9 @@ require 'includes/functions.php';
                     </li>
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="admin/">Beheer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="insert.php">Leden Toevoegen</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="logout.php">Log uit</a>

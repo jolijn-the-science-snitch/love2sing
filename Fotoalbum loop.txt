@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="gallery">
+        <?php
+        //Include database configuration file
+        $db ="mysql:host=localhost;dbname=love2sing;port=3306";
+        $user = "admin";
+        $pass = "admin";
+        $pdo = new PDO($db, $user, $pass);
+        
+        //get images from database
+        $query = $pdo->query("SELECT * FROM photoalbum ORDER BY photoalbumId DESC");
+        
+        if($query->rowCount() > 0){
+            while($row = $query->fetch()){
+                $imgSrc = $row["photoalbumUrl"];
+                
+                echo "<img src='".$imgSrc."'>";
+        ?>
+           
+        <?php }
+        } ?>
+    </div>
+</div>

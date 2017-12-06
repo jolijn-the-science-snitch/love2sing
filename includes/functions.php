@@ -197,7 +197,7 @@ function upload($file,$type,$name,$fileName = null) {
 
 function fileUpload($file,$type) {    
     if ($file["error"] == 4) {
-        return array(5,null);
+        return array(null,5);
     }
     else {
         $target_dir = "uploads/";
