@@ -11,7 +11,7 @@ if (isset($_POST['text'])) {
     $fileName = "test";
     $resultaat = fileUpload($file,$type);
     $imgurl = $resultaat[0];        
-    
+
     $formstyle = "style='display: none;'";
     $buttonstyle = "";
     //Beschrijving foto
@@ -40,33 +40,31 @@ if (isset($_POST['text'])) {
                 <h2 class="section-heading text-uppercase">Upload foto</h2>
             </div>
         </div>
-        <form id="musicForm" name="uploadPhoto" method="post" enctype="multipart/form-data">
-            <div id="musicform" >
-                <div class="row">
-                    <div class="col md6" <?= $formstyle ?> >
-                        <h3>Informatie foto</h3>
-                        <div class="form-group">
-                            Titel
-                            <input class="form-control" id="title" name="text" type="text" placeholder="Beschrijving van de foto" required data-validation-required-message="Vul a.u.b een beschrijving in">
-                            <p class="help-block text-danger"></p>
-                        </div>
+        
+        <form name="uploadPhoto" method="post" enctype="multipart/form-data">
+            <div class="row" <?= $formstyle ?>>
+                <div class="col md6" >
+                    <h3>Informatie foto</h3>
+                    <p>
+                        Titel
+                        <br>
+                        <input class="form-control" id="title" name="text" type="text" placeholder="Beschrijving van de foto" required data-validation-required-message="Vul a.u.b een beschrijving in">
+                    </p>
+                    <p class="help-block text-danger"></p>
 
+                    <h3>Foto</h3>
+                    <p>
+                        Foto
+                        <br>
+                        <input class="form-control" id="jpeg" name="jpeg" type="file" placeholder="Beschrijving van de foto" accept=".jpeg, .jpg">
+                    </p>
+                    <p class="help-block text-danger"></p>
+                    <p>
+                        <button type="submit" class="btn btn-primary btn-xl text-uppercase" name="editPassword" >Uploaden</button>
+                    </p>    
 
-
-                        <h3>Foto</h3>
-                        <div class="form-group">
-                            Foto
-                            <input class="form-control" id="jpeg" name="jpeg" type="file" placeholder="Beschrijving van de foto" accept=".jpeg, .jpg">
-                            <p class="help-block text-danger"></p>
-                        </div>
-
-                        <div class="clearfix"></div>
-                        <div id="success"></div>
-                        <button id="uploadButton" class="btn btn-primary btn-xl text-uppercase" type="submit" >Uploaden</button>
-                        
-                    </div>
-                    <div  class="col md6"></div>
                 </div>
+                <div  class="col md6 invisibleOnPhone"></div>
             </div>
             <div class="row">
                 <div class="col">     
@@ -76,7 +74,6 @@ if (isset($_POST['text'])) {
                 </div>
             </div>
         </form>
-
     </div>
 </section>
 
