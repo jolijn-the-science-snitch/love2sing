@@ -12,6 +12,16 @@
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+
+.edittext {
+    width: 100%;
+    text-align: center;
+    border: 0px;
+    font-size: 18px;
+    padding: 5px;
+    margin-bottom: 5px;
+}
 #addcomponistiframe {
     border: 0px;
     width: 100%;
