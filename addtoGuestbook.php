@@ -6,7 +6,7 @@
         <link rel="stylesheet" type="text/css" href="guestbook.css">
         <link rel="stylesheet" type="text/css" href="css/creative.min.css">
     </head>
-<!--
+    <!--
 <header>
 
     <h1 class="text-uppercase">
@@ -32,6 +32,7 @@
                     <div class="ease"></div>
                 </div>
             </form>
+            <div id="message"></div>
         </div>
 
 
@@ -67,15 +68,13 @@ if (isset($_POST['verzenden'])) {
             //veilige insert in de tabel dmv prepare, daardoor geen string escape meer nodig
             $stmt= $db->prepare("INSERT INTO guestbook (guestbookTitle, guestbookMessage, guestbookDate) VALUES('$title','$gbmessage','$date')");
             $stmt->execute();
-           echo "<div class='guestbook-text'>Uw verzoek om een bericht te plaatsen in het gastenboek is verstuurd! Als deze wordt geaccepteerd, zal uw bericht in het gastenboek verschijnen.</div>";
-        
          
 //verstuur mail voor het goedkeuren van een gastenboekbericht
         
             $id = $db->lastInsertId(); // krijg het id van het zojuist geinserte gastenboek item
 
             $subject= "Nieuw gastenboek bericht";
-            $message= "
+            $emailmessage= "
 <!DOCTYPE html>
 <html lang='en'>
     
@@ -94,17 +93,20 @@ if (isset($_POST['verzenden'])) {
 </html>
 ";             
             $replyTo= null; //persoon heeft geen mailadres moeten invoeren en krijgt dus ook geen bericht van toevoeging of weigering
-                
-           echo sendMail($subject,$message,$replyTo);             
-}
- 
+        
+        // Als het bericht inserted is én de mail is verstuurd, goedmelding geven   
+        if(sendMail($subject,$emailmessage,$replyTo) == 1){
+            message("success","Uw verzoek om een bericht te plaatsen in het gastenboek is verstuurd!","Als deze wordt geaccepteerd, zal uw bericht in het gastenboek verschijnen.");
+        // Als er iets fout is gegaan met het inserten of het versturen van de mail, foutmelding geven
+        }else{
+            message("danger","Er is iets fout gegaan!","Probeer het opnieuw.");
+        }    
+                     
+    }
+     
 }
    
-   
-   ?>
 
-
-   <?php
         // alleen bij het zojuist toegevoegde bericht de status aanpassen d.m.v. de WHERE
         // $_GET, want een $_POST wil niet vanuit de mail
         if(isset($_GET['toevoegen']) && isset($_GET['id'])){
@@ -117,8 +119,8 @@ if (isset($_POST['verzenden'])) {
             $approve->execute(array($_GET['id']));
             echo $approve->rowCount();
         }
-   ?>
+   ?><?= $message ?>
 
-            <?php
+                <?php
     require 'footer.php';
     ?>
