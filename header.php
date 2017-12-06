@@ -52,7 +52,7 @@
                             <a class="nav-link js-scroll-trigger" href="overzicht.php">Smoelenboek</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="viewGuestbook.php">Gastenboek</a>
+                            <a class="nav-link js-scroll-trigger" href="guestbook.php">Gastenboek</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
