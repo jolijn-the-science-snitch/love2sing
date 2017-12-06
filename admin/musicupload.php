@@ -1,7 +1,6 @@
 <?php
     include("adminpageheader.php"); 
-
-    $formStyle = ""; // formulier zichtbaar
+$formStyle = ""; // formulier zichtbaar
 $message = ""; // melding is leeg
 $uploadMoreStyle = 'style="display: none;"'; // upload meer button onzichtbaar
 $addComponistStyle = 'style="display: none;"'; // componist toevoegen iframe onzichtbaar
@@ -22,8 +21,7 @@ if (isset($_POST["title"]) && isset($_POST["componist"]) && isset($_POST["pitch"
     }
 
     // check of componistId gevonden is, zo nee:
-    // - foutmelding weergeven
-    // - componist toevoegen zichtbaar maken
+    // foutmelding weergeven
     $componistExist = false; 
     if (empty($componistId)) {
         if (!empty($_POST["componistName"]) && !empty($_POST["componistDate"])) {
@@ -61,9 +59,8 @@ if (isset($_POST["title"]) && isset($_POST["componist"]) && isset($_POST["pitch"
             }
         }
         else {
-            message("danger", "' . $componist . ' is niet bekend", "Vul <a href=\"javascript:addComponist()\" class=\"alert-link\">hier</a> de gegevens van de componist in, zodat dit muziekstuk kan worden toegevoegd"); 
+            message("danger", "" . $componist . " is niet bekend", 'Vul <a href=\"javascript:addComponist()\" class=\"alert-link\">hier</a> de gegevens van de componist in, zodat dit muziekstuk kan worden toegevoegd'); 
             //            $formStyle = ' style="display: none;" ';
-
             $addComponistStyle = "";
         }
     }
@@ -85,7 +82,6 @@ if (isset($_POST["title"]) && isset($_POST["componist"]) && isset($_POST["pitch"
 
         $musicName = $_POST["title"];
         $musicPitch = $_POST["pitch"];
-        $genre = $_POST["genre"];
         $musicMp3 = null;
         $musicPdf = null;
 
@@ -104,9 +100,8 @@ if (isset($_POST["title"]) && isset($_POST["componist"]) && isset($_POST["pitch"
         }
         else {
             message("info", "Er is geen mp3 bijgevoegd", "Dit muziekstuk heeft geen mp3");
-
         }
-
+        
         if (isset($_FILES["pdf"]["name"])) {
             $result = fileUpload($_FILES["pdf"],"pdf");
             if ($result[1] == 5) {
@@ -127,10 +122,21 @@ if (isset($_POST["title"]) && isset($_POST["componist"]) && isset($_POST["pitch"
             // na succesvol uitvoeren van query een meling weergeven, het uploadformulier onzichtbaar maken en de upload meer knop zichtbaar maken
         }
         else {
-            message("danger", "Muziekstuk is niet opgeslagen", "Het muziekstuk is niet toegevoegd");
+           message("danger", "Muziekstuk is niet opgeslagen", "Het muziekstuk is niet toegevoegd");
             // bij het mislukken van de query een foutmelding weergeven
         }
     } 
+}
+?>
+
+<?php
+// componist naam en geboortedatum ophalen en weergeven in datalist
+$componistDatalist = "";
+$stmt2 = $db->prepare("SELECT componistName FROM componist ORDER BY componistName");
+$stmt2->execute();
+while ($row = $stmt2->fetch())
+{
+    $componistDatalist .= '<option value="'.$row["componistName"].'" />';
 }
 ?>
 
@@ -160,13 +166,13 @@ if (isset($_POST["title"]) && isset($_POST["componist"]) && isset($_POST["pitch"
                             <p class="help-block text-danger"></p>
                         </div>
 
-                        <div class="form-group">
+                       <div class="form-group">
                             Pitch <span class="glyphicon glyphicon-ok"></span>
                             <input class="form-control" id="pitch" name="pitch" type="text" placeholder="pitch" required data-validation-required-message="Vul a.u.b een titel in">
                             <p class="help-block text-danger"></p>
                         </div>
 
-
+                       
                         <div id="addcomponist" style="display: none;"> 
                             <h3>Componist</h3>
                             <div class="form-group">
@@ -181,20 +187,46 @@ if (isset($_POST["title"]) && isset($_POST["componist"]) && isset($_POST["pitch"
                         </div>
                     </div>
                     <div class="col md6">
-                        <div id="message"></div>
-                        <a id="uploadMore" class="btn btn-primary btn-xl text-uppercase" href="musicupload.php" <?= $uploadMoreStyle ?> >Upload nog een muziekstuk</a>
+
+                        <h3>Audio</h3>
+                        <div class="form-group">
+                            MP3 bestand
+                            <input class="form-control" id="mp3" name="mp3" type="file" placeholder="Titel muziekstuk" accept=".mp3">
+                            <p class="help-block text-danger"></p>
+                        </div>
+
+                        
+                        <h3>Bladmuziek</h3>
+                        <div class="form-group">
+                            PDF bestand
+                            <input class="form-control" id="pdf" name="pdf" type="file" placeholder="Titel muziekstuk" accept=".pdf">
+                            <p class="help-block text-danger"></p>
+                        </div>
+
+
+
                     </div>
+                    <div class="w-100"></div>
+
+                    <div class="col">
+
+                        <div class="clearfix"></div>
+                        <div id="success"></div>
+                        <button id="uploadButton" class="btn btn-primary btn-xl text-uppercase" type="submit" onclick="checkdatalist(1);">Uploaden</button>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">     
+                    <div id="message"></div>
+                    <?= $message ?>
+                    <a id="uploadMore" class="btn btn-primary btn-xl text-uppercase" href="musicupload.php" <?= $uploadMoreStyle ?> >Upload nog een muziekstuk</a>
                 </div>
             </div>
         </form>
 
         <script>
-            function addComponist() {
-                document.getElementById('addcomponist').style.display = 'block';
-                document.getElementById('componistName').value = document.getElementById('componist').value;
-            }
-
-
             function addComponist() {
                 var messageobj =  document.getElementById('message');
                 messageobj.innerHTML = "";
@@ -210,7 +242,7 @@ if (isset($_POST["title"]) && isset($_POST["componist"]) && isset($_POST["pitch"
                 messageCount = 0;
                 var val=$("#componist").val();
                 var obj=$("#componistlist").find("option[value='"+val+"']")
-
+                
                 var required = true;
                 var messageobj =  document.getElementById('message');
 
@@ -235,10 +267,12 @@ if (isset($_POST["title"]) && isset($_POST["componist"]) && isset($_POST["pitch"
                         else {
                             message("info", "Deze componist is onbekend", 'Klik <a href="javascript:addComponist()" class="alert-link">hier</a> om de componist aan te maken'); 
                         }                
-
                     }
+                }
+                componistName.required = required;
+                componistDate.required = required;
+            }
         </script>
-
 
     </div>
 </section>
