@@ -32,12 +32,11 @@
                     <div class="ease"></div>
                 </div>
             </form>
+            <div id="message"></div>
         </div>
 
-
-
-        <?php
-    //script beveiligd tegen XSS injecties dmv htmlentities in combinatie met ENT_QUOTES
+            <?php
+             //script beveiligd tegen XSS injecties dmv htmlentities in combinatie met ENT_QUOTES
 //database is al geconnect in functions.php
 
 if (isset($_POST['verzenden'])) {
@@ -62,12 +61,10 @@ if (isset($_POST['verzenden'])) {
     //als de velden gecheckt zijn de data in de database gooien
     if ($valid== true) {
             
-            
-            
+                     
             //veilige insert in de tabel dmv prepare, daardoor geen string escape meer nodig
             $stmt= $db->prepare("INSERT INTO guestbook (guestbookTitle, guestbookMessage, guestbookDate) VALUES('$title','$gbmessage','$date')");
             $stmt->execute();
-           echo "<div class='guestbook-text'>Uw verzoek om een bericht te plaatsen in het gastenboek is verstuurd! Als deze wordt geaccepteerd, zal uw bericht in het gastenboek verschijnen.</div>";
         
          
 //verstuur mail voor het goedkeuren van een gastenboekbericht
@@ -75,7 +72,7 @@ if (isset($_POST['verzenden'])) {
             $id = $db->lastInsertId(); // krijg het id van het zojuist geinserte gastenboek item
 
             $subject= "Nieuw gastenboek bericht";
-            $message= "
+            $emailmessage= "
 <!DOCTYPE html>
 <html lang='en'>
     
@@ -95,16 +92,16 @@ if (isset($_POST['verzenden'])) {
 ";             
             $replyTo= null; //persoon heeft geen mailadres moeten invoeren en krijgt dus ook geen bericht van toevoeging of weigering
                 
-           echo sendMail($subject,$message,$replyTo);             
+           if( sendMail($subject,$emailmessage,$replyTo)==2){
+               message("success","Uw verzoek om een bericht te plaatsen in het gastenboek is verstuurd!","Als deze wordt geaccepteerd, zal uw bericht in het gastenboek verschijnen.");
+           } else{
+               message("danger","Er is iets misgegaan!","Probeer het opnieuw.");
+           }            
 }
  
 }
    
    
-   ?>
-
-
-   <?php
         // alleen bij het zojuist toegevoegde bericht de status aanpassen d.m.v. de WHERE
         // $_GET, want een $_POST wil niet vanuit de mail
         if(isset($_GET['toevoegen']) && isset($_GET['id'])){
@@ -117,7 +114,7 @@ if (isset($_POST['verzenden'])) {
             $approve->execute(array($_GET['id']));
             echo $approve->rowCount();
         }
-   ?>
+            ?><?= $message?>
 
             <?php
     require 'footer.php';
