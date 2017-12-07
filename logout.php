@@ -1,7 +1,7 @@
 <?php
-    require 'includes/functions.php';
+require 'includes/functions.php';
+session_destroy();
 
-    session_destroy();
 
-    header("Location: login.php");
+header("Location: login.php");
 ?>
