@@ -133,7 +133,7 @@ function upload($file,$type,$name,$fileName = null) {
         return 5;
     }
     else {
-        $target_dir = "uploads/";
+        $target_dir = "../uploads/";
         if ($fileName != null) {
             $target_file = $target_dir . $fileName . "." . $type;
         }
@@ -256,7 +256,7 @@ function fileUpload($file,$type) {
             // er zijn fouten opgetreden, de foutcodes worden gereturnd
         } 
         else {
-            if (move_uploaded_file($file["tmp_name"], $target_file)) {
+            if (move_uploaded_file($file["tmp_name"], "../".$target_file)) {
                 message("success", $file["name"]. " is geupload", "Het bestand " .$file["name"] . " is succesvol opgeslagen op de server"); 
                 return array($target_file,1);       
                 // bestand is succesvol geupload
