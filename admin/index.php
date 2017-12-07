@@ -95,7 +95,7 @@ if (!adminpage()) {
                         </a>
                         <ul class="sidenav-second-level collapse" id="collapseText">
                             <li>
-                                <a href="guestbookposts.php" target="iframe" onClick="viewName(this,'textParent');">Homepagina</a>
+                                <a href="../textfromdb.php" target="iframe" onClick="viewName(this,'textParent');">Homepagina</a>
                             </li>
                             <li>
                                 <a href="contactformresults.php" target="iframe" onClick="viewName(this,'textParent');">Login scherm</a>
