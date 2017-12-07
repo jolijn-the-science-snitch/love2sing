@@ -5,7 +5,6 @@ if (!adminpage()) {
     header('Location: ../index.php');
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,6 +33,8 @@ if (!adminpage()) {
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
             <a class="navbar-brand" href="#">Love2Sing</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" id="menuButton"></button>
+
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -65,6 +66,7 @@ if (!adminpage()) {
                             </li>
                             <li>
                                 <a href="uploadfoto.php" target="iframe" onClick="viewName(this,'componentsParent');">Foto's toevoegen fotoalbum</a>
+
                             </li>
                             <li>
                                 <a href="editPassword.php" target="iframe" onClick="viewName(this,'componentsParent');">Wachtwoord wijzigen</a>
@@ -83,6 +85,20 @@ if (!adminpage()) {
                             </li>
                             <li>
                                 <a href="contactformresults.php" target="iframe" onClick="viewName(this,'messageParent');">Contact formulier</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseText" data-parent="#exampleAccordion" id="textParent">
+                            <i class="fa fa-fw fa-pencil"></i>
+                            <span class="nav-link-text">Tekst wijzigen</span>
+                        </a>
+                        <ul class="sidenav-second-level collapse" id="collapseText">
+                            <li>
+                                <a href="guestbookposts.php" target="iframe" onClick="viewName(this,'textParent');">Homepagina</a>
+                            </li>
+                            <li>
+                                <a href="contactformresults.php" target="iframe" onClick="viewName(this,'textParent');">Login scherm</a>
                             </li>
                         </ul>
                     </li>
@@ -128,7 +144,17 @@ if (!adminpage()) {
                         else {
                             content += '<li class="breadcrumb-item"><i class="fa fa-fw fa-home"></i><span class="nav-link-text">Home</span></li>';
                         }
+<<<<<<< HEAD
+                        
+                        
                         document.getElementById("pageName").innerHTML = content;
+                        if ($(window).width() < 992) {
+                            $("#menuButton").click();
+                            $('.tooltip').remove();
+                        }                    
+=======
+                        document.getElementById("pageName").innerHTML = content;
+>>>>>>> nando
                     }
                 </script>
 

@@ -1,9 +1,11 @@
-<?php require 'includes/functions.php'; ?>
+<?php
+require 'includes/functions.php';
+?>
+
 
 <html lang="en">
 
     <head>
-
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
@@ -24,7 +26,7 @@
 
         <!-- Custom styles for this template -->
         <link href="css/creative.min.css" rel="stylesheet">
-        <link href="css/style.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">    
         <link href="css/index.css" rel="stylesheet">
 
        <script src="js/functions.js"></script>
@@ -46,31 +48,31 @@
                             <a class="nav-link js-scroll-trigger" href="#about">Over ons</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="#services">Fotoalbum</a>
+                            <a class="nav-link js-scroll-trigger" href="photoalbum.php">Fotoalbum</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="overzicht.php">Smoelenboek</a>
+                            <a class="nav-link js-scroll-trigger" href="#agenda">Agenda</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="guestbook.php">Gastenboek</a>
+                            <a class="nav-link js-scroll-trigger" href="viewGuestbook.php">Gastenboek</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
                         </li>
 
 
-                        <?php
-                        //dit gedeelte kunnen alleen de gebruikers zien
+                        <?php 
+                        //dit gedeelte kunnen alleen de gebruikers zien            
                         if(userpage()){
                             echo '<li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="music.php">Muziek</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="facemap.php">Smoelenboek</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="logout.php">Log uit</a>
-                        </li>';
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="facemap.php">Smoelenboek</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="logout.php">Log uit</a>
+                    </li>';
                         }
                         //dit gedeelte kan alleen de beheerder zien
                         elseif(adminpage()){
@@ -82,9 +84,6 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="admin/">Beheer</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="insert.php">Leden Toevoegen</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="logout.php">Log uit</a>
