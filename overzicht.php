@@ -1,11 +1,13 @@
 <?php
     require_once 'connect.php';
     $sql = 'SELECT * FROM facemap';
+    include 'header.php';
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="overzichtstyle.css">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
@@ -17,12 +19,12 @@
     <div class="row">
         <?php foreach ($pdo->query($sql) as $row) { ?>
             <div class="col-md-3 col-sm-12">
-                <div class="card" style="margin: 20px 0;">
+                <div class="card" style="margin: 80px 0;">
                     <img class="card-img-top" src="<?php echo '/KBS/love2sing/uploads/' . $row['facemapUrl']; ?>" alt="Image" style="height:190px;width:auto;">
                     <div class="card-body">
                         <h4 class="card-title"><?php echo $row['facemapName']; ?></h4>
-                        <p class="card-text">Ik ben een descriptie.</p>
-                        <a href="#" class="btn btn-primary">Knopje</a>
+                        <p class="card-text">Hallo ik houd van zingen</p>
+
                     </div>
                 </div>
             </div>
@@ -35,3 +37,6 @@
 </div>
 </body>
 </html>
+<?php
+    include 'footer.php';
+?>
