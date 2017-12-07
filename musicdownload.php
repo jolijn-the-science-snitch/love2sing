@@ -1,51 +1,49 @@
-<!---Start Includes--->
-<?php 
+<?php   
 include "header.php";
-include "functions.php";
-?>
+        ?>
 <!---End Includes--->
 
 <!---Start Getting data from database--->
 <?php
-    $stmt= $conn ->prepare("SELECT * FROM music JOIN componist ON music.componistId=componist.componistId");
+    $stmt= $db ->prepare("SELECT * FROM music JOIN componist ON music.componistId=componist.componistId");
     $stmt->execute();
     $stmt->setFetchMode(PDO::FETCH_ASSOC);
     ?>
-    <!---End Getting  data from database--->
+<!---End Getting  data from database--->
 
-    <!DOCTYPE html>
-    <html lang="en">
-
+<!DOCTYPE html>
+<html lang="en">
     <head>
         <meta charset="UFT-8">
         <title>Love2Sing</title>
         <!---Start Linking--->
-        <link href="css/style.css" rel="stylesheet" type="text/css">
+        <link href="style.css" rel="stylesheet" type="text/css">
         <!---End Linking--->
     </head>
 
     <body>
         <!---Start Main--->
         <!---Start Search Bar--->
-        <h1 class="title">Muziekbibliotheek
-            <div class="searchBar">
-                <form method="POST" action="functions.php">
-                    <input class="input" type="text" name="q" placeholder=" Zoek op muzieknaam of componist">
-                    <select class="select" name="column">
+            <h1 class="title">Muziekbibliotheek
+                <div class="searchBar">
+               <form class="form-wrapper cf" method="POST" action="functions.php">
+                <input class="input" type="text" name="q" placeholder="Zoek op muzieknaam of componist">
+                <select class="select" name="column">
                     <option class="option" value="0">Muzieknaam</option>
                     <option class="option" value="1">Componist</option>
                    </select>
-                    <input class="search" type="submit" name="submit" value="Zoeken">
+                   <input class="search" type="submit" name="submit" value="Zoeken">
                 </form>
-            </div>
-        </h1>
+                </div>
+            </h1>
         <br><br>
+     
         <!---End Search Bar--->
 
         <!---Start Box--->
         <div class="results">
             <div class="row">
-                <?php
+        <?php
                  if ($stmt->rowCount() > 0){
                     while($row = $stmt->fetch()){
                         echo '<div class="musicBox col">';
@@ -65,15 +63,14 @@ include "functions.php";
                     echo '</div>';
                     }
                 }
-                 ?>
+                
+                    ?>
+                </div>
             </div>
-        </div>
-        <!---End Box--->
+            <!---End Box--->
 
-        <!---End Main--->
-    </body>
+            <!---End Main--->
+
     <?php
-    include "footer.php";
-        ?>
-
-    </html>
+    require 'footer.php';
+    ?>

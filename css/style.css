@@ -56,3 +56,88 @@ button {
     max-width: 400px;
     margin: auto;
 }
+
+/*Styling music.php*/
+body {
+    background-color: #343a40;
+    margin: 0;
+    font-family: "Work Sans", sans-serif;
+    font-weight: 300;
+}
+
+.title {
+    color: grey;
+    margin-left: 40px;
+}
+
+h1 {
+    color: black;
+}
+
+header::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.searchBar {
+    border-radius: 10px;
+    float: right;
+    padding: 6px 10px;
+    margin-top: 8px;
+    margin-right: 16px;
+    background: #857991;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+}
+
+.search:hover {
+    background: #685e79;
+    border: 0px solid #685e79;
+}
+
+.search {
+    border-radius: 4px;
+    color: black;
+    border:  #bfb9c6;
+    background-color:  #bfb9c6;
+}
+
+.input {
+    border-radius: 4px;
+    width: 290px;
+}
+
+.select {
+    display: inline-block;
+    background-color: white;
+    border-radius: 4px;
+}
+
+
+.musicBox {
+    background-color: white;
+    border-radius: 25px;
+    margin: 20px;
+    padding: 35px;
+    color: black;
+}
+
+.musicBox h1 {
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #857991;
+}
+
+.noResult{
+    color: gray;
+    text-align: center;
+}
+
+select option {
+    margin: 40px;
+    background: #343a40;
+    color: #fff;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+}
