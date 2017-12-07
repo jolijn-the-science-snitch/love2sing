@@ -20,23 +20,16 @@ header::after{
 }
 
 .searchBar{
-    border-radius: 10px;
-  float: right;
-  padding: 6px 10px;
-  margin-top: 8px;
-  margin-right: 16px;
-  background: #857991;
-  font-size: 17px;
-  border: none;
-  cursor: pointer;
+    background: #857991;
+    font-size: 17px;
 }
-
 .search:hover {
   background: #ccc;
 }
 
 .search {
     border-radius: 4px;
+    width: 100%;
 }
 
 .input {

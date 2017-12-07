@@ -4,8 +4,9 @@ require 'header.php';
 <?php
 if (isset($_POST)) {
     foreach ($_POST as $key => $value) {
+        $content =  nl2br($value);
         $stmt = $db->prepare("UPDATE text SET text = :text WHERE id = :id");
-        $stmt->bindParam(':text', $value);
+        $stmt->bindParam(':text',$content);
         $stmt->bindParam(':id', $key);
         $stmt->execute();
     }
