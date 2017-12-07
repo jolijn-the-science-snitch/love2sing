@@ -2,6 +2,16 @@
 require 'header.php';
 ?>
 <?php
+if (isset($_POST)) {
+    foreach ($_POST as $key => $value) {
+        $stmt = $db->prepare("UPDATE text SET text = :text WHERE id = :id");
+        $stmt->bindParam(':text', $value);
+        $stmt->bindParam(':id', $key);
+        $stmt->execute();
+    }
+}
+
+
 $stmt = $db->prepare("SELECT * FROM text");
 $stmt->execute();
 $script = "";
@@ -15,7 +25,7 @@ while ($row = $stmt->fetch())
     else {
         $text[$row[0]] = $row[1];
     }
-    
+
 }
 ?>
 <!-- Navigation -->
@@ -157,12 +167,12 @@ while ($row = $stmt->fetch())
                 <div class="row">
                     <div class="col align-self-center">
                         <p class="text-center"><?= $text[13] ?></p>
-                        
+
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2437.8307614435207!2d5.60690031531079!3d52.33721625751214!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c6316035c49a25%3A0x253fdf15a0417bbd!2sMultifunctioneel+zalen-+en+vergadercentrum+&#39;de+Roef&#39;!5e0!3m2!1sen!2snl!4v1511981850025"  frameborder="0" id="googleMapsIframe" style="border:0" allowfullscreen></iframe>
                     </div>
                 </div>
 
-                
+
 
             </div>
         </div>
@@ -171,6 +181,6 @@ while ($row = $stmt->fetch())
 
 
 <?php
-require 'footer.php';
+    require 'footer.php';
 ?>
 <?= $script ?>

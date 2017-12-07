@@ -38,7 +38,8 @@ require 'header.php';
     </div>
 </section>
 
-<section id="services">
+<section id="agenda">
+
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
@@ -157,3 +158,4 @@ require 'header.php';
 <?php
 require 'footer.php';
 ?>
+

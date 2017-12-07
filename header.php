@@ -6,7 +6,6 @@ require 'includes/functions.php';
 <html lang="en">
 
     <head>
-
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
@@ -49,10 +48,13 @@ require 'includes/functions.php';
                             <a class="nav-link js-scroll-trigger" href="#about">Over ons</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="#services">Fotoalbum</a>
+                            <a class="nav-link js-scroll-trigger" href="photoalbum.php">Fotoalbum</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="guestbook.php">Gastenboek</a>
+                            <a class="nav-link js-scroll-trigger" href="#agenda">Agenda</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="viewGuestbook.php">Gastenboek</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
