@@ -4,39 +4,32 @@ require 'header.php';
 <!-- Styling -->
 <style type="text/css">
     .thumbnails {
-
         height: 80px;
         margin-bottom: 50px;
         overflow: hidden;
         transition: .5s all;
         left: 0px;
         position: relative;
-
     }    
-
     .thumbnails img {
         height: 80px;
         border: 2px solid #857991;
         padding: 1px;
         margin: 0 5px 0 5px;
         width: 140px;
-
+        transition: .5s all;
     }
-
     .thumbnails ul li {
         float: left;
     }
     .thumbnails ul {
-
         list-style: none;
         margin: 0px;
-
     }
     .thumbnails img:hover {
         border: 2px solid #685e79;
         cursor:pointer;
     }
-
     .preview img {
         width: 100%;
     }
@@ -47,8 +40,6 @@ require 'header.php';
         background: #685e79;
         color: white;
     }
-
-
     .preview h2 {
         margin-top: 10px;
     }
@@ -68,6 +59,9 @@ require 'header.php';
     #slideshow {
         max-width: calc(140px * 8);
         overflow: hidden;
+    }
+    .a-img:focus img {
+        filter: grayscale(1);
     }
 </style>
 
@@ -91,7 +85,6 @@ require 'header.php';
                         $user = "admin";
                         $pass = "admin";
                         $pdo = new PDO($db, $user, $pass);
-
                         //get images from database
                         $query = $pdo->query("SELECT * FROM photoalbum ORDER BY photoalbumId DESC");
                         $preview = "Geen foto's om weer te geven";
@@ -104,10 +97,9 @@ require 'header.php';
                                     $preview = '<img name="preview" src="' . $imgSrc . '" alt=""/>';
                                     $h2 = '<h2 id="text">' . $description . '</h2>';
                                 }
-                                echo '<li><img style="left: 0px;" onclick="preview.src=img' . $i . '.src; document.getElementById(\'text\').innerHTML=img' . $i . '.alt" name="img' . $i . '" id="img' . $i . '" src="' . $imgSrc . '" alt="' . $description . '" /></li>';
+                                echo '<li><a class="a-img" id="imga' . $i . '" href="#"><img id="img' . $i . '" style="left: 0px;" onclick="preview.src=img' . $i . '.src; document.getElementById(\'text\').innerHTML=img' . $i . '.alt" name="img' . $i . '"  src="' . $imgSrc . '" alt="' . $description . '" /></a></li>';
                                 $i++;
                             }
-
                             echo "<style>.thumbnails { width: calc(150px * " . $i . " + 150px) };</style>";
                         }
                         ?>
@@ -139,11 +131,12 @@ require 'header.php';
             document.getElementById("slides").style.left = left + "px";
             move -= direction;
             var imgid = "#img" + move * -1;
+            var imgaid = "#imga" + move * -1;
             //alert(imgid);
             $(imgid).click();
+            $(imgaid).click();
         }
         if (move == -<?= $i ?> || move == 1) {
-
         }
     }
 </script>
