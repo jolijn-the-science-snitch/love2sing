@@ -25,6 +25,12 @@
     width: 100%;
     height: 300px;
 } 
+
+#messagecount {
+    left: 28px!important;
+    font-size: 11px!important;
+}
+
 #adminiframe {
     width: calc(100% - 30px);
     height: calc(100% - 200px);

@@ -105,7 +105,7 @@ require 'header.php';
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <form id="contactForm" name="sentMessage" method="post" action="mail.php" target="contact" onsubmit="contactForm('Bericht versturen...','none',true,'<sendMessageButton></sendMessageButton>')">
+                <form id="contactForm" name="sentMessage" method="post" action="mail.php" target="contact" onsubmit="contactForm('Bericht versturen...','none',true,'sendMessageButton')">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">

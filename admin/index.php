@@ -81,6 +81,9 @@ if (!adminpage()) {
                         </a>
                         <ul class="sidenav-second-level collapse" id="collapseMessages">
                             <li>
+                                <a id="overview" href="overview.php" target="iframe" onClick="viewName(this,'messageParent');">Overzicht</a>
+                            </li>
+                            <li>
                                 <a href="guestbookposts.php" target="iframe" onClick="viewName(this,'messageParent');">Gastenboek</a>
                             </li>
                             <li>
@@ -115,7 +118,69 @@ if (!adminpage()) {
 </li>
 </ul>
 -->
+
+                <?php 
+                $stmt = $db->prepare("SELECT * FROM guestbook g CROSS JOIN contact c WHERE g.guestbookRead = 0 OR c.contactRead = 0 ORDER BY g.guestbookDate DESC, c.date DESC");
+                $stmt->execute();
+                
+                $stmt2 = $db->prepare("SELECT * FROM contact WHERE contactRead = 0 ORDER BY date DESC");
+                $stmt2->execute();
+                
+                $content = "";
+                $i = 0;
+                while($row = $stmt->fetch()){
+                    if ($i < 6) {
+                    $content .= '<a class="dropdown-item" href="overview.php?id='.$row["guestbookId"].'" target="iframe" onClick="viewName(document.getElementById(\'overview\'),\'messageParent\');">
+                                <span class="text-warning">
+                                    <strong>
+                                        </i>Nieuw gastenboek bericht</strong>
+                                </span>
+                                <span class="small float-right text-muted">'.$row["guestbookDate"].'</span>
+                                <div class="dropdown-message small"><h5>'.$row["guestbookTitle"].'</h5>'.$row["guestbookMessage"].'</div>
+                            </a>';
+                    $i++;
+                    }
+                }
+                
+                
+                $x = 0;
+                while($row = $stmt2->fetch()){
+                    if ($x < 3) {
+                    $content .= '<a class="dropdown-item" href="overview.php?id='.$row["contactid"].'" target="iframe" onClick="viewName(document.getElementById(\'overview\'),\'messageParent\');">
+                                <span class="text-warning">
+                                    <strong>
+                                        </i>Nieuw contact bericht</strong>
+                                </span>
+                                <span class="small float-right text-muted">'.$row["date"].'</span>
+                                <div class="dropdown-message small"><h5>'.$row["email"].'</h5>'.$row["message"].'</div>
+                            </a>';
+                    $x++;
+                    }
+                }
+                
+                
+                $count = $stmt->rowCount() + $stmt2->rowCount();
+                ?>
                 <ul class="navbar-nav ml-auto">
+
+                    <li class="nav-item dropdown show">
+                        <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <i class="fa fa-fw fa-bell"></i>
+                            <span class="d-lg-none">Meldingen
+                                <span class="badge badge-pill badge-warning"><?= $count ?> berichten</span>
+                            </span>
+                            <span class="indicator text-warning d-none d-lg-block" id="messagecount">
+                                <?= $count ?>
+                            </span>
+                        </a>
+                        <div class="dropdown-menu show"style="right: 0; left: auto;" aria-labelledby="alertsDropdown">
+                            <h6 class="dropdown-header">New Alerts:</h6>
+                            <div class="dropdown-divider"></div>
+                            <?= $content ?>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item small" href="contactformresults.php" target="iframe" onClick="viewName(this,'messageParent');">Overzicht</a>
+                        </div>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
                             <i class="fa fa-fw fa-sign-out"></i>Terug naar website</a>
@@ -144,17 +209,13 @@ if (!adminpage()) {
                         else {
                             content += '<li class="breadcrumb-item"><i class="fa fa-fw fa-home"></i><span class="nav-link-text">Home</span></li>';
                         }
-<<<<<<< HEAD
-                        
-                        
+
+
                         document.getElementById("pageName").innerHTML = content;
                         if ($(window).width() < 992) {
                             $("#menuButton").click();
                             $('.tooltip').remove();
                         }                    
-=======
-                        document.getElementById("pageName").innerHTML = content;
->>>>>>> nando
                     }
                 </script>
 
