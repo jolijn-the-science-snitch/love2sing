@@ -51,6 +51,7 @@ class DbHelper{
                 }
 
                 header('Location: index.php');
+
             }
         }
         else {
@@ -103,7 +104,16 @@ class DbHelper{
         $statement->bindParam(':password', $_POST['password'], PDO::PARAM_STR);
 
         $statement->execute();
+
+        if ($statement->rowCount() == 1) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
     }
+
+
 
     function returndb() {
         return $this-> connect;
@@ -197,15 +207,15 @@ function upload($file,$type,$name,$fileName = null) {
 
 function fileUpload($file,$type) {    
     if ($file["error"] == 4) {
-        return array(5,null);
+        return array(null,5);
     }
     else {
         $target_dir = "uploads/";
-        
+
         $uploadOk = 1;
         $fileType = pathinfo(basename($file["name"]),PATHINFO_EXTENSION);
         $result = "";
-                
+
         while (true) {
             $fileName = $fileType ."-". date("Y-m-d-h-i-s-u") . "-" . rand(1000,9999);
             $target_file = $target_dir . $fileName . "." . $fileType;
@@ -213,11 +223,11 @@ function fileUpload($file,$type) {
                 break;
             }
         }
-        
+
         if ($file["size"] > 2500000) {
             $uploadOk = 0;
             $result .= "3";
-            
+
             message("warning", $file["name"] . " is niet opgeslagen", "Het bestand " . $file["name"] . " is te groot ". $file["size"] / 1000000 . "MB, max 2.5MB"); 
             // check of het bestand te groot is, zo ja: foutcode 3
         }
@@ -225,7 +235,7 @@ function fileUpload($file,$type) {
             if(!in_array($fileType,$type)) {
                 $uploadOk = 0;
                 $result .= "4";
-                
+
                 message("warning", $file["name"]. " is niet opgeslagen", "Het bestand " . $file["name"] . " is geen ".implode (", ", $type)); 
                 // check of het bestand geen $type type is, zo ja: foutcode 4
             }
@@ -233,7 +243,7 @@ function fileUpload($file,$type) {
         elseif ($type != $fileType) {
             $uploadOk = 0;
             $result .= "4";
-            
+
             message("warning", $file["name"]. " is niet opgeslagen", "Het bestand " . $file["name"] . " is geen ".$type); 
             // check of het bestand geen $type type is, zo ja: foutcode 4
         }
@@ -245,13 +255,13 @@ function fileUpload($file,$type) {
         else {
             if (move_uploaded_file($file["tmp_name"], $target_file)) {
                 message("success", $file["name"]. " is geupload", "Het bestand " .$file["name"] . " is succesvol opgeslagen op de server"); 
-                
+
                 return array($target_file,1);       
                 // bestand is succesvol geupload
             }
             else {
                 message("danger", $file["name"]." is niet opgeslagen", "Er is een technische fout opgetreden"); 
-                        
+
                 return array($target_file,0);
                 // er is een probleem opgetreden met uploaden
             }

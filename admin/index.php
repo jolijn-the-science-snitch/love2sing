@@ -6,7 +6,6 @@ if (!adminpage()) {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,7 +34,7 @@ if (!adminpage()) {
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
             <a class="navbar-brand" href="#">Love2Sing</a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" id="menuButton">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -65,11 +64,12 @@ if (!adminpage()) {
                                 <a href="adduser.php" target="iframe" onClick="viewName(this,'componentsParent');">Persoon toevoegen smoelenboek</a>
                             </li>
                             <li>
-                                <a href="addphoto.php" target="iframe" onClick="viewName(this,'componentsParent');">Foto's toevoegen fotoalbum</a>
+                                <a href="uploadfoto.php" target="iframe" onClick="viewName(this,'componentsParent');">Foto's toevoegen fotoalbum</a>
                             </li>
                             <li>
                                 <a href="editPassword.php" target="iframe" onClick="viewName(this,'componentsParent');">Wachtwoord wijzigen</a>
                             </li>
+                            
                         </ul>
                     </li>
 
@@ -87,7 +87,21 @@ if (!adminpage()) {
                             </li>
                         </ul>
                     </li>
-
+                    
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseText" data-parent="#exampleAccordion" id="textParent">
+                            <i class="fa fa-fw fa-pencil"></i>
+                            <span class="nav-link-text">Tekst wijzigen</span>
+                        </a>
+                        <ul class="sidenav-second-level collapse" id="collapseText">
+                            <li>
+                                <a href="guestbookposts.php" target="iframe" onClick="viewName(this,'textParent');">Homepagina</a>
+                            </li>
+                            <li>
+                                <a href="contactformresults.php" target="iframe" onClick="viewName(this,'textParent');">Login scherm</a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
 
 
@@ -129,7 +143,13 @@ if (!adminpage()) {
                         else {
                             content += '<li class="breadcrumb-item"><i class="fa fa-fw fa-home"></i><span class="nav-link-text">Home</span></li>';
                         }
+                        
+                        
                         document.getElementById("pageName").innerHTML = content;
+                        if ($(window).width() < 992) {
+                            $("#menuButton").click();
+                            $('.tooltip').remove();
+                        }                    
                     }
                 </script>
 
