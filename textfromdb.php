@@ -4,7 +4,7 @@ require 'header.php';
 <?php
 if (isset($_POST)) {
     foreach ($_POST as $key => $value) {
-        $content =  nl2br($value);
+        $content = $value;
         $stmt = $db->prepare("UPDATE text SET text = :text WHERE id = :id");
         $stmt->bindParam(':text',$content);
         $stmt->bindParam(':id', $key);
@@ -24,7 +24,7 @@ while ($row = $stmt->fetch())
         $script = '<script>$("a").removeAttr("href"); $("a").removeAttr("onclick"); </script>';
     }
     else {
-        $text[$row[0]] = $row[1];
+        $text[$row[0]] = nl2br($row[1]);
     }
 
 }

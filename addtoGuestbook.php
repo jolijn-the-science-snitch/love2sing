@@ -54,7 +54,7 @@ if (isset($_POST['verzenden'])) {
         echo "<p class='error'>Vul alstublieft een bericht in</p>";
         $valid = false;
     }
-    $date= date("Y-m-d");
+    $date= date("Y-m-d h:i:s");
     //automatisch eerste letter hoofdletter maken
     $title= ucfirst(strtolower($title));
     $gbmessage = ucfirst(strtolower($gbmessage));

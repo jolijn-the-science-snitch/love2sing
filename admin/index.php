@@ -47,9 +47,10 @@ if (!adminpage()) {
                         </a>
                     </li>
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-                        <a class="nav-link" href="calendar.php" target="iframe" onClick="viewName(this);">
+                        <a class="nav-link" href="https://calendar.google.com" target="_blank" >
                             <i class="fa fa-fw fa fa-calendar"></i>
                             <span class="nav-link-text">Kalender</span>
+                            <i class="fa fa-external-link floatright" aria-hidden="true"></i>
                         </a>
                     </li>
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
@@ -81,13 +82,10 @@ if (!adminpage()) {
                         </a>
                         <ul class="sidenav-second-level collapse" id="collapseMessages">
                             <li>
-                                <a id="overview" href="overview.php" target="iframe" onClick="viewName(this,'messageParent');">Overzicht</a>
+                                <a href="guestbookposts.php" target="iframe" onClick="viewName(this,'messageParent');" id="guestbook">Gastenboek</a>
                             </li>
                             <li>
-                                <a href="guestbookposts.php" target="iframe" onClick="viewName(this,'messageParent');">Gastenboek</a>
-                            </li>
-                            <li>
-                                <a href="contactformresults.php" target="iframe" onClick="viewName(this,'messageParent');">Contact formulier</a>
+                                <a href="contactformposts.php" target="iframe" onClick="viewName(this,'messageParent');" id="contactform">Contact formulier</a>
                             </li>
                         </ul>
                     </li>
@@ -120,65 +118,83 @@ if (!adminpage()) {
 -->
 
                 <?php 
-                $stmt = $db->prepare("SELECT * FROM guestbook g CROSS JOIN contact c WHERE g.guestbookRead = 0 OR c.contactRead = 0 ORDER BY g.guestbookDate DESC, c.date DESC");
+                $stmt = $db->prepare("SELECT * FROM ( (SELECT c.contactid AS id, c.email AS title, c.message AS content, c.date AS date, 'contact' as tableName, c.name AS name FROM contact c WHERE c.contactRead = 0) UNION ALL (SELECT g.guestbookId AS id, g.guestbookTitle AS title, g.guestbookMessage AS content, g.guestbookDate AS date, 'gastenboek' as tableName , 'null' AS name FROM guestbook g WHERE g.guestbookRead = 0) ) results ORDER BY date DESC ");
                 $stmt->execute();
-                
-                $stmt2 = $db->prepare("SELECT * FROM contact WHERE contactRead = 0 ORDER BY date DESC");
-                $stmt2->execute();
-                
-                $content = "";
+
+                $content = '';
                 $i = 0;
                 while($row = $stmt->fetch()){
-                    if ($i < 6) {
-                    $content .= '<a class="dropdown-item" href="overview.php?id='.$row["guestbookId"].'" target="iframe" onClick="viewName(document.getElementById(\'overview\'),\'messageParent\');">
+                    if ($i < 3) {
+                        if (strlen($row["content"]) > 250) {
+                            $row["content"] = substr($row["content"], 0, 250). "... <span class='small text-info'>klik voor volledig bericht</span>";
+                        }
+                        if ($row["tableName"] == "gastenboek") {
+                            $content .= '<a class="dropdown-item" href="guestbookposts.php?id='.$row["id"].'" target="iframe" onClick="viewName(document.getElementById(\'guestbook\'),\'messageParent\');">
                                 <span class="text-warning">
                                     <strong>
-                                        </i>Nieuw gastenboek bericht</strong>
-                                </span>
-                                <span class="small float-right text-muted">'.$row["guestbookDate"].'</span>
-                                <div class="dropdown-message small"><h5>'.$row["guestbookTitle"].'</h5>'.$row["guestbookMessage"].'</div>
-                            </a>';
-                    $i++;
-                    }
-                }
-                
-                
-                $x = 0;
-                while($row = $stmt2->fetch()){
-                    if ($x < 3) {
-                    $content .= '<a class="dropdown-item" href="overview.php?id='.$row["contactid"].'" target="iframe" onClick="viewName(document.getElementById(\'overview\'),\'messageParent\');">
-                                <span class="text-warning">
-                                    <strong>
-                                        </i>Nieuw contact bericht</strong>
+                                        Nieuw '.$row["tableName"].' bericht</strong>
                                 </span>
                                 <span class="small float-right text-muted">'.$row["date"].'</span>
-                                <div class="dropdown-message small"><h5>'.$row["email"].'</h5>'.$row["message"].'</div>
+                                <div class="dropdown-message small"><h5>'.$row["title"].'</h5>'.$row["content"].'</div>
                             </a>';
-                    $x++;
+
+                        }
+                        else {
+                            $content .= '<a class="dropdown-item" href="contactformposts.php?id='.$row["id"].'" target="iframe" onClick="viewName(document.getElementById(\'contactform\'),\'messageParent\');">
+                                <span class="text-warning">
+                                    <strong>
+                                        Nieuw '.$row["tableName"].' bericht</strong>
+                                </span>
+                                <span class="small float-right text-muted">'.$row["date"].'</span>
+                                <div class="dropdown-message small"><h5>Van:  '.$row["name"].'</h5><b>Bericht:</b><br>'.$row["content"].'<br>
+                                <b>Email adres: </b>'.$row["title"].'</div>
+                            </a>';
+
+                        }
+                        $i++;
                     }
                 }
-                
-                
-                $count = $stmt->rowCount() + $stmt2->rowCount();
+
+                $count = $stmt->rowCount(); 
+                if ($count == 0) {
+                    $count = "";
+                }
                 ?>
                 <ul class="navbar-nav ml-auto">
 
-                    <li class="nav-item dropdown show">
+                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             <i class="fa fa-fw fa-bell"></i>
-                            <span class="d-lg-none">Meldingen
-                                <span class="badge badge-pill badge-warning"><?= $count ?> berichten</span>
-                            </span>
+
+                            <?php 
+                            if ($count != 0) {
+                                echo '<span class="d-lg-none">Meldingen ';
+                                echo '<span class="badge badge-pill badge-warning">'. $count.' berichten</span>';   
+                                echo '</span>';
+                            }
+                            else {
+                                echo '<span class="d-lg-none">Meldingen ';
+                                echo '<span class="badge badge-pill badge-info">Geen nieuwe berichten</span>';   
+                                echo '</span>';
+                            }
+                            ?>
+
+
                             <span class="indicator text-warning d-none d-lg-block" id="messagecount">
                                 <?= $count ?>
                             </span>
                         </a>
-                        <div class="dropdown-menu show"style="right: 0; left: auto;" aria-labelledby="alertsDropdown">
-                            <h6 class="dropdown-header">New Alerts:</h6>
-                            <div class="dropdown-divider"></div>
-                            <?= $content ?>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item small" href="contactformresults.php" target="iframe" onClick="viewName(this,'messageParent');">Overzicht</a>
+                        <div class="dropdown-menu  messageview" aria-labelledby="alertsDropdown">
+                            <?php 
+    if ($count != 0) {
+        echo '<h6 class="dropdown-header">Nieuwe berichten:</h6>';
+        echo '<div class="dropdown-divider"></div>';
+        echo  $content;
+    }
+    else {
+        echo '<h6 class="dropdown-header">Geen nieuwe berichten</h6>';
+    }
+                            ?>
                         </div>
                     </li>
                     <li class="nav-item">

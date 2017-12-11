@@ -9,7 +9,13 @@ class DbHelper{
 
     //maakt de DB connectie aan
     public function __construct(){
-        $this -> connect = new PDO('mysql:host=localhost; dbname=love2sing;','root','');
+        try {
+            $this -> connect = new PDO('mysql:host=localhost; dbname=love2sing;','root','');
+        }
+        catch (PDOException $Exception) {
+            echo '<div  class="alert alert-danger fade in message"><strong>Database error </strong>De database verbinding is mislukt</div>';
+            exit;
+        }
     } 
 
 

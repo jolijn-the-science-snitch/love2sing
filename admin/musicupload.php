@@ -1,5 +1,5 @@
 <?php
-    include("adminpageheader.php"); 
+include("adminpageheader.php"); 
 $formStyle = ""; // formulier zichtbaar
 $message = ""; // melding is leeg
 $uploadMoreStyle = 'style="display: none;"'; // upload meer button onzichtbaar
@@ -38,7 +38,7 @@ if (isset($_POST["title"]) && isset($_POST["componist"]) && isset($_POST["pitch"
 
 
             if($stmt->rowCount() == 1) {
-                message("success", "Componist opgeslagen", "'.$componistName.' is succesvol toegevoegd");
+                message("success", "Componist opgeslagen", $componistName." is succesvol toegevoegd");
                 $stmt = $db->prepare("SELECT componistId FROM componist WHERE componistName = :componist");
                 $stmt->bindParam(':componist', $componist);
                 $componist = $_POST["componist"];
@@ -101,7 +101,7 @@ if (isset($_POST["title"]) && isset($_POST["componist"]) && isset($_POST["pitch"
         else {
             message("info", "Er is geen mp3 bijgevoegd", "Dit muziekstuk heeft geen mp3");
         }
-        
+
         if (isset($_FILES["pdf"]["name"])) {
             $result = fileUpload($_FILES["pdf"],"pdf");
             if ($result[1] == 5) {
@@ -122,7 +122,7 @@ if (isset($_POST["title"]) && isset($_POST["componist"]) && isset($_POST["pitch"
             // na succesvol uitvoeren van query een meling weergeven, het uploadformulier onzichtbaar maken en de upload meer knop zichtbaar maken
         }
         else {
-           message("danger", "Muziekstuk is niet opgeslagen", "Het muziekstuk is niet toegevoegd");
+            message("danger", "Muziekstuk is niet opgeslagen", "Het muziekstuk is niet toegevoegd");
             // bij het mislukken van de query een foutmelding weergeven
         }
     } 
@@ -166,13 +166,13 @@ while ($row = $stmt2->fetch())
                             <p class="help-block text-danger"></p>
                         </div>
 
-                       <div class="form-group">
+                        <div class="form-group">
                             Pitch <span class="glyphicon glyphicon-ok"></span>
                             <input class="form-control" id="pitch" name="pitch" type="text" placeholder="pitch" required data-validation-required-message="Vul a.u.b een titel in">
                             <p class="help-block text-danger"></p>
                         </div>
 
-                       
+
                         <div id="addcomponist" style="display: none;"> 
                             <h3>Componist</h3>
                             <div class="form-group">
@@ -195,7 +195,7 @@ while ($row = $stmt2->fetch())
                             <p class="help-block text-danger"></p>
                         </div>
 
-                        
+
                         <h3>Bladmuziek</h3>
                         <div class="form-group">
                             PDF bestand
@@ -227,22 +227,22 @@ while ($row = $stmt2->fetch())
         </form>
 
         <script>
+            var addcomponist = false;
             function addComponist() {
                 var messageobj =  document.getElementById('message');
                 messageobj.innerHTML = "";
                 document.getElementById('addcomponist').style.display = 'block';
                 document.getElementById('componistName').value = document.getElementById('componist').value;
                 document.getElementById('componistinput').style.display = 'none';
+                addcomponist = true;
             }
-        </script>
 
-        <script>
             var status = 1;
             function checkdatalist(i) {
                 messageCount = 0;
                 var val=$("#componist").val();
                 var obj=$("#componistlist").find("option[value='"+val+"']")
-                
+
                 var required = true;
                 var messageobj =  document.getElementById('message');
 
@@ -262,10 +262,13 @@ while ($row = $stmt2->fetch())
                         required = true; // 
                         status = 0;
                         if (i == 1) {
-                            message("danger", "Deze componist is onbekend", 'Klik <a href="javascript:addComponist()" class="alert-link">hier</a> om de componist aan te maken'); 
+                            if (addcomponist == false) {
+                                message("danger", "Deze componist is onbekend", 'Klik <a href="javascript:addComponist()" class="alert-link">hier</a> om de componist aan te maken'); 
+                            }
                         }
                         else {
                             message("info", "Deze componist is onbekend", 'Klik <a href="javascript:addComponist()" class="alert-link">hier</a> om de componist aan te maken'); 
+
                         }                
                     }
                 }
