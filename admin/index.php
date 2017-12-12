@@ -75,6 +75,28 @@ if (!adminpage()) {
                         </ul>
                     </li>
 
+                   <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseOverview" data-parent="#exampleAccordion" id="overviewParent">
+                            <i class="fa fa-fw fa-table"></i>
+                            <span class="nav-link-text">Overzicht</span>
+                        </a>
+                        <ul class="sidenav-second-level collapse" id="collapseOverview">
+                            <li>
+                                <a href="musicuploads.php" target="iframe" onClick="viewName(this,'overviewParent');">Muziek</a>
+                            </li>
+                            <li>
+                                <a href="addmembers.php" target="iframe" onClick="viewName(this,'overviewParent');">Smoelenboek</a>
+                            </li>
+                            <li>
+                                <a href="uploadfoto.php" target="iframe" onClick="viewName(this,'overviewParent');">Fotoalbum</a>
+
+                            </li>
+                            <li>
+                                <a href="editPassword.php" target="iframe" onClick="viewName(this,'overviewParent');">Gebruikers</a>
+                            </li>
+                        </ul>
+                    </li>
+                   
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
                         <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMessages" data-parent="#exampleAccordion" id="messageParent">
                             <i class="fa fa-fw fa-envelope"></i>

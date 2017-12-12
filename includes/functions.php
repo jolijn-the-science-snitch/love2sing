@@ -156,7 +156,7 @@ function upload($file,$type,$name,$fileName = null) {
             $result .= "2";           
             // check of er al een bestand is met dezelfde naam, zo ja: foutcode 2
         }
-        if ($file["size"] > 2500000) {
+        if ($file["size"] > 100000000) {
             $uploadOk = 0;
             $result .= "3";
             // check of het bestand te groot is, zo ja: foutcode 3
@@ -234,12 +234,12 @@ function fileUpload($file,$type) {
         }
 
 
-        if ($file["size"] > 2500000) {
+        if ($file["size"] > 10000000) {
             $uploadOk = 0;
             $result .= "3";
 
 
-            message("warning", $file["name"] . " is niet opgeslagen", "Het bestand " . $file["name"] . " is te groot ". $file["size"] / 1000000 . "MB, max 2.5MB"); 
+            message("warning", $file["name"] . " is niet opgeslagen", "Het bestand " . $file["name"] . " is te groot ". $file["size"] / 1000000 . "MB, max 10MB"); 
             // check of het bestand te groot is, zo ja: foutcode 3
         }
         if (is_array($type)) {
