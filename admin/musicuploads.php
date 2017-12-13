@@ -49,19 +49,19 @@ while ($row = $stmt->fetch()) {
     $table .= '<tr onclick="window.location.href = \'musicupload.php?id='.$row["musicId"].'\';">';
     $table .= '<td>'.$row["musicName"].'</td>';
     $table .= '<td>'.$row["componistName"].'</td>';
-    $table .= '<td>'.$row["musicPitch"].'</td>';  
+    $table .= '<td class="invisibleOnPhone" >'.$row["musicPitch"].'</td>';  
     if ($row["musicMp3"] != null ) {
-        $table .= '<td><a class="text-info" href="../'.$row["musicMp3"].'" download>Download</td>';
+        $table .= '<td class="invisibleOnPhone"><a class="text-info" href="../'.$row["musicMp3"].'" download>Download</td>';
     }
     else {
-        $table .= '<td><p class="text-warning small">geen</p></td>';
+        $table .= '<td class="invisibleOnPhone"><p class="text-warning small">geen</p></td>';
     }
 
     if ($row["musicPdf"] != null ) {
-        $table .= '<td><a class="text-info" href="../'.$row["musicPdf"].'" download>Download</td>';
+        $table .= '<td class="invisibleOnPhone"><a class="text-info" href="../'.$row["musicPdf"].'" download>Download</td>';
     }
     else {
-        $table .= '<td><p class="text-warning small">geen</p></td>';
+        $table .= '<td class="invisibleOnPhone"><p class="text-warning small">geen</p></td>';
     }
 
     $table .= '<td>';
@@ -76,7 +76,7 @@ while ($row = $stmt->fetch()) {
 ?>
 <style>
     .btn {
-        margin-bottom: 5px;
+        margin-bottom: 10px;
     }
     tr {
         cursor: pointer;
@@ -94,9 +94,9 @@ while ($row = $stmt->fetch()) {
             <tr>
                 <th>Titel</th>
                 <th>Componist</th>
-                <th>Pitch</th>
-                <th>MP3</th>
-                <th>PDF</th>
+                <th class="invisibleOnPhone">Pitch</th>
+                <th class="invisibleOnPhone">MP3</th>
+                <th class="invisibleOnPhone">PDF</th>
                 <th>Actie</th>
             </tr>
         </thead>

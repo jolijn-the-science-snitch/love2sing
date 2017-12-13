@@ -85,7 +85,7 @@ if (!adminpage()) {
                                 <a href="musicuploads.php" target="iframe" onClick="viewName(this,'overviewParent');">Muziek</a>
                             </li>
                             <li>
-                                <a href="addmembers.php" target="iframe" onClick="viewName(this,'overviewParent');">Smoelenboek</a>
+                                <a href="facemapoverview.php" target="iframe" onClick="viewName(this,'overviewParent');">Smoelenboek</a>
                             </li>
                             <li>
                                 <a href="uploadfoto.php" target="iframe" onClick="viewName(this,'overviewParent');">Fotoalbum</a>

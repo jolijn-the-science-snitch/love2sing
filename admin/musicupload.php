@@ -235,7 +235,6 @@ while ($row = $stmt2->fetch())
     $componistDatalist .= '<option value="'.$row["componistName"].'" />';
 }
 ?>
-
 <section id="musicupload">
     <div class="container">
         <div class="row">
@@ -379,11 +378,7 @@ while ($row = $stmt2->fetch())
                 componistDate.required = required;
             }
 
-            function edit (element,name) {
-                document.getElementById(name).style.display = "block";
-                element.style.display = "none";
-                // als er op de wijzigen knop word geklik knop onzichtbaar maken en bestands input zichtbaar maken
-            }
+
         </script>
 
     </div>
