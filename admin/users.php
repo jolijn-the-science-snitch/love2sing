@@ -63,7 +63,7 @@ while ($row = $stmt->fetch()) {
         background: #f4f5f5;
     }
 </style>
-<h2>Smoelenboek</h2>
+<h2>Gebruikers</h2>
 <div id="message"></div>
 <div class="table-responsive" id="contactTable">
     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

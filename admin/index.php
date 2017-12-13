@@ -69,9 +69,6 @@ if (!adminpage()) {
                                 <a href="uploadfoto.php" target="iframe" onClick="viewName(this,'componentsParent');">Foto's toevoegen fotoalbum</a>
 
                             </li>
-                            <li>
-                                <a href="editPassword.php" target="iframe" onClick="viewName(this,'componentsParent');">Wachtwoord wijzigen</a>
-                            </li>
                         </ul>
                     </li>
 
@@ -120,9 +117,7 @@ if (!adminpage()) {
                             <li>
                                 <a href="../textfromdb.php" target="iframe" onClick="viewName(this,'textParent');">Homepagina</a>
                             </li>
-                            <li>
-                                <a href="contactformresults.php" target="iframe" onClick="viewName(this,'textParent');">Login scherm</a>
-                            </li>
+                            
                         </ul>
                     </li>
 

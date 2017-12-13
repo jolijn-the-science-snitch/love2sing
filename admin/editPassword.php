@@ -4,6 +4,8 @@ $view = new DbHelper();
 $formstyle = "";
 $buttonstyle = "style='display: none;'";
 $username = "huidige account";
+$back = "";
+
 
 if (isset($_GET["id"])) {
     $id = filter_input(INPUT_GET, "id");
@@ -14,6 +16,9 @@ if (isset($_GET["id"])) {
     {
         $username = $row["username"];
     }
+    
+    $back = ' <div class="mailback"><a href="users.php"><i class="fa fa-arrow-left" aria-hidden="true"></i> Terug</a></div>';
+    
 }
 else {
     $id = null;
@@ -40,6 +45,7 @@ if(isset ($_REQUEST['editPassword'])){
         <div class="row">
             <div class="col-lg-12">
                 <h2 class="section-heading text-uppercase">Wachtwoord veranderen</h2>
+                <?= $back ?>
             </div>
         </div>
 
