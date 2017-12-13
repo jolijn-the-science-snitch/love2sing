@@ -3,12 +3,26 @@ include("adminpageheader.php");
 $view = new DbHelper();
 $formstyle = "";
 $buttonstyle = "style='display: none;'";
+$username = "huidige account";
 
+if (isset($_GET["id"])) {
+    $id = filter_input(INPUT_GET, "id");
+    $stmt = $db->prepare("SELECT username FROM user WHERE userId = :id");
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+    while ($row = $stmt->fetch())
+    {
+        $username = $row["username"];
+    }
+}
+else {
+    $id = null;
+}
 if(isset ($_REQUEST['editPassword'])){
     $formstyle = "style='display: none;'";
     $buttonstyle = "";
     if($_POST['password'] == $_POST['repeatPassword']){
-        $result = $view-> editUser();
+        $result = $view-> editUser($id);
         if($result == 1) {
             message("success","Uw wachtwoord is gewijzigd","Het nieuwe wachtwoord is opgeslagen");
         }
@@ -29,10 +43,10 @@ if(isset ($_REQUEST['editPassword'])){
             </div>
         </div>
 
-        <form method="post" action="editPassword.php">
+        <form method="post">
             <div class="row" <?= $formstyle ?> >
                 <div class="col md6" >
-                    <h3>Het wachtwoord van de huidige ingelogde account wijzigen</h3>
+                    <h3>Het wachtwoord van <?= $username ?> wijzigen</h3>
                     <p>
                         Nieuw wachtwoord: 
                         <br>

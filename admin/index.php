@@ -92,7 +92,7 @@ if (!adminpage()) {
 
                             </li>
                             <li>
-                                <a href="editPassword.php" target="iframe" onClick="viewName(this,'overviewParent');">Gebruikers</a>
+                                <a href="users.php" target="iframe" onClick="viewName(this,'overviewParent');">Gebruikers</a>
                             </li>
                         </ul>
                     </li>

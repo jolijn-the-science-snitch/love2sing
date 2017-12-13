@@ -78,7 +78,11 @@ class DbHelper{
         $statement = $this-> connect -> prepare($create);
 
         //zorgt ervoor dat het juiste id wordt gepakt
-        $statement->bindParam(':id', $_SESSION['editPassword'], PDO::PARAM_STR);
+        $editId = $_SESSION['editPassword'];
+        if (isset($_GET["id"])) {
+            $editId = filter_input(INPUT_GET, "id");
+        }
+        $statement->bindParam(':id', $editId, PDO::PARAM_STR);
 
         $statement -> execute();
 
@@ -97,7 +101,7 @@ class DbHelper{
         }
     }
 
-    function editUser(){
+    function editUser($editId = null){
         //update query voor de gebruikers
         $edit = "UPDATE user SET  
     userPassword = :password
@@ -107,7 +111,12 @@ class DbHelper{
         $statement = $this -> connect ->prepare($edit);
 
         //de gegevens die gewijzigd mogen worden (het id wordt NIET aangepast)
-        $statement->bindParam(':id', $_SESSION['userId'], PDO::PARAM_STR);
+        if ($editId == null) {
+            $editId = $_SESSION['userId'];
+        }
+        
+        
+        $statement->bindParam(':id', $editId, PDO::PARAM_STR);
         $statement->bindParam(':password', $_POST['password'], PDO::PARAM_STR);
 
         $statement->execute();
