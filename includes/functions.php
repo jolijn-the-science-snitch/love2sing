@@ -60,9 +60,11 @@ class DbHelper{
                 if (isset($_GET["redirect"])) {
                     $redirect = filter_input(INPUT_GET, "redirect");
                     header('Location: '.$redirect.'');
+                    exit;
                 }
                 else {
                     header('Location: index.php');
+                    exit;
                 }
 
             }

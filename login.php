@@ -18,7 +18,7 @@ require 'header.php';
 <?php
 $login = new DbHelper();
 
-if(isset ($_REQUEST['login'])){
+if(isset ($_POST["username"]) && isset($_POST["password"])){
     $login-> selectUser();
 }
 require 'footer.php';
