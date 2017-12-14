@@ -25,6 +25,11 @@ if (!adminpage()) {
         <link href="../css/sb-admin.css" rel="stylesheet">
         <link href="../css/editPassword.css" rel="stylesheet">
         <link href="../css/style.css" rel="stylesheet">
+        <!-- Bootstrap core JavaScript-->
+        <script src="../vendor/jquery/jquery.min.js"></script>
+        <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- Core plugin JavaScript-->
+        <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
         <script src="../js/functions.js"></script>
 
     </head>
@@ -72,7 +77,7 @@ if (!adminpage()) {
                         </ul>
                     </li>
 
-                   <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
                         <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseOverview" data-parent="#exampleAccordion" id="overviewParent">
                             <i class="fa fa-fw fa-table"></i>
                             <span class="nav-link-text">Overzichten</span>
@@ -93,7 +98,7 @@ if (!adminpage()) {
                             </li>
                         </ul>
                     </li>
-                   
+
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
                         <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMessages" data-parent="#exampleAccordion" id="messageParent">
                             <i class="fa fa-fw fa-envelope"></i>
@@ -117,7 +122,7 @@ if (!adminpage()) {
                             <li>
                                 <a href="../index.php?edit=true" target="iframe" onClick="viewName(this,'textParent');">Homepagina</a>
                             </li>
-                            
+
                         </ul>
                     </li>
 
@@ -146,7 +151,7 @@ if (!adminpage()) {
                             $row["content"] = substr($row["content"], 0, 250). "... <span class='small text-info'>klik voor volledig bericht</span>";
                         }
                         if ($row["tableName"] == "gastenboek") {
-                            $content .= '<a class="dropdown-item" href="guestbookposts.php?id='.$row["id"].'" target="iframe" onClick="viewName(document.getElementById(\'guestbook\'),\'messageParent\');">
+                            $content .= '<a class="dropdown-item" href="guestbookposts.php?id='.$row["id"].'" target="iframe" onClick="viewName(document.getElementById(\'guestbook\'),\'messageParent\'); notification(-1); this.remove();">
                                 <span class="text-warning">
                                     <strong>
                                         Nieuw '.$row["tableName"].' bericht</strong>
@@ -157,7 +162,7 @@ if (!adminpage()) {
 
                         }
                         else {
-                            $content .= '<a class="dropdown-item" href="contactformposts.php?id='.$row["id"].'" target="iframe" onClick="viewName(document.getElementById(\'contactform\'),\'messageParent\');">
+                            $content .= '<a class="dropdown-item" href="contactformposts.php?id='.$row["id"].'" target="iframe" onClick="viewName(document.getElementById(\'contactform\'),\'messageParent\'); notification(-1); this.remove();">
                                 <span class="text-warning">
                                     <strong>
                                         Nieuw '.$row["tableName"].' bericht</strong>
@@ -185,12 +190,12 @@ if (!adminpage()) {
 
                             <?php 
                             if ($count != 0) {
-                                echo '<span class="d-lg-none">Meldingen ';
+                                echo '<span class="d-lg-none" id="notifications">Meldingen ';
                                 echo '<span class="badge badge-pill badge-warning">'. $count.' berichten</span>';   
                                 echo '</span>';
                             }
                             else {
-                                echo '<span class="d-lg-none">Meldingen ';
+                                echo '<span class="d-lg-none" id="notifications">Meldingen ';
                                 echo '<span class="badge badge-pill badge-info">Geen nieuwe berichten</span>';   
                                 echo '</span>';
                             }
@@ -208,9 +213,9 @@ if (!adminpage()) {
         echo '<div class="dropdown-divider"></div>';
         echo  $content;
     }
-    else {
-        echo '<h6 class="dropdown-header">Geen nieuwe berichten</h6>';
-    }
+                                else {
+                                    echo '<h6 class="dropdown-header">Geen nieuwe berichten</h6>';
+                                }
                             ?>
                         </div>
                     </li>
@@ -250,6 +255,32 @@ if (!adminpage()) {
                             $('.tooltip').remove();
                         }                    
                     }
+
+                    var number = <?= $count ?>;
+                    function notification(change) {
+                        var notification = document.getElementById("notifications");
+                        var notificationpc = document.getElementById("messagecount");
+                        var status = "";  
+
+                        number += change;
+                        if (number > 0) {
+                            status = "warning";
+                            if (notificationpc.classList.contains('text-info')) {
+                                notificationpc.classList.remove('text-info');
+                                notificationpc.classList.add('text-warning');
+                            }
+                        }
+                        else {
+                            status = "info";
+                            number = 0;
+                            if (notificationpc.classList.contains('text-warning')) {
+                                notificationpc.classList.add('text-info');
+                                notificationpc.classList.remove('text-warning');
+                            }
+                        }
+                        notification.innerHTML = 'Meldingen <span class="badge badge-pill badge-' + status + '">'+ number + ' berichten</span>';
+                        notificationpc.innerHTML = number;
+                    }
                 </script>
 
                 <iframe src="home.php" id="adminiframe" name="iframe"></iframe>
@@ -283,20 +314,6 @@ if (!adminpage()) {
                         </div>
                     </div>
                 </div>
-                <!-- Bootstrap core JavaScript-->
-                <script src="../vendor/jquery/jquery.min.js"></script>
-                <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-                <!-- Core plugin JavaScript-->
-                <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-                <!-- Page level plugin JavaScript-->
-                <script src="../vendor/chart.js/Chart.min.js"></script>
-                <script src="../vendor/datatables/jquery.dataTables.js"></script>
-                <script src="../vendor/datatables/dataTables.bootstrap4.js"></script>
-                <!-- Custom scripts for all pages-->
-                <script src="../js/sb-admin.min.js"></script>
-                <!-- Custom scripts for this page-->
-                <script src="../js/sb-admin-datatables.min.js"></script>
-                <script src="../js/sb-admin-charts.min.js"></script>
             </div>
         </div>
     </body>

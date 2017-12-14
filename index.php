@@ -91,7 +91,6 @@ while ($row = $stmt->fetch())
 
 <!-- scripts voor contactformulier -->
 
-<script src="js/functions.js"></script>
 
 <script>
     function contactForm(buttonText, pointerStyle, loading, buttonid) {

@@ -37,7 +37,7 @@
     border: 0px;
     position: absolute;
 }
-#adminbody {
+.adminbody {
     background: white;
 }
 button {

@@ -1,3 +1,4 @@
+
 // maak een bootstrap melding
 var messageCount = 0;
 function message(type, title, content) {
@@ -28,9 +29,10 @@ function edit (element,name) {
     // als er op de wijzigen knop word geklik knop onzichtbaar maken en bestands input zichtbaar maken
 }
 
-$('button').on('click', function() {
-    var $inp = $('input');  
-    $inp.attr('type') === 'password' ? 
-        $inp.attr('type', 'text') 
-    : $inp.attr('type', 'password')
-});
+// geeft error's
+//$('button').on('click', function() {
+//    var $inp = $('input');  
+//    $inp.attr('type') === 'password' ? 
+//        $inp.attr('type', 'text') 
+//    : $inp.attr('type', 'password')
+//});

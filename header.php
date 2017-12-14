@@ -29,7 +29,7 @@ require 'includes/functions.php';
         <link href="css/style.css" rel="stylesheet">    
         <link href="css/index.css" rel="stylesheet">
 
-       <script src="js/functions.js"></script>
+        <script src="js/functions.js"></script>
 
     </head>
 
