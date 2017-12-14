@@ -16,12 +16,21 @@ if ((isset($_POST["action"]) || isset($_GET["action"])) && (isset($_POST["id"]) 
         $id = filter_input(INPUT_GET, "id");
     }  
     if ($status == 2) {
-        $stmt = $db->prepare("DELETE FROM user WHERE userId = :id");
+        $stmt = $db->prepare("SELECT photoalbumUrl FROM photoalbum WHERE photoalbumId = :id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        while ($row = $stmt->fetch()) {
+            $delete = "../".$row["photoalbumUrl"];
+        }
+        
+        $stmt = $db->prepare("DELETE FROM photoalbum WHERE photoalbumId = :id");
         $stmt->bindParam(':id', $id);
         $stmt->execute();
         if ($stmt->rowCount() == 1) {
-            message("success","Er is een account verwijderd","Succesvol verwijderd");
-            header('Location: users.php');
+            unlink($delete);
+            
+            message("success","Er is een koorlid verwijderd","Succesvol verwijderd");
+            header('Location: photoalbumoverview.php');
         }
         else {
             message("danger","Verwijderen mislukt","Er is een technische fout opgetreden");
@@ -31,18 +40,16 @@ if ((isset($_POST["action"]) || isset($_GET["action"])) && (isset($_POST["id"]) 
 
 $table = "";
 
-$stmt = $db->prepare("SELECT * FROM user ORDER BY userId DESC");
+$stmt = $db->prepare("SELECT * FROM photoalbum ORDER BY photoalbumId DESC");
 $stmt->execute();
 $table = "";
 while ($row = $stmt->fetch()) {
-    $table .= '<tr onclick="window.location.href = \'editPassword.php?id='.$row["userId"].'\';">';
-
-    $table .= '<td>'.$row["username"].'</td>';
-    $table .= '<td>'.$row["userEmail"].'</td>';
-    $table .= '<td>'.$row["userRights"].'</td>';
+    $table .= '<tr onclick="window.location.href = \'#\';">';
+    
+    $table .= '<td>'.$row["photoalbumDescription"].'</td>';
+    $table .= '<td><img src="../'.$row["photoalbumUrl"].'" height="100" ></td>';
     $table .= '<td>';
-    $table .= '<form method="post"><input type="hidden" name="id" value="'.$row["userId"].'">';
-    $table .= '<a href="editPassword.php?id='.$row["userId"].'" class="btn btn-info">Wachtwoord wijzigen</a> ';
+    $table .= '<form method="post"><input type="hidden" name="id" value="'.$row["photoalbumId"].'">';
     $table .= '<button type="submit" name="action" value="2" class="btn btn-danger">Verwijderen</button>';
     $table .= '</form>';
     $table .= '</td>';
@@ -63,15 +70,14 @@ while ($row = $stmt->fetch()) {
         background: #f4f5f5;
     }
 </style>
-<h2>Gebruikers</h2>
+<h2>Foto album</h2>
 <div id="message"></div>
 <div class="table-responsive" id="contactTable">
     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
             <tr>
-                <th>Naam</th>
-                <th>E-mail</th>
-                <th>Rechten</th>
+                <th>Beschrijving</th>
+                <th>Foto</th>
                 <th>Actie</th>
             </tr>
         </thead>

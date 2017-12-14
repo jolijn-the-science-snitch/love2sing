@@ -114,8 +114,8 @@ class DbHelper{
         if ($editId == null) {
             $editId = $_SESSION['userId'];
         }
-        
-        
+
+
         $statement->bindParam(':id', $editId, PDO::PARAM_STR);
         $statement->bindParam(':password', $_POST['password'], PDO::PARAM_STR);
 
@@ -222,7 +222,12 @@ function upload($file,$type,$name,$fileName = null) {
 // $result[0] foutcodes
 // $result[1] opslaglocatie van bestand in database
 
-function fileUpload($file,$type) {    
+/**
+ * @param $file
+ * @param $type
+ * @return array
+ */
+function fileUpload($file, $type) {
     if ($file["error"] == 4) {
         return array(null,5);
     }
@@ -270,7 +275,7 @@ function fileUpload($file,$type) {
             return array($target_file,$result);
             // er zijn fouten opgetreden, de foutcodes worden gereturnd
         } 
-        else {
+        else {            
             if (move_uploaded_file($file["tmp_name"], "../".$target_file)) {
                 message("success", $file["name"]. " is geupload", "Het bestand " .$file["name"] . " is succesvol opgeslagen op de server"); 
                 return array($target_file,1);       
