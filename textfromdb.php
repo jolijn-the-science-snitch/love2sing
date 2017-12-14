@@ -18,11 +18,12 @@ $stmt->execute();
 $script = "";
 while ($row = $stmt->fetch())
 {
-    if (adminpage()) {
+    if (adminpage() && isset($_GET["edit"])) {
         $height = ceil(strlen($row[1]) / 55) * 18 + 15;
         $text[$row[0]] = "<form method='post'><textarea style='height: ".$height."px;' class='edittext' name='".$row[0]."'>".$row[1]."</textarea><br><button class='btn btn-secondary btn-md'  type='submit'>Oplslaan</button></form>";
-        $script = '<script>$("a").removeAttr("href"); $("a").removeAttr("onclick"); $("button").attr("type","button");
+        $script = '<script>$("a").removeAttr("href"); $("a").removeAttr("onclick"); 
 </script>';
+        //$("button").attr("type","button");
     }
     else {
         $text[$row[0]] = nl2br($row[1]);
