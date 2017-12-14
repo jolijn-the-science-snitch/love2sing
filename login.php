@@ -6,7 +6,7 @@ require 'header.php';
 
     <h2 class="login-header">Log in</h2>
 
-    <form class="login-container" method="post" action="login.php">
+    <form class="login-container" method="post">
         <p><input type="text" class="form-control" name="username" placeholder="Gebruikersnaam" required="" autofocus=""></p>
         <p><input type="password" class="form-control" name="password" placeholder="Wachtwoord" required=""></p>
         <p><input type="submit" name="login" value="Login"></p>

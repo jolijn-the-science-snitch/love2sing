@@ -55,8 +55,15 @@ class DbHelper{
                     // user is een admin
                     $_SESSION['userRights'] = 'admin';
                 }
-
-                header('Location: index.php');
+                $redirect = "";
+                
+                if (isset($_GET["redirect"])) {
+                    $redirect = filter_input(INPUT_GET, "redirect");
+                    header('Location: '.$redirect.'');
+                }
+                else {
+                    header('Location: index.php');
+                }
 
             }
         }
@@ -324,9 +331,10 @@ function message($type,$title,$content) {
 //  love2singmail
 //  php.ini en sendmail.ini aanpassen, zie trello->programming rules
 
-function sendMail($subject,$message,$replyTo) {
-    $to = "love2singtestmail@gmail.com";
-
+function sendMail($subject,$message,$replyTo,$to = null) {
+    if ($to == null) {
+        $to = "love2singtestmail@gmail.com";
+    }
     if ($replyTo == null) {
         $replyTo = "love2singtestmail@gmail.com";
     }

@@ -3,7 +3,7 @@
 require '../includes/functions.php';
 // controleer of gebruiker admin rechten heeft
 if (!adminpage()) {
-    header('Location: ../index.php');
+    header('Location: ../login.php?redirect='.$_SERVER[REQUEST_URI].'');
 }
 ?>
 

@@ -2,7 +2,7 @@
 require '../includes/functions.php';
 // controleer of gebruiker admin rechten heeft
 if (!adminpage()) {
-    header('Location: ../index.php');
+    header('Location: ../login.php?redirect='.$_SERVER[REQUEST_URI].'');
 }
 ?>
 <!DOCTYPE html>
@@ -75,7 +75,7 @@ if (!adminpage()) {
                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
                         <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseOverview" data-parent="#exampleAccordion" id="overviewParent">
                             <i class="fa fa-fw fa-table"></i>
-                            <span class="nav-link-text">Overzicht</span>
+                            <span class="nav-link-text">Overzichten</span>
                         </a>
                         <ul class="sidenav-second-level collapse" id="collapseOverview">
                             <li>

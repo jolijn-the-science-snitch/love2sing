@@ -84,6 +84,12 @@ button {
 #facemapimg {
     max-width: 100%;
 }
+
+.mailtextarea {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 5px;
+}
 @media only screen and (min-width: 960px){
     #adminiframe {
         width: calc(100% - 278px);

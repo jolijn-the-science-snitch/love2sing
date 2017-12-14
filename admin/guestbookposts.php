@@ -1,6 +1,22 @@
 <?php
 include("adminpageheader.php"); 
 
+// alleen bij het zojuist toegevoegde bericht de status aanpassen d.m.v. de WHERE
+// $_GET, want een $_POST wil niet vanuit de mail
+if(isset($_GET['toevoegen']) && isset($_GET['id'])){
+    $approve= $db->prepare("UPDATE guestbook SET guestbookApproved = 1 WHERE guestbookId = ?;");
+    $approve->execute(array($_GET['id']));
+    //echo $approve->rowCount();
+    
+}             
+if(isset($_GET['weigeren']) && isset($_GET['id'])){
+    $approve= $db->prepare("UPDATE guestbook SET guestbookApproved = 0 WHERE guestbookId = ?;");
+    $approve->execute(array($_GET['id']));
+    //echo $approve->rowCount();
+}
+
+
+
 if (isset($_POST["action"]) && isset($_POST["id"])) {
     $status = filter_input(INPUT_POST, "action");
     $id = filter_input(INPUT_POST, "id");
@@ -68,7 +84,7 @@ if (isset($_GET["id"])) {
             $buttons = '<button type="submit" name="action" value="1" class="btn btn-success">Goedkeuren</button> ';
             $buttons .= '<button type="submit" name="action" value="2" class="btn btn-danger">Verwijderen</button>';
         }
-        $mail .= '<div class="mailback"><a href="guestbookposts.php"><i class="fa fa-arrow-left" aria-hidden="true"></i> Terug</a></div><br>'; 
+        $mail .= '<div class="mailback" id="backbutton"><a href="guestbookposts.php"><i class="fa fa-arrow-left" aria-hidden="true"></i> Terug</a></div><br>'; 
         $mail .= '<h1>'.$row["guestbookTitle"].'</h1>';
         $mail .= ' <p>';
         $mail .= '<b>Status: </b>'.$approved.'';
@@ -174,7 +190,7 @@ else {
 </div>
 
 <div class="container" id="viewmail" <?= $viewmail ?> >
-   <br>
+    <br>
     <?= $mail ?>
 </div>
 
