@@ -16,6 +16,10 @@ class DbHelper{
     //SELECT USER FUNCTION
 
     function selectUser(){
+        
+        //hash ingevuld password
+        $hash = hash('sha256', $_POST['password']);
+        
         //select query voor de users
         $create = 'SELECT * FROM user WHERE username=:username AND userPassword=:password';
 
@@ -24,13 +28,14 @@ class DbHelper{
 
         //haalt de gegevens op uit deze rijen
         $statement->bindParam(':username', $_POST['username'], PDO::PARAM_STR);
-        $statement->bindParam(':password', $_POST['password'], PDO::PARAM_STR);
+        $statement->bindParam(':password', $hash, PDO::PARAM_STR);
 
         $statement->execute();
 
-        //controlleerd of alles klopt
+        //controleert of alles klopt
         $result = $statement->fetchAll();
-
+             
+        
         //functie userrights
         if(isset($result) && isset($result[0])){
             $user = $result[0];
@@ -59,8 +64,11 @@ class DbHelper{
 
         // laat melding(en) zien
         echo "<script>".$message."</script>";
+                  
 
     }
+    
+    
 
     function editUserStart($case){
         //select query die de gegevens van de klant ophaald zodat hij/zij deze kan veranderen
@@ -94,13 +102,16 @@ class DbHelper{
         $edit = "UPDATE user SET  
     userPassword = :password
     WHERE userId = :id";
-
+        
+        //hashed het ingevoerde password
+        $hash = hash('sha256', $_POST['password']);
+        
         //bereid de db voor
         $statement = $this -> connect ->prepare($edit);
 
         //de gegevens die gewijzigd mogen worden (het id wordt NIET aangepast)
         $statement->bindParam(':id', $_SESSION['userId'], PDO::PARAM_STR);
-        $statement->bindParam(':password', $_POST['password'], PDO::PARAM_STR);
+        $statement->bindParam(':password', $hash, PDO::PARAM_STR);
 
         $statement->execute();
     }
@@ -113,8 +124,8 @@ class DbHelper{
     
         //password hashen
     if($_POST['userPassword'] == $_POST['repeatPassword']){
-            $password = password_hash($_POST['userPassword'], PASSWORD_DEFAULT);
-            echo $password;
+            $hash = hash('sha256', $_POST['userPassword']);
+            echo $hash;
     }
         
     //insert query om USERS toe te voegen
@@ -125,7 +136,7 @@ class DbHelper{
     //de gegevens die ingevuld moeten worden door de klant
     $statement->bindParam(':username', $_POST['username'], PDO::PARAM_STR);
 $statement->bindParam(':userEmail', $_POST['userEmail'], PDO::PARAM_STR);
-    $statement->bindParam(':userPassword', $password, PDO::PARAM_STR);
+    $statement->bindParam(':userPassword', $hash, PDO::PARAM_STR);
 	$statement->bindParam(':userRights', $_POST['userRights'], PDO::PARAM_STR);
     
     $statement->execute();
