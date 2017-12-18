@@ -17,58 +17,80 @@ class DbHelper{
 
     function selectUser(){
         
-        //hash ingevuld password
-        $hash = hash('sha256', $_POST['password']);
+        if(!isset($_SESSION['loginAttempts'])){
+            // op nul zetten als die nog niet bestaat
+            $loginAttempts = 0;    
+            $_SESSION['loginAttempts'] = $loginAttempts;
+        }
+            
+            if($_SESSION['loginAttempts'] < 3){
         
-        //select query voor de users
-        $create = 'SELECT * FROM user WHERE username=:username AND userPassword=:password';
+            
+                //hash ingevuld password
+                $hash = hash('sha256', $_POST['password']);
+        
+                //select query voor de users
+                $create = 'SELECT * FROM user WHERE username=:username AND userPassword=:password';
 
-        //zorgt dat de connectie wordt gestart vanuit de db
-        $statement = $this->connect->prepare($create);
+                //zorgt dat de connectie wordt gestart vanuit de db
+                $statement = $this->connect->prepare($create);
 
-        //haalt de gegevens op uit deze rijen
-        $statement->bindParam(':username', $_POST['username'], PDO::PARAM_STR);
-        $statement->bindParam(':password', $hash, PDO::PARAM_STR);
+                //haalt de gegevens op uit deze rijen
+                $statement->bindParam(':username', $_POST['username'], PDO::PARAM_STR);
+                $statement->bindParam(':password', $hash, PDO::PARAM_STR);
 
-        $statement->execute();
+                $statement->execute();
 
-        //controleert of alles klopt
-        $result = $statement->fetchAll();
+                //controleert of alles klopt
+                $result = $statement->fetchAll();
              
         
-        //functie userrights
-        if(isset($result) && isset($result[0])){
-            $user = $result[0];
+                    //functie userrights
+                    if(isset($result) && isset($result[0])){
+                        $user = $result[0];
 
-            if($user[0] > 0){
-                $_SESSION['logIn'] = 'true';
-                $_SESSION['username'] = $user[1];
-                $_SESSION['userId'] = $user[0];
+                        if($user[0] > 0){
+                            $_SESSION['logIn'] = 'true';
+                            $_SESSION['username'] = $user[1];
+                            $_SESSION['userId'] = $user[0];
 
 
-                if ($user["userRights"] == 1) {
-                    // user is een gebruiker
-                    $_SESSION['userRights'] = 'user';                    
-                }
-                elseif ($user["userRights"] == 2) {
-                    // user is een admin
-                    $_SESSION['userRights'] = 'admin';
-                }
+                                if ($user["userRights"] == 1) {
+                                // user is een gebruiker
+                                    $_SESSION['userRights'] = 'user';                    
+                                }
+                                elseif ($user["userRights"] == 2) {
+                                // user is een admin
+                                    $_SESSION['userRights'] = 'admin';
+                                }
 
-                header('Location: index.php');
+                                header('Location: index.php');
+                                }
+                    }else {
+                        $message = 'message("danger", "Onjuiste inloggegevens", "U bent niet ingelogd, controleer uw gegevens"); ';
+                   
+            
+                        
             }
+                 // laat melding(en) zien
+                    echo "<script>".$message."</script>";
+                
+                $_SESSION['loginAttempts']++;
+                        echo $_SESSION['loginAttempts'];
+                
+                }else{
+                    $message2 = 'message("danger", "Account voor 15 minuten geblokkeerd!", "U heeft uw wachtwoord meer dan 3 keer verkeerd ingevoerd. Over 15 minuten kunt u het weer proberen."); ';
+                        
+            
+        //laat melding zien
+        echo "<script>".$message2."</script>";
+            
+            
         }
-        else {
-            $message = 'message("danger", "Onjuiste inloggegevens", "U bent niet ingelogd, controleer uw gegevems"); ';
+            
         }
-
-        // laat melding(en) zien
-        echo "<script>".$message."</script>";
                   
-
-    }
-    
-    
+                
 
     function editUserStart($case){
         //select query die de gegevens van de klant ophaald zodat hij/zij deze kan veranderen
