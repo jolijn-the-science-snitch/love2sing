@@ -44,24 +44,34 @@ require 'includes/functions.php';
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
+                        <?php
+                        if (!isset($isHomepage)) {
+                            $pageUrl = "index.php";
+                        }
+                        else {
+                            $pageUrl = "";
+                        }
+                        ?>
+
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="#about">Over ons</a>
+                            <a class="nav-link js-scroll-trigger" href="<?= $pageUrl ?>#about">Over ons</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="photoalbum.php">Fotoalbum</a>
+                            <a class="nav-link js-scroll-trigger" href="<?= $pageUrl ?>photoalbum.php">Fotoalbum</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="#agenda">Agenda</a>
+                            <a class="nav-link js-scroll-trigger" href="<?= $pageUrl ?>#agenda">Agenda</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link js-scroll-trigger" href="viewGuestbook.php">Gastenboek</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+                            <a class="nav-link js-scroll-trigger" href="<?= $pageUrl ?>#contact">Contact</a>
                         </li>
 
 
                         <?php 
+
                         //dit gedeelte kunnen alleen de gebruikers zien            
                         if(userpage()){
                             echo '<li class="nav-item">

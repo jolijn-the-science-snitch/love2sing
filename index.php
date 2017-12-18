@@ -1,4 +1,5 @@
 <?php
+$isHomepage = true;
 require 'header.php';
 ?>
 <?php
