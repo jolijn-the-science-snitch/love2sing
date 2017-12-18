@@ -68,7 +68,7 @@ while ($row = $stmt->fetch())
     </div>
 </section>
 
-<section id="services">
+<section id="agenda">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
