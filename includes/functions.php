@@ -71,13 +71,12 @@ class DbHelper{
                    
             
                         
-            }
-                 // laat melding(en) zien
+                    }
+                    // laat melding(en) zien
                     echo "<script>".$message."</script>";
                 
-                $_SESSION['loginAttempts']++;
-                        echo $_SESSION['loginAttempts'];
-                
+                    $_SESSION['loginAttempts']++;
+                    
                 }else{
                     $message2 = 'message("danger", "Account voor 15 minuten geblokkeerd!", "U heeft uw wachtwoord meer dan 3 keer verkeerd ingevoerd. Over 15 minuten kunt u het weer proberen."); ';
                         
