@@ -35,7 +35,6 @@ require 'header.php';
     }
     .preview {
         border: 2px solid #857991;
-        max-width: 800px;
         padding: 1px;
         background: #685e79;
         color: white;
@@ -52,6 +51,8 @@ require 'header.php';
     .control {
         font-size: 30px;
         z-index: 10;
+        position: relative;
+        top: 50%;
     }
     .extraheight {
         height: 25px;
@@ -63,57 +64,74 @@ require 'header.php';
     .a-img:focus img {
         filter: grayscale(1);
     }
+
+    .photoview {
+        /*        max-height: calc(100% - 350px);*/
+        margin: 0px;
+
+    }
+    #photoalbum {
+        padding-bottom: 0px;
+
+    }
 </style>
 
 
 <!-- Vormgeving -->
-<section>
+<section id="photoalbum">
     <div class="gallery" align="center">
         <h2>Fotoalbum Love2Sing</h2>
 
 
         <!-- Alle foto's in het klein -->
 
-         
 
-            <div id="slideshow">
-                <div class="thumbnails" id="slides">
-                    <ul> 
-                        <?php
-                        //Include database configuration file
-                        //get images from database
-                        $query = $db->query("SELECT * FROM photoalbum ORDER BY photoalbumId DESC");
-                        $preview = "Geen foto's om weer te geven";
-                        $i = 0;
-                        if ($query->rowCount() > 0) {
-                            while ($row = $query->fetch()) {
-                                $imgSrc = $row["photoalbumUrl"];
-                                $description = $row["photoalbumDescription"];
-                                if ($i == 0) {
-                                    $preview = '<img name="preview" src="' . $imgSrc . '" alt=""/>';
-                                    $h2 = '<h2 id="text">' . $description . '</h2>';
-                                }
-                                echo '<li><a class="a-img" id="imga' . $i . '" href="#"><img id="img' . $i . '" style="left: 0px;" onclick="preview.src=img' . $i . '.src; document.getElementById(\'text\').innerHTML=img' . $i . '.alt" name="img' . $i . '"  src="' . $imgSrc . '" alt="' . $description . '" /></a></li>';
-                                $i++;
+
+        <div id="slideshow">
+            <div class="thumbnails" id="slides">
+                <ul> 
+                    <?php
+                    //Include database configuration file
+                    //get images from database
+                    $query = $db->query("SELECT * FROM photoalbum ORDER BY photoalbumId DESC");
+                    $preview = "Geen foto's om weer te geven";
+                    $i = 0;
+                    if ($query->rowCount() > 0) {
+                        while ($row = $query->fetch()) {
+                            $imgSrc = $row["photoalbumUrl"];
+                            $description = $row["photoalbumDescription"];
+                            if ($i == 0) {
+                                $preview = '<img name="preview" src="' . $imgSrc . '" alt=""/>';
+                                $h2 = '<h2 id="text">' . $description . '</h2>';
                             }
-                            echo "<style>.thumbnails { width: calc(150px * " . $i . " + 150px) };</style>";
+                            echo '<li><a class="a-img" id="imga' . $i . '" href="#"><img id="img' . $i . '" style="left: 0px;" onclick="preview.src=img' . $i . '.src; document.getElementById(\'text\').innerHTML=img' . $i . '.alt" name="img' . $i . '"  src="' . $imgSrc . '" alt="' . $description . '" /></a></li>';
+                            $i++;
                         }
-                        ?>
-                    </ul>
-                </div>
+                        echo "<style>.thumbnails { width: calc(150px * " . $i . " + 150px) };</style>";
+                    }
+                    ?>
+                </ul>
             </div>
+        </div>
 
 
         <!-- Grote foto preview -->
-          
-        <div class="preview" align="center">
-            
-            
-            <?= $preview ?>
-             <div id="back" onclick="slide(-1)" class="control"><div class="extraheight"></div><i class="fa fa-chevron-left" aria-hidden="true"></i></div>
-            <div id="next" onclick="slide(1)" class="control"><div class="extraheight"></div><i class="fa fa-chevron-right" aria-hidden="true"></i></div>
-             <?= $h2 ?>
+
+
+        <div class="row photoview">
+            <div class="col">
+                <div id="back" onclick="slide(-1)" class="control"><i class="fa fa-chevron-left" aria-hidden="true"></i></div>
+            </div>
+            <div class="col-8 preview"><?= $preview ?><?= $h2 ?></div>
+            <div class="col">
+                <div id="next" onclick="slide(1)" class="control"><i class="fa fa-chevron-right" aria-hidden="true"></i></div>
+            </div>
+
         </div>
+
+
+
+
     </div>
 </section> 
 
@@ -137,5 +155,5 @@ require 'header.php';
     }
 </script>
 <?php
-require 'footer.php';
+    require 'footer.php';
 ?>
