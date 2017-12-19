@@ -25,7 +25,7 @@
             $result->execute(array($zoekopdracht));
             $result->setFetchMode(PDO::FETCH_ASSOC);
             while ($row = $result->fetch()){
-                echo '<div class="musicBox">';
+                echo '<div class="musicBox col-6">';
                         echo '<h1>';
                         echo $row['musicName'];
                         echo '</h1>';
@@ -45,7 +45,7 @@
             $result->execute(array($zoekopdracht));
             $result->setFetchMode(PDO::FETCH_ASSOC);
             while ($row = $result->fetch()) {
-                echo '<div class="musicBox">';
+                echo '<div class="musicBox col-6">';
                         echo '<h1>';
                         echo $row['musicName'];
                         echo '</h1>';

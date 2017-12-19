@@ -11,22 +11,12 @@ include "header.php";
     ?>
 <!---End Getting  data from database--->
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UFT-8">
-        <title>Love2Sing</title>
-        <!---Start Linking--->
-        <link href="style.css" rel="stylesheet" type="text/css">
-        <!---End Linking--->
-    </head>
-
-    <body>
+    <section>
         <!---Start Main--->
         <!---Start Search Bar--->
             <h1 class="title">Muziekbibliotheek
                 <div class="searchBar">
-               <form class="form-wrapper cf" method="POST" action="functions.php">
+               <form class="form-wrapper" method="POST" action="functions.php">
                 <input class="input" type="text" name="q" placeholder="Zoek op muzieknaam of componist">
                 <select class="select" name="column">
                     <option class="option" value="0">Muzieknaam</option>
@@ -46,7 +36,7 @@ include "header.php";
         <?php
                  if ($stmt->rowCount() > 0){
                     while($row = $stmt->fetch()){
-                        echo '<div class="musicBox col">';
+                        echo '<div class="col-6"><div class="musicBox ">';
                         echo '<h1>';
                         echo $row['musicName'];
                         echo '</h1>';
@@ -60,7 +50,7 @@ include "header.php";
                         echo '<a href="'.$row['musicMp3'].'" download><img src="uploads/play-button_318-42541.jpg" height=100px></a>';
                         echo '<a href="'.$row['musicPdf'].'" download><img src="uploads/images.jpg" height=100px></a>';
                         echo '</p>';
-                    echo '</div>';
+                    echo '</div></div>';
                     }
                 }
                 
@@ -70,6 +60,7 @@ include "header.php";
             <!---End Box--->
 
             <!---End Main--->
+</section>
 
     <?php
     require 'footer.php';

@@ -154,7 +154,6 @@ require 'header.php';
     </div>
 </section>
 
-
 <?php
 require 'footer.php';
 ?>
