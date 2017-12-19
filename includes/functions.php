@@ -28,6 +28,12 @@ class DbHelper{
             $loginAttempts = 0;    
             $_SESSION['loginAttempts'] = $loginAttempts;
         }
+        if (isset($_SESSION["time"])) {
+            if ($_SESSION["time"] < date("Hi")) {
+                $_SESSION['loginAttempts'] = 0;
+                unset($_SESSION["time"]);
+            }
+        }
 
         if($_SESSION['loginAttempts'] < 3){
 
@@ -57,7 +63,7 @@ class DbHelper{
                 $_SESSION['logIn'] = 'true';
                 $_SESSION['username'] = $user[1];
                 $_SESSION['userId'] = $user[0];
-                
+
 
                 if ($user["userRights"] == 1) {
                     // user is een gebruiker
@@ -87,7 +93,8 @@ class DbHelper{
 
         }
         else{
-            message("danger", "Account voor 15 minuten geblokkeerd!", "U heeft uw wachtwoord meer dan 3 keer verkeerd ingevoerd. Over 15 minuten kunt u het weer proberen."); 
+            message("danger", "Account voor 15 minuten geblokkeerd!", "U heeft uw wachtwoord meer dan 3 keer verkeerd ingevoerd. Over 15 minuten kunt u het weer proberen.");
+            $_SESSION["time"] = date('Hi') + 15;
         }
     }
 
