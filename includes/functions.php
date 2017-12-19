@@ -195,7 +195,7 @@ class DbHelper{
         //password hashen
     if($_POST['userPassword'] == $_POST['repeatPassword']){
             $hash = hash('sha256', $_POST['userPassword']);
-            echo $hash;
+            
     }
         
     //insert query om USERS toe te voegen
