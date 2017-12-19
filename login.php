@@ -28,3 +28,4 @@ if(isset ($_POST["username"]) && isset($_POST["password"])){
 
 require 'footer.php';
 ?>
+<?= $message ?>

@@ -22,77 +22,43 @@ class DbHelper{
     //SELECT USER FUNCTION
 
     function selectUser(){
-        
+
         if(!isset($_SESSION['loginAttempts'])){
             // op nul zetten als die nog niet bestaat
             $loginAttempts = 0;    
             $_SESSION['loginAttempts'] = $loginAttempts;
         }
-            
-            if($_SESSION['loginAttempts'] < 3){
-        
-            
-                //hash ingevuld password
-                $hash = hash('sha256', $_POST['password']);
-        
-                //select query voor de users
-                $create = 'SELECT * FROM user WHERE username=:username AND userPassword=:password';
 
-                //zorgt dat de connectie wordt gestart vanuit de db
-                $statement = $this->connect->prepare($create);
-
-                //haalt de gegevens op uit deze rijen
-                $statement->bindParam(':username', $_POST['username'], PDO::PARAM_STR);
-                $statement->bindParam(':password', $hash, PDO::PARAM_STR);
-
-<<<<<<< HEAD
-                $statement->execute();
-
-                //controleert of alles klopt
-                $result = $statement->fetchAll();
-             
-        
-                    //functie userrights
-                    if(isset($result) && isset($result[0])){
-                        $user = $result[0];
-
-                        if($user[0] > 0){
-                            $_SESSION['logIn'] = 'true';
-                            $_SESSION['username'] = $user[1];
-                            $_SESSION['userId'] = $user[0];
+        if($_SESSION['loginAttempts'] < 3){
 
 
-                                if ($user["userRights"] == 1) {
-                                // user is een gebruiker
-                                    $_SESSION['userRights'] = 'user';                    
-                                }
-                                elseif ($user["userRights"] == 2) {
-                                // user is een admin
-                                    $_SESSION['userRights'] = 'admin';
-                                }
+            //hash ingevuld password
+            $hash = hash('sha256', $_POST['password']);
 
-                                header('Location: index.php');
-                                }
-                    }else {
-                        $message = 'message("danger", "Onjuiste inloggegevens", "U bent niet ingelogd, controleer uw gegevens"); ';
-                   
-            
-                        
-                    }
-                    // laat melding(en) zien
-                    echo "<script>".$message."</script>";
+            //select query voor de users
+            $create = 'SELECT * FROM user WHERE username=:username AND userPassword=:password';
+
+            //zorgt dat de connectie wordt gestart vanuit de db
+            $statement = $this->connect->prepare($create);
+
+            //haalt de gegevens op uit deze rijen
+            $statement->bindParam(':username', $_POST['username'], PDO::PARAM_STR);
+            $statement->bindParam(':password', $hash, PDO::PARAM_STR);
+
+            $statement->execute();
+
+            //controleert of alles klopt
+            $result = $statement->fetchAll();
+
+
+            //functie userrights
+            if(isset($result) && isset($result[0])){
+                $user = $result[0];
+                $_SESSION['logIn'] = 'true';
+                $_SESSION['username'] = $user[1];
+                $_SESSION['userId'] = $user[0];
                 
-                    $_SESSION['loginAttempts']++;
-                    
-                }else{
-                    $message2 = 'message("danger", "Account voor 15 minuten geblokkeerd!", "U heeft uw wachtwoord meer dan 3 keer verkeerd ingevoerd. Over 15 minuten kunt u het weer proberen."); ';
-                        
-            
-        //laat melding zien
-        echo "<script>".$message2."</script>";
-            
-            
-=======
+
                 if ($user["userRights"] == 1) {
                     // user is een gebruiker
                     $_SESSION['userRights'] = 'user';                    
@@ -102,7 +68,7 @@ class DbHelper{
                     $_SESSION['userRights'] = 'admin';
                 }
                 $redirect = "";
-                
+
                 if (isset($_GET["redirect"])) {
                     $redirect = filter_input(INPUT_GET, "redirect");
                     header('Location: '.$redirect.'');
@@ -112,23 +78,18 @@ class DbHelper{
                     header('Location: index.php');
                     exit;
                 }
-
             }
->>>>>>> origin/wim
+            else {
+                message("danger", "Onjuiste inloggegevens", "U bent niet ingelogd, controleer uw gegevens"); 
+            }
+            // laat melding(en) zien
+            $_SESSION['loginAttempts']++;
+
         }
-            
+        else{
+            message("danger", "Account voor 15 minuten geblokkeerd!", "U heeft uw wachtwoord meer dan 3 keer verkeerd ingevoerd. Over 15 minuten kunt u het weer proberen."); 
         }
-<<<<<<< HEAD
-                  
-                
-=======
-
-
-        // laat melding(en) zien
-        echo "<script>".$message."</script>";
-
     }
->>>>>>> origin/wim
 
     function editUserStart($case){
         //select query die de gegevens van de klant ophaald zodat hij/zij deze kan veranderen
@@ -166,18 +127,15 @@ class DbHelper{
         $edit = "UPDATE user SET  
     userPassword = :password
     WHERE userId = :id";
-        
+
         //hashed het ingevoerde password
         $hash = hash('sha256', $_POST['password']);
-        
+
         //bereid de db voor
         $statement = $this -> connect ->prepare($edit);
 
         //de gegevens die gewijzigd mogen worden (het id wordt NIET aangepast)
-<<<<<<< HEAD
-        $statement->bindParam(':id', $_SESSION['userId'], PDO::PARAM_STR);
-        $statement->bindParam(':password', $hash, PDO::PARAM_STR);
-=======
+
         if ($editId == null) {
             $editId = $_SESSION['userId'];
         }
@@ -185,7 +143,6 @@ class DbHelper{
 
         $statement->bindParam(':id', $editId, PDO::PARAM_STR);
         $statement->bindParam(':password', $_POST['password'], PDO::PARAM_STR);
->>>>>>> origin/wim
 
         $statement->execute();
 
@@ -202,30 +159,30 @@ class DbHelper{
     function returndb() {
         return $this-> connect;
     }
-    
+
     function createUser(){
-    
+
         //password hashen
-    if($_POST['userPassword'] == $_POST['repeatPassword']){
+        if($_POST['userPassword'] == $_POST['repeatPassword']){
             $hash = hash('sha256', $_POST['userPassword']);
             echo $hash;
+        }
+
+        //insert query om USERS toe te voegen
+        $create = 'INSERT INTO user (username , userEmail ,  userPassword , userRights) VALUES (:username , :userEmail , :userPassword , :userRights)';
+
+        $statement = $this->connect->prepare($create);
+
+        //de gegevens die ingevuld moeten worden door de klant
+        $statement->bindParam(':username', $_POST['username'], PDO::PARAM_STR);
+        $statement->bindParam(':userEmail', $_POST['userEmail'], PDO::PARAM_STR);
+        $statement->bindParam(':userPassword', $hash, PDO::PARAM_STR);
+        $statement->bindParam(':userRights', $_POST['userRights'], PDO::PARAM_STR);
+
+        $statement->execute();
+
+        //header('Location: login.php');
     }
-        
-    //insert query om USERS toe te voegen
-    $create = 'INSERT INTO user (username , userEmail ,  userPassword , userRights) VALUES (:username , :userEmail , :userPassword , :userRights)';
-    
-    $statement = $this->connect->prepare($create);
-    
-    //de gegevens die ingevuld moeten worden door de klant
-    $statement->bindParam(':username', $_POST['username'], PDO::PARAM_STR);
-$statement->bindParam(':userEmail', $_POST['userEmail'], PDO::PARAM_STR);
-    $statement->bindParam(':userPassword', $hash, PDO::PARAM_STR);
-	$statement->bindParam(':userRights', $_POST['userRights'], PDO::PARAM_STR);
-    
-    $statement->execute();
-    
-    //header('Location: login.php');
-}
 }
 
 
