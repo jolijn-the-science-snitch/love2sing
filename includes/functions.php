@@ -142,7 +142,7 @@ class DbHelper{
 
 
         $statement->bindParam(':id', $editId, PDO::PARAM_STR);
-        $statement->bindParam(':password', $_POST['password'], PDO::PARAM_STR);
+        $statement->bindParam(':password', $hash, PDO::PARAM_STR);
 
         $statement->execute();
 
