@@ -6,12 +6,9 @@
 </html>
 <!---Start Database Connection--->
 <?php
-    $servername = "localhost";
-    $username = "KBS2211";
-    $password = "KBS2211";
-    $dbName = "testlove2sing";
+include("includes/functions.php");
 
-    $conn = new PDO('mysql:host=localhost;dbname=testlove2sing',$username, $password);
+    $conn = $db;
 ?>
     <!--- End Database Connection--->
 
