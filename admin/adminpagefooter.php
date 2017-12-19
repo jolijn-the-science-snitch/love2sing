@@ -8,5 +8,6 @@
 
     <!-- Custom scripts for this template -->
     <script src="../js/creative.min.js"></script>
+    <script src="../js/functions.js"></script>
 </body>
 </html>
