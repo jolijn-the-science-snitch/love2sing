@@ -1,3 +1,4 @@
+
 // maak een bootstrap melding
 var messageCount = 0;
 function message(type, title, content) {
@@ -22,9 +23,16 @@ function sendButton(buttonText, loading, buttonid) {
     document.getElementById(buttonid).innerHTML = buttonText;
 }
 
-$('button').on('click', function() {
-  var $inp = $('input');  
-  $inp.attr('type') === 'password' ? 
-    $inp.attr('type', 'text') 
-  : $inp.attr('type', 'password')
-});
+function edit (element,name) {
+    document.getElementById(name).style.display = "block";
+    element.style.display = "none";
+    // als er op de wijzigen knop word geklik knop onzichtbaar maken en bestands input zichtbaar maken
+}
+
+// geeft error's
+//$('button').on('click', function() {
+//    var $inp = $('input');  
+//    $inp.attr('type') === 'password' ? 
+//        $inp.attr('type', 'text') 
+//    : $inp.attr('type', 'password')
+//});

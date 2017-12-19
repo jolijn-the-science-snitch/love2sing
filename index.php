@@ -1,7 +1,37 @@
 <?php
+$isHomepage = true;
 require 'header.php';
 ?>
+<?php
+if (isset($_POST)) {
+    foreach ($_POST as $key => $value) {
+        $content = $value;
+        $stmt = $db->prepare("UPDATE text SET text = :text WHERE id = :id");
+        $stmt->bindParam(':text',$content);
+        $stmt->bindParam(':id', $key);
+        $stmt->execute();
+    }
+}
 
+
+$stmt = $db->prepare("SELECT * FROM text");
+$stmt->execute();
+$script = "";
+while ($row = $stmt->fetch())
+{
+    if (adminpage() && isset($_GET["edit"])) {
+        $height = ceil(strlen($row[1]) / 55) * 18 + 15;
+        $text[$row[0]] = "<form method='post'><textarea style='height: ".$height."px;' class='edittext' name='".$row[0]."'>".$row[1]."</textarea><br><button class='btn btn-secondary btn-md'  type='submit'>Oplslaan</button></form>";
+        $script = '<script>$("a").removeAttr("href"); $("a").removeAttr("onclick"); $("#sendMessageButton").attr("type","button");
+</script>';
+        
+    }
+    else {
+        $text[$row[0]] = nl2br($row[1]);
+    }
+
+}
+?>
 <!-- Navigation -->
 
 <header class="masthead text-center text-white d-flex">
@@ -9,12 +39,12 @@ require 'header.php';
         <div class="row">
             <div class="col-lg-10 mx-auto">
                 <h1 class="text-uppercase">
-                    <strong>Love2Sing</strong>
+                    <strong><?= $text[14] ?></strong>
                 </h1>
                 <hr>
             </div>
             <div class="col-lg-8 mx-auto">
-                <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Ga verder</a>
+                <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about"><?= $text[15] ?></a>
             </div>
         </div>
     </div>
@@ -24,25 +54,25 @@ require 'header.php';
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto">
-                <h2 class="section-heading text-white  text-center">Over Love2Sing</h2>
+                <h2 class="section-heading text-white  text-center"><?= $text[2] ?></h2>
                 <hr class="light my-4">
-                <p class="text-faded mb-4">Gemengd koor Love2sing uit Harderwijk is opgericht in 2016 en telt momenteel 17 enthousiaste zangers en zangeressen (SATB) die veel van zingen houden.<br> Op het repertoire staan mooie arrangementen, van de Britse pianist, arrangeur, componist en producer Tom Parker.<br> Bekende projecten van Tom Parker zijn: The Young Messiah, The Young Verdi, The Young Beethoven, The Young Mozart, The Young Schubert enz. deze muziek wordt uitgevoerd door The New London Chorale.<br> De laatste jaren is The New London Chorale een vast onderdeel bij The Max of the Proms, maar sinds een paar jaar treed The New London Chorale ook weer op in Nederland, niet meer met Tom Parker, want hij is helaas overleden op 18 april 2013.<br> De muziek van Tom Parker is een mooie balans tussen de traditionele klassieke en de populaire muziek.<br> In de toekomst gaan wij kijken of wij nog andere mooie muziek kunnen vinden in deze genre, maar Tom Parker en zijn muziek zal altijd een onderdeel blijven bij Love2sing.
+                <p class="text-faded mb-4"><?= $text[3] ?>
                 </p>
 
-                <h2 class="section-heading text-white  text-center">Dirigente &#038; pianist</h2>
+                <h2 class="section-heading text-white  text-center"><?= $text[4] ?></h2>
                 <hr class="light my-4">
-                <p class="text-faded mb-4">Love2sing staat onder leiding van dirigente Manon Arnold en pianist Sander Worrell. Ze hebben samen veel ervaring op muziekgebied.
+                <p class="text-faded mb-4"><?= $text[5] ?>
                 </p>
             </div>
         </div>
     </div>
 </section>
 
-<section id="services">
+<section id="agenda">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2 class="section-heading">Bezoek onze concerten!</h2>
+                <h2 class="section-heading"><?= $text[6] ?></h2>
                 <hr class="my-4">
             </div>
         </div>
@@ -55,14 +85,13 @@ require 'header.php';
 
 <section class="bg-dark text-white">
     <div class="container text-center">
-        <h2 class="mb-4">Bekijk nog meer foto's van ons koor!</h2>
-        <a class="btn btn-light btn-xl sr-button" href="photoalbum.php">Ga naar foto album</a>
+        <h2 class="mb-4"><?= $text[7] ?></h2>
+        <a class="btn btn-light btn-xl sr-button" href="photoalbum.php"><?= $text[8] ?></a>
     </div>
 </section>
 
 <!-- scripts voor contactformulier -->
 
-<script src="js/functions.js"></script>
 
 <script>
     function contactForm(buttonText, pointerStyle, loading, buttonid) {
@@ -97,9 +126,9 @@ require 'header.php';
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2 class="section-heading text-uppercase">Contact</h2>
+                <h2 class="section-heading text-uppercase"><?= $text[9] ?></h2>
                 <hr class="my-4">
-                <h3 class="section-subheading text-muted">Neem contact op via het contactformulier.<br><br></h3>
+                <h3 class="section-subheading text-muted"><?= $text[10] ?><br><br></h3>
             </div>
         </div>
         <div class="row">
@@ -127,7 +156,7 @@ require 'header.php';
                         <div class="clearfix"></div>
                         <div class="col-lg-12 text-center">
                             <div id="success"></div>
-                            <button id="sendMessageButton" class="btn btn-primary btn-xl text-uppercase" type="submit">Verstuur bericht</button>
+                            <button id="sendMessageButton" class="btn btn-primary btn-xl text-uppercase" type="submit"><?= $text[11] ?></button>
                         </div>
                     </div>
                 </form>
@@ -136,17 +165,17 @@ require 'header.php';
 
                 <iframe name="contact" src="mail.php" id="contactIframe" onload="mail();"></iframe>
                 <div class="col-lg-12 text-center">
-                    <h3 class="section-subheading text-muted">Of kom een keertje langs!<br></h3>
+                    <h3 class="section-subheading text-muted"><?= $text[12] ?><br></h3>
                 </div>
                 <div class="row">
                     <div class="col align-self-center">
-                        <p class="text-center"><strong>De Roef</strong><br>Zuiderzeepad 1<br>3844 JV Harderwijk</p>
-                        
+                        <p class="text-center"><?= $text[13] ?></p>
+
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2437.8307614435207!2d5.60690031531079!3d52.33721625751214!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c6316035c49a25%3A0x253fdf15a0417bbd!2sMultifunctioneel+zalen-+en+vergadercentrum+&#39;de+Roef&#39;!5e0!3m2!1sen!2snl!4v1511981850025"  frameborder="0" id="googleMapsIframe" style="border:0" allowfullscreen></iframe>
                     </div>
                 </div>
 
-                
+
 
             </div>
         </div>
@@ -155,5 +184,6 @@ require 'header.php';
 
 
 <?php
-require 'footer.php';
+    require 'footer.php';
 ?>
+<?= $script ?>

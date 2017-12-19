@@ -9,7 +9,13 @@ class DbHelper{
 
     //maakt de DB connectie aan
     public function __construct(){
-        $this -> connect = new PDO('mysql:host=localhost; dbname=love2sing;','root','');
+        try {
+            $this -> connect = new PDO('mysql:host=localhost; dbname=love2sing;','root','');
+        }
+        catch (PDOException $Exception) {
+            echo '<div  class="alert alert-danger fade in message"><strong>Database error </strong>De database verbinding is mislukt</div>';
+            exit;
+        }
     } 
 
 
@@ -39,6 +45,7 @@ class DbHelper{
                 $statement->bindParam(':username', $_POST['username'], PDO::PARAM_STR);
                 $statement->bindParam(':password', $hash, PDO::PARAM_STR);
 
+<<<<<<< HEAD
                 $statement->execute();
 
                 //controleert of alles klopt
@@ -85,11 +92,43 @@ class DbHelper{
         echo "<script>".$message2."</script>";
             
             
+=======
+                if ($user["userRights"] == 1) {
+                    // user is een gebruiker
+                    $_SESSION['userRights'] = 'user';                    
+                }
+                elseif ($user["userRights"] == 2) {
+                    // user is een admin
+                    $_SESSION['userRights'] = 'admin';
+                }
+                $redirect = "";
+                
+                if (isset($_GET["redirect"])) {
+                    $redirect = filter_input(INPUT_GET, "redirect");
+                    header('Location: '.$redirect.'');
+                    exit;
+                }
+                else {
+                    header('Location: index.php');
+                    exit;
+                }
+
+            }
+>>>>>>> origin/wim
         }
             
         }
+<<<<<<< HEAD
                   
                 
+=======
+
+
+        // laat melding(en) zien
+        echo "<script>".$message."</script>";
+
+    }
+>>>>>>> origin/wim
 
     function editUserStart($case){
         //select query die de gegevens van de klant ophaald zodat hij/zij deze kan veranderen
@@ -99,7 +138,11 @@ class DbHelper{
         $statement = $this-> connect -> prepare($create);
 
         //zorgt ervoor dat het juiste id wordt gepakt
-        $statement->bindParam(':id', $_SESSION['editPassword'], PDO::PARAM_STR);
+        $editId = $_SESSION['editPassword'];
+        if (isset($_GET["id"])) {
+            $editId = filter_input(INPUT_GET, "id");
+        }
+        $statement->bindParam(':id', $editId, PDO::PARAM_STR);
 
         $statement -> execute();
 
@@ -118,7 +161,7 @@ class DbHelper{
         }
     }
 
-    function editUser(){
+    function editUser($editId = null){
         //update query voor de gebruikers
         $edit = "UPDATE user SET  
     userPassword = :password
@@ -131,11 +174,30 @@ class DbHelper{
         $statement = $this -> connect ->prepare($edit);
 
         //de gegevens die gewijzigd mogen worden (het id wordt NIET aangepast)
+<<<<<<< HEAD
         $statement->bindParam(':id', $_SESSION['userId'], PDO::PARAM_STR);
         $statement->bindParam(':password', $hash, PDO::PARAM_STR);
+=======
+        if ($editId == null) {
+            $editId = $_SESSION['userId'];
+        }
+
+
+        $statement->bindParam(':id', $editId, PDO::PARAM_STR);
+        $statement->bindParam(':password', $_POST['password'], PDO::PARAM_STR);
+>>>>>>> origin/wim
 
         $statement->execute();
+
+        if ($statement->rowCount() == 1) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
     }
+
+
 
     function returndb() {
         return $this-> connect;
@@ -167,6 +229,7 @@ $statement->bindParam(':userEmail', $_POST['userEmail'], PDO::PARAM_STR);
 }
 
 
+
 // bestand uploaden
 // OUDE FUNCTIE: GEBUIK fileUpload()
 
@@ -177,7 +240,7 @@ function upload($file,$type,$name,$fileName = null) {
         return 5;
     }
     else {
-        $target_dir = "uploads/";
+        $target_dir = "../uploads/";
         if ($fileName != null) {
             $target_file = $target_dir . $fileName . "." . $type;
         }
@@ -194,7 +257,7 @@ function upload($file,$type,$name,$fileName = null) {
             $result .= "2";           
             // check of er al een bestand is met dezelfde naam, zo ja: foutcode 2
         }
-        if ($file["size"] > 2500000) {
+        if ($file["size"] > 100000000) {
             $uploadOk = 0;
             $result .= "3";
             // check of het bestand te groot is, zo ja: foutcode 3
@@ -231,7 +294,6 @@ function upload($file,$type,$name,$fileName = null) {
     }
 }
 
-
 // bestand uploaden
 
 // code's: 
@@ -252,17 +314,23 @@ function upload($file,$type,$name,$fileName = null) {
 // $result[0] foutcodes
 // $result[1] opslaglocatie van bestand in database
 
-function fileUpload($file,$type) {    
+/**
+ * @param $file
+ * @param $type
+ * @return array
+ */
+function fileUpload($file, $type) {
     if ($file["error"] == 4) {
-        return array(5,null);
+        return array(null,5);
     }
     else {
         $target_dir = "uploads/";
-        
+
         $uploadOk = 1;
         $fileType = pathinfo(basename($file["name"]),PATHINFO_EXTENSION);
         $result = "";
-                
+
+
         while (true) {
             $fileName = $fileType ."-". date("Y-m-d-h-i-s-u") . "-" . rand(1000,9999);
             $target_file = $target_dir . $fileName . "." . $fileType;
@@ -270,19 +338,20 @@ function fileUpload($file,$type) {
                 break;
             }
         }
-        
-        if ($file["size"] > 2500000) {
+
+
+        if ($file["size"] > 10000000) {
             $uploadOk = 0;
             $result .= "3";
-            
-            message("warning", $file["name"] . " is niet opgeslagen", "Het bestand " . $file["name"] . " is te groot ". $file["size"] / 1000000 . "MB, max 2.5MB"); 
+
+
+            message("warning", $file["name"] . " is niet opgeslagen", "Het bestand " . $file["name"] . " is te groot ". $file["size"] / 1000000 . "MB, max 10MB"); 
             // check of het bestand te groot is, zo ja: foutcode 3
         }
         if (is_array($type)) {
             if(!in_array($fileType,$type)) {
                 $uploadOk = 0;
                 $result .= "4";
-                
                 message("warning", $file["name"]. " is niet opgeslagen", "Het bestand " . $file["name"] . " is geen ".implode (", ", $type)); 
                 // check of het bestand geen $type type is, zo ja: foutcode 4
             }
@@ -290,7 +359,6 @@ function fileUpload($file,$type) {
         elseif ($type != $fileType) {
             $uploadOk = 0;
             $result .= "4";
-            
             message("warning", $file["name"]. " is niet opgeslagen", "Het bestand " . $file["name"] . " is geen ".$type); 
             // check of het bestand geen $type type is, zo ja: foutcode 4
         }
@@ -299,16 +367,14 @@ function fileUpload($file,$type) {
             return array($target_file,$result);
             // er zijn fouten opgetreden, de foutcodes worden gereturnd
         } 
-        else {
-            if (move_uploaded_file($file["tmp_name"], $target_file)) {
+        else {            
+            if (move_uploaded_file($file["tmp_name"], "../".$target_file)) {
                 message("success", $file["name"]. " is geupload", "Het bestand " .$file["name"] . " is succesvol opgeslagen op de server"); 
-                
                 return array($target_file,1);       
                 // bestand is succesvol geupload
             }
             else {
                 message("danger", $file["name"]." is niet opgeslagen", "Er is een technische fout opgetreden"); 
-                        
                 return array($target_file,0);
                 // er is een probleem opgetreden met uploaden
             }
@@ -350,9 +416,10 @@ function message($type,$title,$content) {
 //  love2singmail
 //  php.ini en sendmail.ini aanpassen, zie trello->programming rules
 
-function sendMail($subject,$message,$replyTo) {
-    $to = "love2singtestmail@gmail.com";
-
+function sendMail($subject,$message,$replyTo,$to = null) {
+    if ($to == null) {
+        $to = "love2singtestmail@gmail.com";
+    }
     if ($replyTo == null) {
         $replyTo = "love2singtestmail@gmail.com";
     }
@@ -393,6 +460,5 @@ function userpage() {
 
 $view = new DbHelper();
 $db = $view -> returndb();
-
 
 ?>

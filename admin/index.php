@@ -2,11 +2,9 @@
 require '../includes/functions.php';
 // controleer of gebruiker admin rechten heeft
 if (!adminpage()) {
-    header('Location: ../index.php');
+    header('Location: ../login.php?redirect='.$_SERVER[REQUEST_URI].'');
 }
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,6 +25,11 @@ if (!adminpage()) {
         <link href="../css/sb-admin.css" rel="stylesheet">
         <link href="../css/editPassword.css" rel="stylesheet">
         <link href="../css/style.css" rel="stylesheet">
+        <!-- Bootstrap core JavaScript-->
+        <script src="../vendor/jquery/jquery.min.js"></script>
+        <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- Core plugin JavaScript-->
+        <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
         <script src="../js/functions.js"></script>
 
     </head>
@@ -35,6 +38,8 @@ if (!adminpage()) {
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
             <a class="navbar-brand" href="#">Love2Sing</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" id="menuButton"></button>
+
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -47,9 +52,10 @@ if (!adminpage()) {
                         </a>
                     </li>
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-                        <a class="nav-link" href="calendar.php" target="iframe" onClick="viewName(this);">
+                        <a class="nav-link" href="https://calendar.google.com" target="_blank" >
                             <i class="fa fa-fw fa fa-calendar"></i>
                             <span class="nav-link-text">Kalender</span>
+                            <i class="fa fa-external-link floatright" aria-hidden="true"></i>
                         </a>
                     </li>
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
@@ -62,13 +68,33 @@ if (!adminpage()) {
                                 <a href="musicupload.php" target="iframe" onClick="viewName(this,'componentsParent');">Uploaden muziek</a>
                             </li>
                             <li>
-                                <a href="adduser.php" target="iframe" onClick="viewName(this,'componentsParent');">Persoon toevoegen smoelenboek</a>
+                                <a href="addmembers.php" target="iframe" onClick="viewName(this,'componentsParent');">Persoon toevoegen smoelenboek</a>
                             </li>
                             <li>
-                                <a href="addphoto.php" target="iframe" onClick="viewName(this,'componentsParent');">Foto's toevoegen fotoalbum</a>
+                                <a href="uploadfoto.php" target="iframe" onClick="viewName(this,'componentsParent');">Foto's toevoegen fotoalbum</a>
+
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseOverview" data-parent="#exampleAccordion" id="overviewParent">
+                            <i class="fa fa-fw fa-table"></i>
+                            <span class="nav-link-text">Overzichten</span>
+                        </a>
+                        <ul class="sidenav-second-level collapse" id="collapseOverview">
+                            <li>
+                                <a href="musicuploads.php" target="iframe" onClick="viewName(this,'overviewParent');">Muziek</a>
                             </li>
                             <li>
-                                <a href="editPassword.php" target="iframe" onClick="viewName(this,'componentsParent');">Wachtwoord wijzigen</a>
+                                <a href="facemapoverview.php" target="iframe" onClick="viewName(this,'overviewParent');">Smoelenboek</a>
+                            </li>
+                            <li>
+                                <a href="photoalbumoverview.php" target="iframe" onClick="viewName(this,'overviewParent');">Fotoalbum</a>
+
+                            </li>
+                            <li>
+                                <a href="users.php" target="iframe" onClick="viewName(this,'overviewParent');">Gebruikers</a>
                             </li>
                         </ul>
                     </li>
@@ -80,11 +106,23 @@ if (!adminpage()) {
                         </a>
                         <ul class="sidenav-second-level collapse" id="collapseMessages">
                             <li>
-                                <a href="guestbookposts.php" target="iframe" onClick="viewName(this,'messageParent');">Gastenboek</a>
+                                <a href="guestbookposts.php" target="iframe" onClick="viewName(this,'messageParent');" id="guestbook">Gastenboek</a>
                             </li>
                             <li>
-                                <a href="contactformresults.php" target="iframe" onClick="viewName(this,'messageParent');">Contact formulier</a>
+                                <a href="contactformposts.php" target="iframe" onClick="viewName(this,'messageParent');" id="contactform">Contact formulier</a>
                             </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseText" data-parent="#exampleAccordion" id="textParent">
+                            <i class="fa fa-fw fa-pencil"></i>
+                            <span class="nav-link-text">Tekst wijzigen</span>
+                        </a>
+                        <ul class="sidenav-second-level collapse" id="collapseText">
+                            <li>
+                                <a href="../index.php?edit=true" target="iframe" onClick="viewName(this,'textParent');">Homepagina</a>
+                            </li>
+
                         </ul>
                     </li>
 
@@ -100,7 +138,87 @@ if (!adminpage()) {
 </li>
 </ul>
 -->
+
+                <?php 
+                $stmt = $db->prepare("SELECT * FROM ( (SELECT c.contactid AS id, c.email AS title, c.message AS content, c.date AS date, 'contact' as tableName, c.name AS name FROM contact c WHERE c.contactRead = 0) UNION ALL (SELECT g.guestbookId AS id, g.guestbookTitle AS title, g.guestbookMessage AS content, g.guestbookDate AS date, 'gastenboek' as tableName , 'null' AS name FROM guestbook g WHERE g.guestbookRead = 0) ) results ORDER BY date DESC ");
+                $stmt->execute();
+
+                $content = '';
+                $i = 0;
+                while($row = $stmt->fetch()){
+                    if ($i < 3) {
+                        if (strlen($row["content"]) > 250) {
+                            $row["content"] = substr($row["content"], 0, 250). "... <span class='small text-info'>klik voor volledig bericht</span>";
+                        }
+                        if ($row["tableName"] == "gastenboek") {
+                            $content .= '<a class="dropdown-item" href="guestbookposts.php?id='.$row["id"].'" target="iframe" onClick="viewName(document.getElementById(\'guestbook\'),\'messageParent\'); notification(-1); this.remove();">
+                                <span class="text-warning">
+                                    <strong>
+                                        Nieuw '.$row["tableName"].' bericht</strong>
+                                </span>
+                                <span class="small float-right text-muted">'.$row["date"].'</span>
+                                <div class="dropdown-message small"><h5>'.$row["title"].'</h5>'.$row["content"].'</div>
+                            </a>';
+
+                        }
+                        else {
+                            $content .= '<a class="dropdown-item" href="contactformposts.php?id='.$row["id"].'" target="iframe" onClick="viewName(document.getElementById(\'contactform\'),\'messageParent\'); notification(-1); this.remove();">
+                                <span class="text-warning">
+                                    <strong>
+                                        Nieuw '.$row["tableName"].' bericht</strong>
+                                </span>
+                                <span class="small float-right text-muted">'.$row["date"].'</span>
+                                <div class="dropdown-message small"><h5>Van:  '.$row["name"].'</h5><b>Bericht:</b><br>'.$row["content"].'<br>
+                                <b>Email adres: </b>'.$row["title"].'</div>
+                            </a>';
+
+                        }
+                        $i++;
+                    }
+                }
+
+                $count = $stmt->rowCount(); 
+                if ($count == 0) {
+                    $count = "";
+                }
+                ?>
                 <ul class="navbar-nav ml-auto">
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <i class="fa fa-fw fa-bell"></i>
+
+                            <?php 
+                            if ($count != 0) {
+                                echo '<span class="d-lg-none" id="notifications">Meldingen ';
+                                echo '<span class="badge badge-pill badge-warning">'. $count.' berichten</span>';   
+                                echo '</span>';
+                            }
+                            else {
+                                echo '<span class="d-lg-none" id="notifications">Meldingen ';
+                                echo '<span class="badge badge-pill badge-info">Geen nieuwe berichten</span>';   
+                                echo '</span>';
+                            }
+                            ?>
+
+
+                            <span class="indicator text-warning d-none d-lg-block" id="messagecount">
+                                <?= $count ?>
+                            </span>
+                        </a>
+                        <div class="dropdown-menu  messageview" aria-labelledby="alertsDropdown">
+                            <?php 
+    if ($count != 0) {
+        echo '<h6 class="dropdown-header">Nieuwe berichten:</h6>';
+        echo '<div class="dropdown-divider"></div>';
+        echo  $content;
+    }
+                                else {
+                                    echo '<h6 class="dropdown-header">Geen nieuwe berichten</h6>';
+                                }
+                            ?>
+                        </div>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
                             <i class="fa fa-fw fa-sign-out"></i>Terug naar website</a>
@@ -129,7 +247,39 @@ if (!adminpage()) {
                         else {
                             content += '<li class="breadcrumb-item"><i class="fa fa-fw fa-home"></i><span class="nav-link-text">Home</span></li>';
                         }
+
+
                         document.getElementById("pageName").innerHTML = content;
+                        if ($(window).width() < 992) {
+                            $("#menuButton").click();
+                            $('.tooltip').remove();
+                        }                    
+                    }
+
+                    var number = <?= $count ?>;
+                    function notification(change) {
+                        var notification = document.getElementById("notifications");
+                        var notificationpc = document.getElementById("messagecount");
+                        var status = "";  
+
+                        number += change;
+                        if (number > 0) {
+                            status = "warning";
+                            if (notificationpc.classList.contains('text-info')) {
+                                notificationpc.classList.remove('text-info');
+                                notificationpc.classList.add('text-warning');
+                            }
+                        }
+                        else {
+                            status = "info";
+                            number = 0;
+                            if (notificationpc.classList.contains('text-warning')) {
+                                notificationpc.classList.add('text-info');
+                                notificationpc.classList.remove('text-warning');
+                            }
+                        }
+                        notification.innerHTML = 'Meldingen <span class="badge badge-pill badge-' + status + '">'+ number + ' berichten</span>';
+                        notificationpc.innerHTML = number;
                     }
                 </script>
 
@@ -164,20 +314,6 @@ if (!adminpage()) {
                         </div>
                     </div>
                 </div>
-                <!-- Bootstrap core JavaScript-->
-                <script src="../vendor/jquery/jquery.min.js"></script>
-                <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-                <!-- Core plugin JavaScript-->
-                <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-                <!-- Page level plugin JavaScript-->
-                <script src="../vendor/chart.js/Chart.min.js"></script>
-                <script src="../vendor/datatables/jquery.dataTables.js"></script>
-                <script src="../vendor/datatables/dataTables.bootstrap4.js"></script>
-                <!-- Custom scripts for all pages-->
-                <script src="../js/sb-admin.min.js"></script>
-                <!-- Custom scripts for this page-->
-                <script src="../js/sb-admin-datatables.min.js"></script>
-                <script src="../js/sb-admin-charts.min.js"></script>
             </div>
         </div>
     </body>
