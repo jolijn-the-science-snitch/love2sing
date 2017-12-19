@@ -81,12 +81,8 @@ require 'header.php';
                     <ul> 
                         <?php
                         //Include database configuration file
-                        $db = "mysql:host=localhost;dbname=love2sing;port=3306";
-                        $user = "admin";
-                        $pass = "admin";
-                        $pdo = new PDO($db, $user, $pass);
                         //get images from database
-                        $query = $pdo->query("SELECT * FROM photoalbum ORDER BY photoalbumId DESC");
+                        $query = $db->query("SELECT * FROM photoalbum ORDER BY photoalbumId DESC");
                         $preview = "Geen foto's om weer te geven";
                         $i = 0;
                         if ($query->rowCount() > 0) {
