@@ -1,5 +1,7 @@
 <?php
-    require_once(__DIR__ . '/admin/adminpageheader.php');
+    include("adminpageheader.php");
+    $formstyle = "";
+    $buttonstyle = "style='display: none;'";
 ?>
 <body>
 	<div class="container">
@@ -10,15 +12,15 @@
 
 		<div class="jumbotron" style="padding: 10px;margin-top:20px;">
             <h3>Lid Toevoegen</h3><br>
-			<form action="insert.php" method="post" enctype="multipart/form-data">
+            <form action='addmembers.php' method="post" enctype="multipart/form-data">
                 <div class="form-group required">
-                    <label for="username">Username</label>
-                    <input type="text" class="form-control" id="username" placeholder="Enter username" name="username" required>
+                    <label for="username">Voor- en achternaam</label>
+                    <input type="text" class="form-control" id="username" placeholder="naam achternaam" name="username" required>
                 </div>
                 <div class="form-group required">
                     <label for="exampleFormControlFile1"> Selecteer een plaatje om toe te voegen:</label>
                     <input type="file" name="fileToUpload" id="fileToUpload" required><br><br>
-                    <input type="submit" value="Upload foto" name="submit" class="btn btn-primary">
+                    <input type="submit" value="Persoon toevoegen" name="submit" class="btn btn-primary">
                 </div>
 			</form>
             <h5>
@@ -28,22 +30,23 @@
                 }
                 ?>
             </h5><br><br>
-            <a href="overzicht.php">Overzicht</a>
+            <a href="../overzicht.php">Overzicht</a>
 		</div>
-		<? require_once 'scripts.php' ?>
+		<? require_once '../scripts.php' ?>
     </div>
-<? require_once 'footer.php' ?>
+<? require_once '../footer.php' ?>
 
 <?php
-require_once 'connect.php';
-require_once 'upload.php';
+
+require_once '../includes/functions.php'; //connect database
+require_once '../upload.php'; //require de upload functie in upload.php
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	// Query voor het toevoegen van Leden
 	if(isset($_POST['username']) === false) {
         $_SESSION['uploadError'] = 'Je hebt een foutje gemaakt';
-        header('Location: /KBS/love2sing/insert.php'); exit;
+        header('Location: /KBS/love2sing/admin/addmembers.php'); exit;
 	}
 
     //Upload functie aanroepen
@@ -54,21 +57,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($fileName === false) {
         $_SESSION['uploadError'] = 'Je bestand is kapot ofzo';
-        header('Location: /KBS/love2sing/insert.php'); exit;
+        header('Location: /KBS/love2sing/admin/addmembers.php'); exit;
     }
 
-    $statement = $pdo->prepare("INSERT INTO facemap(facemapUrl, facemapName) VALUES(:facemapUrl, :facemapName)");
+    $statement = $db->prepare("INSERT INTO facemap(facemapUrl, facemapName) VALUES(:facemapUrl, :facemapName)");
 
     $result = $statement->execute(array(
         'facemapUrl' => $fileName,
         'facemapName' => $username
     ));
-
+    var_dump($result);
     if ($result === true) {
         $_SESSION['uploadError'] = 'Succesvol toegevoegd!';
-        header('Location: /KBS/love2sing/insert.php'); exit;
+        header('Location: /KBS/love2sing/admin/addmembers.php'); exit;
     }
 } else {
-    $_SESSION['uploadError'] = 'Je hebt nog niet alles ingevuld';
+    $_SESSION['uploadError'] = 'Vul alles in';
+
 }
+
 ?>

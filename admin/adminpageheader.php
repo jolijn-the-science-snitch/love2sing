@@ -3,7 +3,7 @@
 require '../includes/functions.php';
 // controleer of gebruiker admin rechten heeft
 if (!adminpage()) {
-    header('Location: ../index.php');
+    header('Location: ../login.php?redirect='.$_SERVER[REQUEST_URI].'');
 }
 ?>
 
@@ -33,7 +33,7 @@ if (!adminpage()) {
         <link href="../css/creative.min.css" rel="stylesheet">
         <link href="../css/style.css" rel="stylesheet">    
         <link href="../css/index.css" rel="stylesheet">
-        <script src="../js/functions.js"></script>
+        
 
         <style>
             @media only screen and (max-width: 760px){
@@ -43,4 +43,5 @@ if (!adminpage()) {
             }
         </style>
     </head>
-    <body id="adminbody">
+    <body class="adminbody" id="page-top">
+    <nav id="mainNav"></nav>

@@ -6,7 +6,6 @@ require 'includes/functions.php';
 <html lang="en">
 
     <head>
-
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
@@ -30,7 +29,7 @@ require 'includes/functions.php';
         <link href="css/style.css" rel="stylesheet">    
         <link href="css/index.css" rel="stylesheet">
 
-       <script src="js/functions.js"></script>
+        <script src="js/functions.js"></script>
 
     </head>
 

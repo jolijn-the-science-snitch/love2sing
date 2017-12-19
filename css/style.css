@@ -9,11 +9,9 @@
     height: 0px;
 }
 #message {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
-
-
 .edittext {
     width: 100%;
     text-align: center;
@@ -27,31 +25,111 @@
     width: 100%;
     height: 300px;
 } 
+
+#messagecount {
+    left: 28px!important;
+    font-size: 11px!important;
+}
+
 #adminiframe {
     width: calc(100% - 30px);
     height: calc(100% - 200px);
     border: 0px;
     position: absolute;
 }
-#adminbody {
+.adminbody {
     background: white;
 }
 button {
     cursor: pointer;
 }
+.messageview {
+    right: 0px!important; 
+    left: auto!important; 
+}
+.dropdown-item {
+    white-space: normal;
+}
+.footermail {
+    position: fixed;
+    bottom: 0px;
+    background: white;
+    width: 100%;
+    padding-top: 10px;
+    text-align: center;
+    left: 0px;
+}
+.mailback {
+    position: fixed;
+    background: white;
+    width: 100%;
+    padding-bottom: 10px;
+    top: 0px;
+    z-index: 10;
 
+}
+.mailback a:hover {
+    text-decoration: none;
+}
+#viewmail {
+    display: none;
+
+}
+.floatright {
+    float: right;
+}
+.btn-xl {
+    margin-bottom: 10px;
+}
+#facemapimg {
+    max-width: 100%;
+}
+
+.mailtextarea {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 5px;
+}
 @media only screen and (min-width: 960px){
     #adminiframe {
         width: calc(100% - 278px);
         height: calc(100% - 200px);
     } 
-
+    .messageview {
+        width: 400px;
+    }
+    .actioncontact {
+        min-width: 385px;
+    }
+    .date {
+        min-width: 180px;
+    }
+    .actionguestbook {
+        min-width: 300px;
+    }
+    .from {
+        min-width: 140px;
+    }
+    .footermail {
+        text-align: left;
+        left: auto;
+    }
 }
 @media only screen and (max-width: 960px){
     .invisibleOnPhone {
         display: none;
     }
+    .messagetext {
+        display: none;
+    }
+    .email { 
+        display: none;
+    }
+    .status {
+        display: none;
+    }
 }
+
 
 .calendar-container {
     font-size: 800px;

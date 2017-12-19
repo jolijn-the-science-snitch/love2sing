@@ -37,7 +37,11 @@
                 </div>
         
         <?php
+<<<<<<< HEAD
   
+=======
+     
+>>>>>>> origin/wim
         //d.m.v. prepare, veilige query om de benodigde data uit de tabel op te halen
         $stmt= $db->prepare("SELECT * FROM guestbook WHERE guestbookApproved = 1 ORDER BY guestbookDate DESC");
         $stmt->execute();
