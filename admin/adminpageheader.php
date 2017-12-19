@@ -34,6 +34,7 @@ if (!adminpage()) {
         <link href="../css/style.css" rel="stylesheet">    
         <link href="../css/index.css" rel="stylesheet">
         
+        <script src="../js/functions.js"></script>
 
         <style>
             @media only screen and (max-width: 760px){
