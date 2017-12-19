@@ -29,8 +29,11 @@ class DbHelper{
             $_SESSION['loginAttempts'] = $loginAttempts;
         }
             
-            if($_SESSION['loginAttempts'] < 3){
-        
+            if($_SESSION['loginAttempts'] < 3 || strtotime($_SESSION["time"]) < strtotime(date("Y-m-d h:i:s")) ){
+                if (strtotime($_SESSION["time"]) < strtotime(date("Y-m-d h:i:s")) ) {
+                    $_SESSION["loginAttempts"] = 0;
+                    $_SESSION["time"] = date("Y-m-d h:i:s");
+                }
             
                 //hash ingevuld password
                 $hash = hash('sha256', $_POST['password']);
@@ -45,7 +48,6 @@ class DbHelper{
                 $statement->bindParam(':username', $_POST['username'], PDO::PARAM_STR);
                 $statement->bindParam(':password', $hash, PDO::PARAM_STR);
 
-<<<<<<< HEAD
                 $statement->execute();
 
                 //controleert of alles klopt
@@ -54,6 +56,7 @@ class DbHelper{
         
                     //functie userrights
                     if(isset($result) && isset($result[0])){
+                        
                         $user = $result[0];
 
                         if($user[0] > 0){
@@ -70,10 +73,23 @@ class DbHelper{
                                 // user is een admin
                                     $_SESSION['userRights'] = 'admin';
                                 }
+                            
+                                $redirect = "";
+                
+                                if (isset($_GET["redirect"])) {
+                                     $redirect = filter_input(INPUT_GET, "redirect");
+                                        header('Location: '.$redirect.'');
+                                        exit;
+                                } else {
+                                    header('Location: index.php');
+                                    exit;
+                                }
+
 
                                 header('Location: index.php');
                                 }
-                    }else {
+                    }
+                else {
                         $message = 'message("danger", "Onjuiste inloggegevens", "U bent niet ingelogd, controleer uw gegevens"); ';
                    
             
@@ -83,52 +99,23 @@ class DbHelper{
                     echo "<script>".$message."</script>";
                 
                     $_SESSION['loginAttempts']++;
+                
                     
                 }else{
                     $message2 = 'message("danger", "Account voor 15 minuten geblokkeerd!", "U heeft uw wachtwoord meer dan 3 keer verkeerd ingevoerd. Over 15 minuten kunt u het weer proberen."); ';
-                        
-            
-        //laat melding zien
-        echo "<script>".$message2."</script>";
-            
-            
-=======
-                if ($user["userRights"] == 1) {
-                    // user is een gebruiker
-                    $_SESSION['userRights'] = 'user';                    
-                }
-                elseif ($user["userRights"] == 2) {
-                    // user is een admin
-                    $_SESSION['userRights'] = 'admin';
-                }
-                $redirect = "";
+                    // laat melding(en) zien
+                $_SESSION["time"] = strtotime(date("Y-m-d h:i:s"))+ 60;
                 
-                if (isset($_GET["redirect"])) {
-                    $redirect = filter_input(INPUT_GET, "redirect");
-                    header('Location: '.$redirect.'');
-                    exit;
+                    echo "<script>".$message2."</script>";
                 }
-                else {
-                    header('Location: index.php');
-                    exit;
-                }
-
-            }
->>>>>>> origin/wim
-        }
-            
-        }
-<<<<<<< HEAD
-                  
-                
-=======
-
-
-        // laat melding(en) zien
-        echo "<script>".$message."</script>";
-
     }
->>>>>>> origin/wim
+            
+          
+
+
+
+
+    
 
     function editUserStart($case){
         //select query die de gegevens van de klant ophaald zodat hij/zij deze kan veranderen
@@ -174,10 +161,10 @@ class DbHelper{
         $statement = $this -> connect ->prepare($edit);
 
         //de gegevens die gewijzigd mogen worden (het id wordt NIET aangepast)
-<<<<<<< HEAD
+
         $statement->bindParam(':id', $_SESSION['userId'], PDO::PARAM_STR);
         $statement->bindParam(':password', $hash, PDO::PARAM_STR);
-=======
+
         if ($editId == null) {
             $editId = $_SESSION['userId'];
         }
@@ -185,7 +172,7 @@ class DbHelper{
 
         $statement->bindParam(':id', $editId, PDO::PARAM_STR);
         $statement->bindParam(':password', $_POST['password'], PDO::PARAM_STR);
->>>>>>> origin/wim
+
 
         $statement->execute();
 
