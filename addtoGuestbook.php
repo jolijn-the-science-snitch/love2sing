@@ -2,16 +2,12 @@
 require 'header.php';
 ?>
 
-<<<<<<< HEAD
-    <head>
-        <link rel="stylesheet" type="text/css" href="guestbook.css">
-        <link rel="stylesheet" type="text/css" href="css/creative.min.css">
-    </head>
-    <!--
+
+<!--
 =======
 <head>
-    <link rel="stylesheet" type="text/css" href="guestbook.css">
-    <link rel="stylesheet" type="text/css" href="css/creative.min.css">
+<link rel="stylesheet" type="text/css" href="guestbook.css">
+<link rel="stylesheet" type="text/css" href="css/creative.min.css">
 </head>
 <!--
 >>>>>>> origin/wim
@@ -35,22 +31,14 @@ require 'header.php';
             </p>
 
 
-<<<<<<< HEAD
-                <div class="submit">
-                    <input type="submit" name="verzenden" value="Verzend bericht" id="button-purple" />
-                    <div class="ease"></div>
-                </div>
-            </form>
-            <div id="message"></div>
-        </div>
-=======
             <div class="submit">
                 <input type="submit" name="verzenden" value="Verzend bericht" id="button-purple" />
                 <div class="ease"></div>
             </div>
         </form>
+        <div id="message"></div>
     </div>
->>>>>>> origin/wim
+
 
 
 
@@ -85,17 +73,7 @@ require 'header.php';
             //veilige insert in de tabel dmv prepare, daardoor geen string escape meer nodig
             $stmt= $db->prepare("INSERT INTO guestbook (guestbookTitle, guestbookMessage, guestbookDate) VALUES('$title','$gbmessage','$date')");
             $stmt->execute();
-<<<<<<< HEAD
-         
-//verstuur mail voor het goedkeuren van een gastenboekbericht
-        
-=======
-            echo "<div class='guestbook-text'>Uw verzoek om een bericht te plaatsen in het gastenboek is verstuurd! Als deze wordt geaccepteerd, zal uw bericht in het gastenboek verschijnen.</div>";
 
-
-            //verstuur mail voor het goedkeuren van een gastenboekbericht
-
->>>>>>> origin/wim
             $id = $db->lastInsertId(); // krijg het id van het zojuist geinserte gastenboek item
 
             $subject= "Nieuw gastenboek bericht";
@@ -118,47 +96,34 @@ require 'header.php';
 </html>
 ";             
             $replyTo= null; //persoon heeft geen mailadres moeten invoeren en krijgt dus ook geen bericht van toevoeging of weigering
-<<<<<<< HEAD
-        
-        // Als het bericht inserted is én de mail is verstuurd, goedmelding geven   
-        if(sendMail($subject,$emailmessage,$replyTo) == 1){
-            message("success","Uw verzoek om een bericht te plaatsen in het gastenboek is verstuurd!","Als deze wordt geaccepteerd, zal uw bericht in het gastenboek verschijnen.");
-        // Als er iets fout is gegaan met het inserten of het versturen van de mail, foutmelding geven
-        }else{
-            message("danger","Er is iets fout gegaan!","Probeer het opnieuw.");
-        }    
-                     
-    }
-     
-}
-   
 
-        // alleen bij het zojuist toegevoegde bericht de status aanpassen d.m.v. de WHERE
-        // $_GET, want een $_POST wil niet vanuit de mail
-        if(isset($_GET['toevoegen']) && isset($_GET['id'])){
-            $approve= $db->prepare("UPDATE guestbook SET guestbookApproved = 1 WHERE guestbookId = ?;");
-            $approve->execute(array($_GET['id']));
-            echo $approve->rowCount();
-        }             
-        if(isset($_GET['weigeren']) && isset($_GET['id'])){
-            $approve= $db->prepare("UPDATE guestbook SET guestbookApproved = 0 WHERE guestbookId = ?;");
-            $approve->execute(array($_GET['id']));
-            echo $approve->rowCount();
-        }
-   ?><?= $message ?>
+            // Als het bericht inserted is én de mail is verstuurd, goedmelding geven   
+            if(sendMail($subject,$emailmessage,$replyTo) == 1){
+                message("success","Uw verzoek om een bericht te plaatsen in het gastenboek is verstuurd!","Als deze wordt geaccepteerd, zal uw bericht in het gastenboek verschijnen.");
+                // Als er iets fout is gegaan met het inserten of het versturen van de mail, foutmelding geven
+            }else{
+                message("danger","Er is iets fout gegaan!","Probeer het opnieuw.");
+            }    
 
-                <?php
-=======
-
-            echo sendMail($subject,$message,$replyTo);             
         }
 
     }
 
 
-    ?>
+    // alleen bij het zojuist toegevoegde bericht de status aanpassen d.m.v. de WHERE
+    // $_GET, want een $_POST wil niet vanuit de mail
+    if(isset($_GET['toevoegen']) && isset($_GET['id'])){
+        $approve= $db->prepare("UPDATE guestbook SET guestbookApproved = 1 WHERE guestbookId = ?;");
+        $approve->execute(array($_GET['id']));
+        echo $approve->rowCount();
+    }             
+    if(isset($_GET['weigeren']) && isset($_GET['id'])){
+        $approve= $db->prepare("UPDATE guestbook SET guestbookApproved = 0 WHERE guestbookId = ?;");
+        $approve->execute(array($_GET['id']));
+        echo $approve->rowCount();
+    }
+    ?><?= $message ?>
 
     <?php
->>>>>>> origin/wim
     require 'footer.php';
     ?>
