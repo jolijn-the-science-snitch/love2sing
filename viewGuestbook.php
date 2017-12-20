@@ -3,15 +3,8 @@ require 'header.php';
 ?>
 
 
-<br>
-<br>
+<section>
 
-
-
-
-
-<body>
-    <br>
     <h2 class="section-heading text-uppercase text-center">Gastenboek</h2>
     <hr class="my-4">
 
@@ -58,8 +51,7 @@ require 'header.php';
 
     ?>
 
-
-</body>
+</section>
 <?php
 require 'footer.php';
 ?>
