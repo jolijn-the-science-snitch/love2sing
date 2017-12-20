@@ -544,12 +544,9 @@ input:focus, textarea:focus {
 }
 
 .photoview {
-    max-height: calc(100% - 150px);
     margin: 0px;
     overflow: hidden;
-    /*        max-height: calc(100% - 350px);*/
     margin-bottom: 50px;
-
 }
 #photoalbum {
     padding-bottom: 0px;
@@ -564,7 +561,13 @@ input:focus, textarea:focus {
     border-bottom: 0px;
     background-color: #685e79;
     background-size: cover;
-    height: calc(100% - 250px);
+    height: 500px;
     transition: .5s;
 
+}
+
+@media screen and (min-height: 700px) {
+    #viewphoto {
+        height: calc(100% - 250px);
+    }
 }
