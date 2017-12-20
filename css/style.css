@@ -511,7 +511,7 @@ input:focus, textarea:focus {
     cursor: pointer;
 }
 .preview {
-
+    height: 100%;
     overflow: hidden;
 }
 .preview h2 {
@@ -547,6 +547,7 @@ input:focus, textarea:focus {
     margin: 0px;
     overflow: hidden;
     margin-bottom: 50px;
+    height: calc(100% - 150px);
 }
 #photoalbum {
     padding-bottom: 0px;
@@ -561,13 +562,14 @@ input:focus, textarea:focus {
     border-bottom: 0px;
     background-color: #685e79;
     background-size: cover;
-    height: calc(100% - 150px);
     transition: .5s;
-
+    height: calc(100% - 45px);
 }
-
+.gallery {
+    height: 100%;
+}
 @media screen and (min-height: 700px) {
-    #viewphoto {
+    .photoview {
         height: calc(100% - 250px);
     }
 }
