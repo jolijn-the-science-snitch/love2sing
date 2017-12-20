@@ -85,7 +85,12 @@ require 'header.php';
    <h2 class="section-heading text-uppercase text-center">Fotoalbum</h2>
     <hr class="my-4">
     <div class="gallery" align="center">
+<<<<<<< HEAD
 
+=======
+        <h2 class="section-heading text-uppercase text-center">Fotoalbum Love2Sing</h2>
+    <hr class="my-4">
+>>>>>>> ec724a4cca338ad2c3bebe9677b741b98f645500
 
 
         <!-- Alle foto's in het klein -->
