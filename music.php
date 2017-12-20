@@ -16,7 +16,8 @@ include "header.php";
 <section>
     <!---Start Main--->
     <!---Start Search Bar--->
-    <h1 class="title">Muziekbibliotheek</h1>
+    <h2 class="section-heading text-uppercase text-center">Muziekbibliotheek</h2>
+    <hr class="my-4">
     <div class="searchBar">
         <form class="form-wrapper cf" method="POST" >
             <div class="row">
