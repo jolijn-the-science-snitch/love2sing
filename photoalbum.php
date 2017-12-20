@@ -32,6 +32,7 @@ require 'header.php';
     }
     .preview img {
         height: calc(100% - 450px);
+        cursor: pointer;
     }
     .preview {
         border: 2px solid #857991;
@@ -54,6 +55,7 @@ require 'header.php';
         z-index: 10;
         position: relative;
         top: 50%;
+        cursor: pointer;
     }
     .extraheight {
         height: 25px;
@@ -102,7 +104,7 @@ require 'header.php';
                             $imgSrc = $row["photoalbumUrl"];
                             $description = $row["photoalbumDescription"];
                             if ($i == 0) {
-                                $preview = '<img name="preview" src="' . $imgSrc . '" alt=""/>';
+                                $preview = '<img name="preview" src="' . $imgSrc . '" alt="" onclick="view(this)" title="Klik om te vergroten/verkleinen" />';
                                 $h2 = '<h2 id="text">' . $description . '</h2>';
                             }
                             echo '<li><a class="a-img" id="imga' . $i . '" href="#"><img id="img' . $i . '" style="left: 0px;" onclick="preview.src=img' . $i . '.src; document.getElementById(\'text\').innerHTML=img' . $i . '.alt" name="img' . $i . '"  src="' . $imgSrc . '" alt="' . $description . '" /></a></li>';
@@ -124,7 +126,7 @@ require 'header.php';
             <div class="col-1">
                 <div id="back" onclick="slide(-1)" class="control"><i class="fa fa-chevron-left" aria-hidden="true"></i></div>
             </div>
-            <div class="col-8 "><div class="preview"><?= $preview ?><?= $h2 ?></div></div>
+            <div class="col-8 "><div class="preview" ><?= $preview ?><?= $h2 ?></div></div>
             <div class="col-1">
                 <div id="next" onclick="slide(1)" class="control"><i class="fa fa-chevron-right" aria-hidden="true"></i></div>
             </div>
@@ -155,6 +157,24 @@ require 'header.php';
         if (move == -<?= $i ?> || move == 1) {
         }
     }
+    var viewactive = false;
+
+    function view (element) {
+        if (!viewactive) {
+            element.style.position = "fixed";
+            element.style.width = "100%";
+            element.style.height = "auto";
+            element.style.top = "170px";
+            element.style.left = "0px";
+            element.style.zIndex = "100";
+            viewactive = true;
+        }
+        else {
+            element.removeAttribute("style");
+            viewactive = false;
+        }
+    }
+
 </script>
 <?php
     require 'footer.php';
