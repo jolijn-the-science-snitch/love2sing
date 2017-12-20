@@ -31,13 +31,14 @@ require 'header.php';
         cursor:pointer;
     }
     .preview img {
-        width: 100%;
+        height: calc(100% - 450px);
     }
     .preview {
         border: 2px solid #857991;
         padding: 1px;
         background: #685e79;
         color: white;
+        overflow: hidden;
     }
     .preview h2 {
         margin-top: 10px;
@@ -119,14 +120,15 @@ require 'header.php';
 
 
         <div class="row photoview">
-            <div class="col">
+            <div class="col-1"></div>
+            <div class="col-1">
                 <div id="back" onclick="slide(-1)" class="control"><i class="fa fa-chevron-left" aria-hidden="true"></i></div>
             </div>
-            <div class="col-8 preview"><?= $preview ?><?= $h2 ?></div>
-            <div class="col">
+            <div class="col-8 "><div class="preview"><?= $preview ?><?= $h2 ?></div></div>
+            <div class="col-1">
                 <div id="next" onclick="slide(1)" class="control"><i class="fa fa-chevron-right" aria-hidden="true"></i></div>
             </div>
-
+            <div class="col-1"></div>
         </div>
 
 
