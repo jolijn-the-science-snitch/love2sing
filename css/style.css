@@ -93,6 +93,9 @@ button {
 .float-right {
     float: right;
 }
+.padding0 {
+    padding: 0px;
+}
 @media only screen and (min-width: 960px){
     #adminiframe {
         width: calc(100% - 278px);

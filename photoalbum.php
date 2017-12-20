@@ -5,7 +5,7 @@ require 'header.php';
 <style type="text/css">
     .thumbnails {
         height: 80px;
-        margin-bottom: 50px;
+        margin-bottom: 10px;
         overflow: hidden;
         transition: .5s all;
         left: 0px;
@@ -31,24 +31,19 @@ require 'header.php';
         cursor:pointer;
     }
     .preview img {
-        height: calc(100% - 450px);
+        /*        height: calc(100% - 450px);*/
         cursor: pointer;
     }
     .preview {
+
+        overflow: hidden;
+    }
+    .preview h2 {
         border: 2px solid #857991;
         padding: 1px;
         background: #685e79;
         color: white;
-        overflow: hidden;
-    }
-    .preview h2 {
-        margin-top: 10px;
-    }
-    #back {
-        float: left;
-    }
-    #next {
-        float: right;
+        border-top: 0px;
     }
     .control {
         font-size: 30px;
@@ -56,25 +51,45 @@ require 'header.php';
         position: relative;
         top: 50%;
         cursor: pointer;
+        margin-left: auto;
+        margin-right: auto;
     }
     .extraheight {
         height: 25px;
     }
     #slideshow {
         max-width: calc(140px * 8);
-        overflow: hidden;
+        overflow-x: auto;
+        margin-bottom: 20px;
+
     }
     .a-img:focus img {
         filter: grayscale(1);
     }
 
     .photoview {
-        /*        max-height: calc(100% - 350px);*/
+        max-height: calc(100% - 150px);
         margin: 0px;
+        overflow: hidden;
+        /*        max-height: calc(100% - 350px);*/
+        margin-bottom: 50px;
 
     }
     #photoalbum {
         padding-bottom: 0px;
+
+    }
+    #viewphoto {
+        background: url(uploads/jpg-2017-12-14-12-01-12-000000-7101.jpg);
+        background-repeat:no-repeat;
+        background-position: center;
+        border: 2px solid #857991;
+        padding: 1px;
+        border-bottom: 0px;
+        background-color: #685e79;
+        background-size: cover;
+        height: calc(100% - 250px);
+        transition: .5s;
 
     }
 </style>
@@ -82,7 +97,7 @@ require 'header.php';
 
 <!-- Vormgeving -->
 <section id="photoalbum">
-   <h2 class="section-heading text-uppercase text-center">Fotoalbum</h2>
+    <h2 class="section-heading text-uppercase text-center">Fotoalbum</h2>
     <hr class="my-4">
     <div class="gallery" align="center">
 
@@ -106,10 +121,10 @@ require 'header.php';
                             $imgSrc = $row["photoalbumUrl"];
                             $description = $row["photoalbumDescription"];
                             if ($i == 0) {
-                                $preview = '<img name="preview" src="' . $imgSrc . '" alt="" onclick="view(this)" title="Klik om te vergroten/verkleinen" />';
+                                $preview = '<img name="preview" src="' . $imgSrc . '" alt=""  />';
                                 $h2 = '<h2 id="text">' . $description . '</h2>';
                             }
-                            echo '<li><a class="a-img" id="imga' . $i . '" href="#"><img id="img' . $i . '" style="left: 0px;" onclick="preview.src=img' . $i . '.src; document.getElementById(\'text\').innerHTML=img' . $i . '.alt" name="img' . $i . '"  src="' . $imgSrc . '" alt="' . $description . '" /></a></li>';
+                            echo '<li><a class="a-img" id="imga' . $i . '" href="#viewphoto"><img id="img' . $i . '" style="left: 0px;" onclick="viewslide(img' . $i . '.src, img' . $i . '.alt, '.$i.')" name="img' . $i . '"  src="' . $imgSrc . '" alt="' . $description . '" /></a></li>';
                             $i++;
                         }
                         echo "<style>.thumbnails { width: calc(150px * " . $i . " + 150px) };</style>";
@@ -124,15 +139,13 @@ require 'header.php';
 
 
         <div class="row photoview">
-            <div class="col-1"></div>
-            <div class="col-1">
+            <div class="col-1 padding0">
                 <div id="back" onclick="slide(-1)" class="control"><i class="fa fa-chevron-left" aria-hidden="true"></i></div>
             </div>
-            <div class="col-8 "><div class="preview" ><?= $preview ?><?= $h2 ?></div></div>
-            <div class="col-1">
+            <div class="col-10 "><div class="preview" ><div id="viewphoto" onclick="view(this)" title="Klik om te vergroten/verkleinen"></div><?= $h2 ?></div></div>
+            <div class="col-1 padding0">
                 <div id="next" onclick="slide(1)" class="control"><i class="fa fa-chevron-right" aria-hidden="true"></i></div>
             </div>
-            <div class="col-1"></div>
         </div>
 
 
@@ -146,17 +159,21 @@ require 'header.php';
     var move = 0;
     function slide(direction) {
         var width = $(window).width();
-        if ((move > -<?= $i ?> + 1 || direction == -1) && (move < 1 || direction == 1)) {
-            var left = direction * -150 + move * 150;
-            document.getElementById("slides").style.left = left + "px";
-            move -= direction;
-            var imgid = "#img" + move * -1;
-            var imgaid = "#imga" + move * -1;
-            //alert(imgid);
+        if ((move < <?= $i - 1 ?> || direction == -1 ) && (move > 0 || direction == 1)) {        
+            var imgidold = "#img" + move;
+            move += direction;
+            var imgid = "#img" + move;
+            var imgaid = "#imga" + move;
+
+            //alert(move);
             $(imgid).click();
             $(imgaid).click();
-        }
-        if (move == -<?= $i ?> || move == 1) {
+
+            var left = $(imgid).offset().left - $(imgidold).offset().left;
+            left = "+=" + left;
+            $("#slideshow").animate( { scrollLeft: left }, 200);
+            //$("#slideshow").animate( { scrollLeft: scroll }, 200);
+            //$("#slideshow").scrollLeft(scroll);
         }
     }
     var viewactive = false;
@@ -165,16 +182,30 @@ require 'header.php';
         if (!viewactive) {
             element.style.position = "fixed";
             element.style.width = "100%";
-            element.style.height = "auto";
-            element.style.top = "170px";
+            element.style.height = "100%";
+            element.style.top = "0px";
             element.style.left = "0px";
-            element.style.zIndex = "100";
+            element.style.zIndex = "1000000000";
+            element.style.backgroundSize = "contain";
+            element.style.border = "0px";
             viewactive = true;
         }
         else {
+            var img = document.getElementById('viewphoto'),
+                style = img.currentStyle || window.getComputedStyle(img, false),
+                source = style.backgroundImage;
+
             element.removeAttribute("style");
             viewactive = false;
+
+            document.getElementById('viewphoto').style.backgroundImage = source;
         }
+    }
+
+    function viewslide(source, text, id) {       
+        document.getElementById('viewphoto').style.backgroundImage = "url(" + source + ")";
+        document.getElementById('text').innerHTML = text;
+        move = id;
     }
 
 </script>
