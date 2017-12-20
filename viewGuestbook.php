@@ -16,7 +16,7 @@ require 'header.php';
     <hr class="my-4">
 
     <div class="col-lg-8 mx-auto">
-        <h3 class="section-subheading text-muted">Welkom bij ons gastenboek! Wilt u ook een bericht achterlaten? Klik dan <a class="page-reference" href="addtoGuestbook.php?gb=true"><b>hier!</b></a></h3>
+        <h3 class="section-subheading text-muted text-center">Welkom bij ons gastenboek! Wilt u ook een bericht achterlaten? Klik dan <a class="page-reference" href="addtoGuestbook.php?gb=true"><b>hier!</b></a></h3>
     </div>
 
     <?php
