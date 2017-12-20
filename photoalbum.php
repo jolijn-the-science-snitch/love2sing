@@ -1,98 +1,6 @@
 <?php
 require 'header.php';
 ?>
-<!-- Styling -->
-<style type="text/css">
-    .thumbnails {
-        height: 80px;
-        margin-bottom: 10px;
-        overflow: hidden;
-        transition: .5s all;
-        left: 0px;
-        position: relative;
-    }    
-    .thumbnails img {
-        height: 80px;
-        border: 2px solid #857991;
-        padding: 1px;
-        margin: 0 5px 0 5px;
-        width: 140px;
-        transition: .5s all;
-    }
-    .thumbnails ul li {
-        float: left;
-    }
-    .thumbnails ul {
-        list-style: none;
-        margin: 0px;
-    }
-    .thumbnails img:hover {
-        border: 2px solid #685e79;
-        cursor:pointer;
-    }
-    .preview img {
-        /*        height: calc(100% - 450px);*/
-        cursor: pointer;
-    }
-    .preview {
-
-        overflow: hidden;
-    }
-    .preview h2 {
-        border: 2px solid #857991;
-        padding: 1px;
-        background: #685e79;
-        color: white;
-        border-top: 0px;
-    }
-    .control {
-        font-size: 30px;
-        z-index: 10;
-        position: relative;
-        top: 50%;
-        cursor: pointer;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .extraheight {
-        height: 25px;
-    }
-    #slideshow {
-        max-width: calc(140px * 8);
-        overflow-x: auto;
-        margin-bottom: 20px;
-
-    }
-    .a-img:focus img {
-        filter: grayscale(1);
-    }
-
-    .photoview {
-        max-height: calc(100% - 150px);
-        margin: 0px;
-        overflow: hidden;
-        /*        max-height: calc(100% - 350px);*/
-        margin-bottom: 50px;
-
-    }
-    #photoalbum {
-        padding-bottom: 0px;
-
-    }
-    #viewphoto {
-        background: url(uploads/jpg-2017-12-14-12-01-12-000000-7101.jpg);
-        background-repeat:no-repeat;
-        background-position: center;
-        border: 2px solid #857991;
-        padding: 1px;
-        border-bottom: 0px;
-        background-color: #685e79;
-        background-size: cover;
-        height: calc(100% - 250px);
-        transition: .5s;
-
-    }
-</style>
 
 
 <!-- Vormgeving -->
@@ -121,7 +29,7 @@ require 'header.php';
                             $imgSrc = $row["photoalbumUrl"];
                             $description = $row["photoalbumDescription"];
                             if ($i == 0) {
-                                $preview = '<img name="preview" src="' . $imgSrc . '" alt=""  />';
+                                $preview = '<script>viewslide(img' . $i . '.src, img' . $i . '.alt, '.$i.')</script>';
                                 $h2 = '<h2 id="text">' . $description . '</h2>';
                             }
                             echo '<li><a class="a-img" id="imga' . $i . '" href="#viewphoto"><img id="img' . $i . '" style="left: 0px;" onclick="viewslide(img' . $i . '.src, img' . $i . '.alt, '.$i.')" name="img' . $i . '"  src="' . $imgSrc . '" alt="' . $description . '" /></a></li>';
@@ -209,6 +117,7 @@ require 'header.php';
     }
 
 </script>
+<?= $preview ?>
 <?php
     require 'footer.php';
 ?>
