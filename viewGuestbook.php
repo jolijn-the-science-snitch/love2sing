@@ -2,29 +2,10 @@
     require 'header.php';
 ?>
 
-<head>
-    <link rel="stylesheet" type="text/css" href="guestbook.css">
-    <link rel="stylesheet" type="text/css" href="css/creative.min.css">
-</head>
     
 <br>
 <br>
 
-    <!--<header class="masthead text-center text-white d-flex">
-        <div class="container my-auto">
-            <div class="row">
-                <div class="col-lg-10 mx-auto">
-                    <h1 class="text-uppercase">
-                        <strong>Gastenboek</strong>
-                    </h1>
-                    <hr>
-                </div>
-                <div class="col-lg-8 mx-auto">
-                    <a class="btn btn-primary btn-xl js-scroll-trigger" href="addtoGuestbook.php?gb=true">Schrijf in gastenboek</a>
-                </div>
-            </div>
-        </div>
-    </header> !-->
 
 
 
