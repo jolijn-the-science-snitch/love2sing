@@ -561,7 +561,7 @@ input:focus, textarea:focus {
     border-bottom: 0px;
     background-color: #685e79;
     background-size: cover;
-    height: 500px;
+    height: calc(100% - 150px);
     transition: .5s;
 
 }
