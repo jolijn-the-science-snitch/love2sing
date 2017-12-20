@@ -14,8 +14,8 @@ $sql = 'SELECT * FROM facemap';
                     <img class="card-img-top" src="<?= $row['facemapUrl'] ?>" alt="Image" style="height:190px;width:auto;">
                     <div class="card-body">
                         <h4 class="card-title"><?php echo $row['facemapName']; ?></h4>
-                        <p class="card-text">Ik ben een descriptie.</p>
-                        <a href="#" class="btn btn-primary">Knopje</a>
+<!--                        <p class="card-text">Ik ben een descriptie.</p>-->
+                       
                     </div>
                 </div>
             </div>
