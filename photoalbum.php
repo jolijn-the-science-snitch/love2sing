@@ -83,7 +83,8 @@ require 'header.php';
 <!-- Vormgeving -->
 <section id="photoalbum">
     <div class="gallery" align="center">
-        <h2>Fotoalbum Love2Sing</h2>
+        <h2 class="section-heading text-uppercase text-center">Fotoalbum Love2Sing</h2>
+    <hr class="my-4">
 
 
         <!-- Alle foto's in het klein -->
