@@ -48,9 +48,8 @@ $title = "Gebruikersaccount toevoegen";
                            </div>
                         <div class="form-group"> 
                             <label for="username">Gebruikersrechten</label>
-                            <input type="text" class="form-control" id="userRights" name="userRights" placeholder="Typ 1 voor USER, typ 2 voor ADMIN" />
-                          <input type="submit" name="register" value="Toevoegen" class="btn btn-lg btn-primary btn-block" <?= $fileInputStyle ?>/>
-                            <?= $form ?>
+                            <input type="text" class="form-control" id="userRights" name="userRights" placeholder="Type 1 voor USER, type 2 voor ADMIN" /><br>
+                          <button id="addUseraccount" class="btn btn-primary btn-xl text-uppercase" type="submit">Toevoegen</button>
                         </div>
                                         
                                     </div>
@@ -62,9 +61,7 @@ $title = "Gebruikersaccount toevoegen";
             
            
         </section>
-        
-    <hr>
-
+    
 
 <?php
     $register = new DbHelper();
