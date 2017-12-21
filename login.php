@@ -1,5 +1,11 @@
 <?php
 require 'header.php';
+$login = new DbHelper();
+
+if(isset ($_POST["username"]) && isset($_POST["password"])){
+    $login-> selectUser();
+}
+
 ?>
 <div class="login">
     <div class="login-triangle"></div>
@@ -16,16 +22,6 @@ require 'header.php';
 <div id="message" class="loginmessage"></div>
 
 <?php
-$login = new DbHelper();
-
-if(isset ($_POST["username"]) && isset($_POST["password"])){
-    $login-> selectUser();
-}
-
-
-
-
-
 require 'footer.php';
 ?>
 <?= $message ?>

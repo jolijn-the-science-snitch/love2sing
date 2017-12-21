@@ -3,15 +3,20 @@ require 'header.php';
 ?>
 
 
+
     <head>
         <link rel="stylesheet" type="text/css" href="guestbook.css">
         <link rel="stylesheet" type="text/css" href="css/creative.min.css">
     </head>
     <!--
 
+=======
+<!--
+=======
+>>>>>>> origin/wim
 <head>
-    <link rel="stylesheet" type="text/css" href="guestbook.css">
-    <link rel="stylesheet" type="text/css" href="css/creative.min.css">
+<link rel="stylesheet" type="text/css" href="guestbook.css">
+<link rel="stylesheet" type="text/css" href="css/creative.min.css">
 </head>
 <!--
 
@@ -35,20 +40,13 @@ require 'header.php';
             </p>
 
 
-
-                <div class="submit">
-                    <input type="submit" name="verzenden" value="Verzend bericht" id="button-purple" />
-                    <div class="ease"></div>
-                </div>
-            </form>
-            <div id="message"></div>
-        </div>
-
             <div class="submit">
                 <input type="submit" name="verzenden" value="Verzend bericht" id="button-purple" />
                 <div class="ease"></div>
             </div>
-
+        </form>
+        <div id="message"></div>
+    </div>
 
 
     <?php
@@ -69,7 +67,7 @@ require 'header.php';
             echo "<p class='error'>Vul alstublieft een bericht in</p>";
             $valid = false;
         }
-        $date= date("Y-m-d h:i:s");
+        $date= date("Y-m-d H:i:s");
         //automatisch eerste letter hoofdletter maken
         $title= ucfirst(strtolower($title));
         $gbmessage = ucfirst(strtolower($gbmessage));
@@ -106,8 +104,8 @@ require 'header.php';
         ".$date."</p>
         <p>Wilt u dit bericht toevoegen aan het gastenboek of weigeren? Als u kiest voor weigeren, wordt het bericht niet in het gastenboek geplaats.</p>
 
-        <a href='localhost/KBS/love2sing/admin/guestbookposts.php?toevoegen=true&id=".$id."' id='button-purple'>Toevoegen</a>
-        <a href='localhost/KBS/love2sing/admin/guestbookposts.php?weigeren=true&id=".$id."' id='button-purple'>Weigeren</a>
+        <a href='http://alex-dehaan.nl/KBS/love2sing/admin/?url=guestbookposts.php?toevoegen=true%26id=".$id."' id='button-purple'>Toevoegen</a>
+        <a href='http://alex-dehaan.nl/KBS/love2sing/admin/?url=guestbookposts.php?weigeren=true%26id=".$id."' id='button-purple'>Weigeren</a>
 
     </body>
 
@@ -146,13 +144,19 @@ require 'header.php';
                 <?php
 
 
-            echo sendMail($subject,$message,$replyTo);             
-        }
-
+    // alleen bij het zojuist toegevoegde bericht de status aanpassen d.m.v. de WHERE
+    // $_GET, want een $_POST wil niet vanuit de mail
+    if(isset($_GET['toevoegen']) && isset($_GET['id'])){
+        $approve= $db->prepare("UPDATE guestbook SET guestbookApproved = 1 WHERE guestbookId = ?;");
+        $approve->execute(array($_GET['id']));
+        echo $approve->rowCount();
+    }             
+    if(isset($_GET['weigeren']) && isset($_GET['id'])){
+        $approve= $db->prepare("UPDATE guestbook SET guestbookApproved = 0 WHERE guestbookId = ?;");
+        $approve->execute(array($_GET['id']));
+        echo $approve->rowCount();
     }
-
-
-    ?>
+    ?><?= $message ?>
 
     <?php
 

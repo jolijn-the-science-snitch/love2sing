@@ -90,6 +90,12 @@ button {
     margin-bottom: 10px;
     padding: 5px;
 }
+.float-right {
+    float: right;
+}
+.padding0 {
+    padding: 0px;
+}
 @media only screen and (min-width: 960px){
     #adminiframe {
         width: calc(100% - 278px);
@@ -163,7 +169,7 @@ header::after{
     font-size: 17px;
 }
 .search:hover {
-  background: #ccc;
+    background: #ccc;
 }
 
 .search {
@@ -177,7 +183,7 @@ header::after{
 
 .select{
     display: inline-block;
-   background-color: white;
+    background-color: white;
     border-radius: 4px;
 }
 
@@ -200,4 +206,376 @@ header::after{
     border-radius: 10px;
     padding: 10px;
     background-color: #857991;
+}
+
+
+
+
+
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+
+
+.guestbook-header {
+    font-family: 'Open Sans', sans-serif;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.guestbook-text {
+    font-family: 'Open Sans', sans-serif;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+
+
+#feedback-page{
+    text-align:center;
+}
+
+body{
+    background-color: #343a40;
+}
+
+#form-main{
+    width:100%;
+    float:left;
+    padding-top:150px;
+    position: absolute;
+    margin: auto;
+}
+
+#form-div {
+    background-color:#FFFFFF;
+    padding-left:35px;
+    padding-right:35px;
+    padding-top:35px;
+    padding-bottom:50px;
+    width: 450px;
+    float: left;
+    left: 50%;
+    position: absolute;
+    margin-top:30px;
+    margin-left: -260px;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+}
+
+.feedback-input {
+    color:#3c3c3c;
+    font-family: 'Open Sans', sans-serif;
+    font-weight:500;
+    font-size: 18px;
+    border-radius: 0;
+    line-height: 22px;
+    background-color: #FFFFFF;
+    padding: 13px 13px 13px 54px;
+    margin-bottom: 10px;
+    width:100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+
+    border-color: #bbb;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.feedback-input:focus{
+    background: #FFFFFF;
+    box-shadow: 0;
+    border: 3px solid #857991;
+    color: #343a40;
+    outline: none;
+    padding: 13px 13px 13px 54px;
+}
+
+.focused{
+    color:#343a40;
+    border:#343a40 solid 3px;
+}
+
+/* Icons ---------------------------------- */
+#name{
+    background-image: url(http://rexkirby.com/kirbyandson/images/name.svg);
+    background-size: 30px 30px;
+    background-position: 11px 8px;
+    background-repeat: no-repeat;
+}
+
+#name:focus{
+    background-image: url(http://rexkirby.com/kirbyandson/images/name.svg);
+    background-size: 30px 30px;
+    background-position: 8px 5px;
+    background-position: 11px 8px;
+    background-repeat: no-repeat;
+}
+
+#email{
+    background-image: url(http://rexkirby.com/kirbyandson/images/email.svg);
+    background-size: 30px 30px;
+    background-position: 11px 8px;
+    background-repeat: no-repeat;
+}
+
+#email:focus{
+    background-image: url(http://rexkirby.com/kirbyandson/images/email.svg);
+    background-size: 30px 30px;
+    background-position: 11px 8px;
+    background-repeat: no-repeat;
+}
+
+#comment{
+    background-image: url(http://rexkirby.com/kirbyandson/images/comment.svg);
+    background-size: 30px 30px;
+    background-position: 11px 8px;
+    background-repeat: no-repeat;
+}
+
+textarea {
+    width: 100%;
+    height: 150px;
+    line-height: 150%;
+    resize:vertical;
+}
+
+input:hover, textarea:hover,
+input:focus, textarea:focus {
+    background-color:#FFFFFF;
+}
+
+#button-purple{
+    font-family: 'Open Sans', sans-serif;
+    float:left;
+    width: 100%;
+    border: #FFFFFF solid 4px;
+    cursor:pointer;
+    background-color: #857991;
+    color:white;
+    font-size:24px;
+    padding-top:22px;
+    padding-bottom:22px;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    margin-top:-4px;
+    font-weight:700;
+}
+
+#button-purple:hover{
+    background-color: rgba(0,0,0,0);
+    color: #685e79;
+}
+
+.submit:hover {
+    color: #685e79;
+}
+
+.ease {
+    width: 0px;
+    height: 74px;
+    background-color: #FFFFFF;
+    -webkit-transition: .3s ease;
+    -moz-transition: .3s ease;
+    -o-transition: .3s ease;
+    -ms-transition: .3s ease;
+    transition: .3s ease;
+}
+
+.submit:hover .ease{
+    width:100%;
+    background-color:#FFFFFF;
+}
+
+@media only screen and (max-width: 580px) {
+    #form-div{
+        left: 3%;
+        margin-right: 3%;
+        width: 88%;
+        margin-left: 0;
+        padding-left: 3%;
+        padding-right: 3%;
+    }
+}
+
+
+
+
+
+
+
+
+
+.page-reference {
+    color:#857991;
+}
+
+.page-reference:hover {
+    color: #685e79;
+}
+
+.clearfloat {
+    clear: both;
+    font-size: 1px;
+    height: 0;
+    line-height: 0;
+}
+
+
+.gb-entry {
+    width: 90%;
+    border-style: solid;
+    border-color:#857991;
+    border-radius: 5px;
+
+    box-sizing: border-box;
+    display: block;
+
+
+    margin: auto;
+    margin-top: 25px;
+
+
+}
+
+@media only screen and (min-width: 960px){
+    .gb-entry {
+        width: 50%;
+    }
+}
+
+.gb-entry-info-box {
+    background-color: #857991;
+    padding: 10px;
+
+}
+.gb-entry-info-box-row {
+    color: #FFFFFF;
+
+
+}
+.gb-entry-info-box-row-title {
+    float: left;
+    width: 80px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;  
+
+}
+.gb-entry-info-box-row-value {
+    float: left;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 25px;
+}
+.gb-entry-message-box {
+    background-color: #FFFFFF;
+
+
+}
+.gb-entry-message {
+    color: #000000;
+    padding: 10px;
+    word-wrap: break-word;
+}
+
+
+.thumbnails {
+    height: 80px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    transition: .5s all;
+    left: 0px;
+    position: relative;
+}    
+.thumbnails img {
+    height: 80px;
+    border: 2px solid #857991;
+    padding: 1px;
+    margin: 0 5px 0 5px;
+    width: 140px;
+    transition: .5s all;
+    display: block;
+}
+.thumbnails ul li {
+    float: left;
+}
+.thumbnails ul {
+    list-style: none;
+    margin: 0px;
+}
+.thumbnails img:hover {
+    border: 2px solid #685e79;
+    cursor:pointer;
+}
+.preview img {
+    /*        height: calc(100% - 450px);*/
+    cursor: pointer;
+}
+
+.preview {
+    height: 100%;
+    overflow: hidden;
+}
+.preview h2 {
+    border: 2px solid #857991;
+    padding: 1px;
+    background: #685e79;
+    color: white;
+    border-top: 0px;
+}
+.control {
+    font-size: 30px;
+    z-index: 10;
+    position: relative;
+    top: 50%;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+}
+.extraheight {
+    height: 25px;
+}
+#slideshow {
+    max-width: calc(140px * 8);
+    overflow-x: auto;
+    margin-bottom: 20px;
+
+}
+.a-img:focus img {
+    filter: grayscale(1);
+}
+
+.photoview {
+    margin: 0px;
+    overflow: hidden;
+    margin-bottom: 50px;
+    height: calc(100% - 150px);
+}
+#photoalbum {
+    padding-bottom: 0px;
+
+}
+#viewphoto {
+    background: #ffffff;
+    background-repeat:no-repeat;
+    background-position: center;
+    border: 2px solid #857991;
+    padding: 1px;
+    border-bottom: 0px;
+    background-color: #685e79;
+    background-size: cover;
+    transition: .5s;
+    height: calc(100% - 45px);
+}
+.gallery {
+    height: 100%;
+}
+@media screen and (min-height: 700px) {
+    .photoview {
+        height: calc(100% - 250px);
+    }
+}
+
+.contacttextarea {
+    height: 116px;
 }

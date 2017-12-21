@@ -5,6 +5,8 @@ $sql = 'SELECT * FROM facemap';
 
 
 <section>
+<h2 class="section-heading text-uppercase text-center">Smoelenboek</h2>
+    <hr class="my-4">
     <div class="container">
 
         <div class="row">

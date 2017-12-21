@@ -4,13 +4,13 @@ include("adminpageheader.php");
 // alleen bij het zojuist toegevoegde bericht de status aanpassen d.m.v. de WHERE
 // $_GET, want een $_POST wil niet vanuit de mail
 if(isset($_GET['toevoegen']) && isset($_GET['id'])){
-    $approve= $db->prepare("UPDATE guestbook SET guestbookApproved = 1 WHERE guestbookId = ?;");
+    $approve= $db->prepare("UPDATE guestbook SET guestbookRead = 1, guestbookApproved = 1 WHERE guestbookId = ?;");
     $approve->execute(array($_GET['id']));
     //echo $approve->rowCount();
     
 }             
 if(isset($_GET['weigeren']) && isset($_GET['id'])){
-    $approve= $db->prepare("UPDATE guestbook SET guestbookApproved = 0 WHERE guestbookId = ?;");
+    $approve= $db->prepare("UPDATE guestbook SET guestbookRead = 1, guestbookApproved = 0 WHERE guestbookId = ?;");
     $approve->execute(array($_GET['id']));
     //echo $approve->rowCount();
 }

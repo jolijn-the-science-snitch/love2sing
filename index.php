@@ -72,7 +72,7 @@ while ($row = $stmt->fetch())
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2 class="section-heading"><?= $text[6] ?></h2>
+                <h2 class="section-heading text-uppercase"><?= $text[6] ?></h2>
                 <hr class="my-4">
             </div>
         </div>
@@ -137,18 +137,18 @@ while ($row = $stmt->fetch())
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input class="form-control" id="name" name="contactName" type="text" placeholder="Uw naam" required data-validation-required-message="Vul a.u.b een naam in">
+                                <input class="form-control feedback-input" id="name" name="contactName" type="text" placeholder="Uw naam" required data-validation-required-message="Vul a.u.b een naam in">
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div class="form-group">
-                                <input class="form-control" id="email" name="contactEmail" type="email" placeholder="E-mailadres" required data-validation-required-message="Vul a.u.b een e-mailadres in">
+                                <input class="form-control feedback-input" id="email" name="contactEmail" type="email" placeholder="E-mailadres" required data-validation-required-message="Vul a.u.b een e-mailadres in">
 
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <textarea class="form-control" name="contactMessage" id="contactMessage" placeholder="Uw bericht" required data-validation-required-message="Vul a.u.b een bericht in"></textarea>
+                                <textarea class="form-control feedback-input contacttextarea" name="contactMessage" id="comment" placeholder="Uw bericht" required data-validation-required-message="Vul a.u.b een bericht in"></textarea>
 
                                 <p class="help-block text-danger"></p>
                             </div>

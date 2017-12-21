@@ -45,4 +45,4 @@ if (!adminpage()) {
         </style>
     </head>
     <body class="adminbody" id="page-top">
-    <nav id="mainNav"></nav>
+    <nav id="mainNav" style="display: none;"></nav>

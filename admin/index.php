@@ -202,6 +202,7 @@ if (!adminpage()) {
                                 echo '<span class="d-lg-none" id="notifications">Meldingen ';
                                 echo '<span class="badge badge-pill badge-info">Geen nieuwe berichten</span>';   
                                 echo '</span>';
+                                $count = 0;
                             }
                             ?>
 
@@ -241,11 +242,11 @@ if (!adminpage()) {
                 <script>
                     function viewName(element = null, parentid = null) {
                         var content = '<li class="breadcrumb-item"><a href="home.php" target="iframe"  onClick="viewName();" >Love2Sing</a></li>';
-                        if (parentid != null) {
+                        if (parentid !== null) {
                             var parent = document.getElementById(parentid);
                             content += "<li class='breadcrumb-item'>" + parent.innerHTML + "</li>";
                         }
-                        if (element != null) {
+                        if (element !== null) {
                             content += "<li class='breadcrumb-item'>" + element.innerHTML + "</li>";
                         }
                         else {
@@ -287,7 +288,15 @@ if (!adminpage()) {
                     }
                 </script>
 
-                <iframe src="home.php" id="adminiframe" name="iframe"></iframe>
+                <?php 
+                    if (isset($_GET["url"])) {
+                        $url = filter_input(INPUT_GET, "url");
+                    }
+                    else {
+                        $url = "home.php";        
+                    }
+                ?>
+                <iframe src="<?= $url ?>" id="adminiframe" name="iframe"></iframe>
 
                 <footer class="sticky-footer">
                     <div class="container">
