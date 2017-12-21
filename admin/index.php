@@ -237,11 +237,11 @@ if (!adminpage()) {
                 <script>
                     function viewName(element = null, parentid = null) {
                         var content = '<li class="breadcrumb-item"><a href="home.php" target="iframe"  onClick="viewName();" >Love2Sing</a></li>';
-                        if (parentid != null) {
+                        if (parentid !== null) {
                             var parent = document.getElementById(parentid);
                             content += "<li class='breadcrumb-item'>" + parent.innerHTML + "</li>";
                         }
-                        if (element != null) {
+                        if (element !== null) {
                             content += "<li class='breadcrumb-item'>" + element.innerHTML + "</li>";
                         }
                         else {
