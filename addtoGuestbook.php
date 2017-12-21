@@ -88,8 +88,8 @@ require 'header.php';
         ".$date."</p>
         <p>Wilt u dit bericht toevoegen aan het gastenboek of weigeren? Als u kiest voor weigeren, wordt het bericht niet in het gastenboek geplaats.</p>
 
-        <a href='http://alex-dehaan.nl/KBS/love2sing/admin/guestbookposts.php?toevoegen=true&id=".$id."' id='button-purple'>Toevoegen</a>
-        <a href='http://alex-dehaan.nl/KBS/love2sing/admin/guestbookposts.php?weigeren=true&id=".$id."' id='button-purple'>Weigeren</a>
+        <a href='http://alex-dehaan.nl/KBS/love2sing/admin/?url=guestbookposts.php?toevoegen=true&id=".$id."' id='button-purple'>Toevoegen</a>
+        <a href='http://alex-dehaan.nl/KBS/love2sing/admin/?url=guestbookposts.php?weigeren=true&id=".$id."' id='button-purple'>Weigeren</a>
 
     </body>
 

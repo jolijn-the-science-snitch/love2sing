@@ -284,7 +284,15 @@ if (!adminpage()) {
                     }
                 </script>
 
-                <iframe src="home.php" id="adminiframe" name="iframe"></iframe>
+                <?php 
+                    if (isset($_GET["url"])) {
+                        $url = filter_input(INPUT_GET, "url");
+                    }
+                    else {
+                        $url = "home.php";        
+                    }
+                ?>
+                <iframe src="<?= $url ?>" id="adminiframe" name="iframe"></iframe>
 
                 <footer class="sticky-footer">
                     <div class="container">
