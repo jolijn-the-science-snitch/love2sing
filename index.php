@@ -148,7 +148,7 @@ while ($row = $stmt->fetch())
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <textarea class="form-control feedback-input" name="contactMessage" id="comment" placeholder="Uw bericht" required data-validation-required-message="Vul a.u.b een bericht in"></textarea>
+                                <textarea class="form-control feedback-input contacttextarea" name="contactMessage" id="comment" placeholder="Uw bericht" required data-validation-required-message="Vul a.u.b een bericht in"></textarea>
 
                                 <p class="help-block text-danger"></p>
                             </div>

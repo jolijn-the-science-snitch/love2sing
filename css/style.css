@@ -511,6 +511,7 @@ input:focus, textarea:focus {
     /*        height: calc(100% - 450px);*/
     cursor: pointer;
 }
+
 .preview {
     height: 100%;
     overflow: hidden;
@@ -573,4 +574,8 @@ input:focus, textarea:focus {
     .photoview {
         height: calc(100% - 250px);
     }
+}
+
+.contacttextarea {
+    height: 116px;
 }
