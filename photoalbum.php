@@ -5,7 +5,7 @@ require 'header.php';
 
 <!-- Vormgeving -->
 <section id="photoalbum">
-    <h2 class="section-heading text-uppercase text-center">Fotoalbum</h2>
+    <h2 id="head" class="section-heading text-uppercase text-center">Fotoalbum</h2>
     <hr class="my-4">
     <div class="gallery" align="center">
 
@@ -32,7 +32,7 @@ require 'header.php';
                                 $preview = '<script>viewslide(img' . $i . '.src, img' . $i . '.alt, '.$i.')</script>';
                                 $h2 = '<h2 id="text">' . $description . '</h2>';
                             }
-                            echo '<li><a class="a-img" id="imga' . $i . '" href="#viewphoto"><img id="img' . $i . '" style="left: 0px;" onclick="viewslide(img' . $i . '.src, img' . $i . '.alt, '.$i.')" name="img' . $i . '"  src="' . $imgSrc . '" alt="' . $description . '" /></a></li>';
+                            echo '<li><a class="a-img" id="imga' . $i . '" href="javascript:return true"><img id="img' . $i . '" style="left: 0px;" onclick="viewslide(img' . $i . '.src, img' . $i . '.alt, '.$i.')" name="img' . $i . '"  src="' . $imgSrc . '" alt="' . $description . '" /></a></li>';
                             $i++;
                         }
                         echo "<style>.thumbnails { width: calc(150px * " . $i . " + 150px) };</style>";
@@ -76,7 +76,7 @@ require 'header.php';
             //alert(move);
             $(imgid).click();
             $(imgaid).click();
-
+            $(imgaid).focus();
             var left = $(imgid).offset().left - $(imgidold).offset().left;
             left = "+=" + left;
             $("#slideshow").animate( { scrollLeft: left }, 200);

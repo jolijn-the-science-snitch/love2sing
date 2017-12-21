@@ -494,6 +494,7 @@ input:focus, textarea:focus {
     margin: 0 5px 0 5px;
     width: 140px;
     transition: .5s all;
+    display: block;
 }
 .thumbnails ul li {
     float: left;
