@@ -72,7 +72,8 @@ if (!adminpage()) {
                             </li>
                             <li>
                                 <a href="uploadfoto.php" target="iframe" onClick="viewName(this,'componentsParent');">Foto's toevoegen fotoalbum</a>
-
+                            </li><li>
+                                <a href="register.php" target="iframe" onClick="viewName(this,'componentsParent');">Gebruikers toevoegen</a>
                             </li>
                         </ul>
                     </li>
