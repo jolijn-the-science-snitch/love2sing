@@ -198,6 +198,7 @@ if (!adminpage()) {
                                 echo '<span class="d-lg-none" id="notifications">Meldingen ';
                                 echo '<span class="badge badge-pill badge-info">Geen nieuwe berichten</span>';   
                                 echo '</span>';
+                                $count = 0;
                             }
                             ?>
 
