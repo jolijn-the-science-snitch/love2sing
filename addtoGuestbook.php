@@ -3,14 +3,23 @@ require 'header.php';
 ?>
 
 
+
+    <head>
+        <link rel="stylesheet" type="text/css" href="guestbook.css">
+        <link rel="stylesheet" type="text/css" href="css/creative.min.css">
+    </head>
+    <!--
+
+=======
 <!--
 =======
+>>>>>>> origin/wim
 <head>
 <link rel="stylesheet" type="text/css" href="guestbook.css">
 <link rel="stylesheet" type="text/css" href="css/creative.min.css">
 </head>
 <!--
->>>>>>> origin/wim
+
 <header>
 
 <h1 class="text-uppercase">
@@ -38,8 +47,6 @@ require 'header.php';
         </form>
         <div id="message"></div>
     </div>
-
-
 
 
     <?php
@@ -74,6 +81,15 @@ require 'header.php';
             $stmt= $db->prepare("INSERT INTO guestbook (guestbookTitle, guestbookMessage, guestbookDate) VALUES('$title','$gbmessage','$date')");
             $stmt->execute();
 
+         
+//verstuur mail voor het goedkeuren van een gastenboekbericht
+
+            echo "<div class='guestbook-text'>Uw verzoek om een bericht te plaatsen in het gastenboek is verstuurd! Als deze wordt geaccepteerd, zal uw bericht in het gastenboek verschijnen.</div>";
+
+
+            //verstuur mail voor het goedkeuren van een gastenboekbericht
+
+
             $id = $db->lastInsertId(); // krijg het id van het zojuist geinserte gastenboek item
 
             $subject= "Nieuw gastenboek bericht";
@@ -97,17 +113,35 @@ require 'header.php';
 ";             
             $replyTo= null; //persoon heeft geen mailadres moeten invoeren en krijgt dus ook geen bericht van toevoeging of weigering
 
-            // Als het bericht inserted is én de mail is verstuurd, goedmelding geven   
-            if(sendMail($subject,$emailmessage,$replyTo) == 1){
-                message("success","Uw verzoek om een bericht te plaatsen in het gastenboek is verstuurd!","Als deze wordt geaccepteerd, zal uw bericht in het gastenboek verschijnen.");
-                // Als er iets fout is gegaan met het inserten of het versturen van de mail, foutmelding geven
-            }else{
-                message("danger","Er is iets fout gegaan!","Probeer het opnieuw.");
-            }    
-
-        }
-
+        
+        // Als het bericht inserted is én de mail is verstuurd, goedmelding geven   
+        if(sendMail($subject,$emailmessage,$replyTo) == 1){
+            message("success","Uw verzoek om een bericht te plaatsen in het gastenboek is verstuurd!","Als deze wordt geaccepteerd, zal uw bericht in het gastenboek verschijnen.");
+        // Als er iets fout is gegaan met het inserten of het versturen van de mail, foutmelding geven
+        }else{
+            message("danger","Er is iets fout gegaan!","Probeer het opnieuw.");
+        }    
+                     
     }
+     
+}
+   
+
+        // alleen bij het zojuist toegevoegde bericht de status aanpassen d.m.v. de WHERE
+        // $_GET, want een $_POST wil niet vanuit de mail
+        if(isset($_GET['toevoegen']) && isset($_GET['id'])){
+            $approve= $db->prepare("UPDATE guestbook SET guestbookApproved = 1 WHERE guestbookId = ?;");
+            $approve->execute(array($_GET['id']));
+            echo $approve->rowCount();
+        }             
+        if(isset($_GET['weigeren']) && isset($_GET['id'])){
+            $approve= $db->prepare("UPDATE guestbook SET guestbookApproved = 0 WHERE guestbookId = ?;");
+            $approve->execute(array($_GET['id']));
+            echo $approve->rowCount();
+        }
+   ?><?= $message ?>
+
+                <?php
 
 
     // alleen bij het zojuist toegevoegde bericht de status aanpassen d.m.v. de WHERE
@@ -125,5 +159,6 @@ require 'header.php';
     ?><?= $message ?>
 
     <?php
+
     require 'footer.php';
     ?>

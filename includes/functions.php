@@ -22,12 +22,8 @@ class DbHelper{
     //SELECT USER FUNCTION
 
     function selectUser(){
-
-        if(!isset($_SESSION['loginAttempts'])){
-            // op nul zetten als die nog niet bestaat
-            $loginAttempts = 0;    
-            $_SESSION['loginAttempts'] = $loginAttempts;
-        }
+   
+    
         if (isset($_SESSION["time"])) {
             if ($_SESSION["time"] < date("Hi")) {
                 $_SESSION['loginAttempts'] = 0;
@@ -143,6 +139,10 @@ class DbHelper{
 
         //de gegevens die gewijzigd mogen worden (het id wordt NIET aangepast)
 
+        //$statement->bindParam(':id', $_SESSION['userId'], PDO::PARAM_STR);
+        //$statement->bindParam(':password', $hash, PDO::PARAM_STR);
+
+
         if ($editId == null) {
             $editId = $_SESSION['userId'];
         }
@@ -150,6 +150,7 @@ class DbHelper{
 
         $statement->bindParam(':id', $editId, PDO::PARAM_STR);
         $statement->bindParam(':password', $hash, PDO::PARAM_STR);
+
 
         $statement->execute();
 
@@ -168,15 +169,13 @@ class DbHelper{
     }
 
     function createUser(){
-
         //password hashen
         if($_POST['userPassword'] == $_POST['repeatPassword']){
             $hash = hash('sha256', $_POST['userPassword']);
-            echo $hash;
-        }
-
+        
+        
         //insert query om USERS toe te voegen
-        $create = 'INSERT INTO user (username , userEmail ,  userPassword , userRights) VALUES (:username , :userEmail , :userPassword , :userRights)';
+        $create = 'INSERT INTO user (username , userEmail ,  userPassword , userRights) VALUES (:username , :userEmail , :userPassword , :rights)';
 
         $statement = $this->connect->prepare($create);
 
@@ -184,13 +183,23 @@ class DbHelper{
         $statement->bindParam(':username', $_POST['username'], PDO::PARAM_STR);
         $statement->bindParam(':userEmail', $_POST['userEmail'], PDO::PARAM_STR);
         $statement->bindParam(':userPassword', $hash, PDO::PARAM_STR);
-        $statement->bindParam(':userRights', $_POST['userRights'], PDO::PARAM_STR);
+        $statement->bindParam(':rights', $_POST['addUseraccount'] , PDO::PARAM_STR);
+        //$statement->bindParam(':userRights', $_POST['userRights'], PDO::PARAM_STR);
 
         $statement->execute();
-
-        //header('Location: login.php');
-    }
+        if($statement->rowCount() == 1) {
+            message("success","Account toegevoegd", " ");
+        }
+        else {
+            message("danger","Account toevoegen mislukt", "");
+        }
+        }
+        else {
+            message("danger","Herhaling wachtwoord is niet gelijk", "");
+        }
+        }
 }
+
 
 
 

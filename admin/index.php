@@ -75,6 +75,10 @@ if (!adminpage()) {
                             </li><li>
                                 <a href="register.php" target="iframe" onClick="viewName(this,'componentsParent');">Gebruikers toevoegen</a>
                             </li>
+                            <li>
+                                <a href="register.php" target="iframe" onClick="viewName(this,'componentsParent');">Gebruikersaccount toevoegen</a>
+
+                            </li>
                         </ul>
                     </li>
 
