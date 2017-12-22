@@ -77,6 +77,3 @@ $title = "Gebruikersaccount toevoegen";
 
    include("adminpagefooter.php");
 ?>
-  
-
-
