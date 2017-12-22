@@ -169,15 +169,13 @@ class DbHelper{
     }
 
     function createUser(){
-
         //password hashen
         if($_POST['userPassword'] == $_POST['repeatPassword']){
             $hash = hash('sha256', $_POST['userPassword']);
-            echo $hash;
-        }
-
+        
+        
         //insert query om USERS toe te voegen
-        $create = 'INSERT INTO user (username , userEmail ,  userPassword , userRights) VALUES (:username , :userEmail , :userPassword , :userRights)';
+        $create = 'INSERT INTO user (username , userEmail ,  userPassword , userRights) VALUES (:username , :userEmail , :userPassword , :rights)';
 
         $statement = $this->connect->prepare($create);
 
@@ -185,12 +183,21 @@ class DbHelper{
         $statement->bindParam(':username', $_POST['username'], PDO::PARAM_STR);
         $statement->bindParam(':userEmail', $_POST['userEmail'], PDO::PARAM_STR);
         $statement->bindParam(':userPassword', $hash, PDO::PARAM_STR);
-        $statement->bindParam(':userRights', $_POST['userRights'], PDO::PARAM_STR);
+        $statement->bindParam(':rights', $_POST['addUseraccount'] , PDO::PARAM_STR);
+        //$statement->bindParam(':userRights', $_POST['userRights'], PDO::PARAM_STR);
 
         $statement->execute();
-
-        //header('Location: login.php');
-    }
+        if($statement->rowCount() == 1) {
+            message("success","Account toegevoegd", " ");
+        }
+        else {
+            message("danger","Account toevoegen mislukt", "");
+        }
+        }
+        else {
+            message("danger","Herhaling wachtwoord is niet gelijk", "");
+        }
+        }
 }
 
 

@@ -5,7 +5,7 @@ $buttonstyle = "style='display: none;'";
 ?>
 
 <?php
-require_once '../includes/functions.php'; //connect database en functies
+//require_once '../includes/functions.php'; //connect database en functies
 $required = "required";
 $name = "";
 $filehtml = "";
@@ -13,6 +13,12 @@ $fileInputStyle = "";
 $form = "";
 $back = "";
 $title = "Gebruikersaccount toevoegen";
+
+    $register = new DbHelper();
+    
+    if(isset ($_POST["username"])){
+        $register-> createUser();
+    }
 ?>
 
 
@@ -36,7 +42,7 @@ $title = "Gebruikersaccount toevoegen";
                         </div>                
                         <div class="form-group">
                             <label for="username">Emailadres</label>
-                            <input type="text" class="form-control" id="userEmail" name="userEmail" placeholder="Email" required="" />
+                            <input type="email" class="form-control" id="userEmail" name="userEmail" placeholder="Email" required="" />
                         </div>
                         <div class="form-group">
                             <label for="username">Wachtwoord</label>
@@ -48,8 +54,11 @@ $title = "Gebruikersaccount toevoegen";
                            </div>
                         <div class="form-group"> 
                             <label for="username">Gebruikersrechten</label>
-                            <input type="text" class="form-control" id="userRights" name="userRights" placeholder="Type 1 voor USER, type 2 voor ADMIN" /><br>
-                          <button id="addUseraccount" class="btn btn-primary btn-xl text-uppercase" type="submit">Toevoegen</button>
+                            <br>
+                          <button id="addUseraccount" name="addUseraccount" value="1" class="btn btn-primary btn-xl text-uppercase" type="submit">Useraccount</button>
+                          <button id="addAdminaccount" name="addUseraccount" value="2" class="btn btn-primary btn-xl text-uppercase" type="submit">Adminaccount</button>
+                            <div id="message"></div> <?= $message ?>
+                            
                         </div>
                                         
                                     </div>
@@ -64,11 +73,7 @@ $title = "Gebruikersaccount toevoegen";
     
 
 <?php
-    $register = new DbHelper();
-    
-    if(isset ($_REQUEST['register'])){
-        $register-> createUser();
-    }
+
 
    include("adminpagefooter.php");
 ?>
