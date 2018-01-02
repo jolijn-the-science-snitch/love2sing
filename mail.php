@@ -1,10 +1,12 @@
 <?php
+// contact formulier versturen
 require("includes/functions.php");
 if (isset($_POST['contactName']) && isset($_POST['contactEmail']) && isset($_POST['contactMessage'])) {   
-    $contactName = $_POST['contactName'];
-    $contactEmail = $_POST['contactEmail'];
-    $contactMessage = nl2br($_POST['contactMessage']);
-    
+    $contactName = filter_input(INPUT_POST, 'contactName');
+    $contactEmail = filter_input(INPUT_POST, 'contactEmail');
+    $contactMessage = nl2br(filter_input(INPUT_POST, 'contactMessage'));
+
+    // mail content genereren
     $message = "
     <h1 style='font-size: 22px;'>Het contact formulier is ingevuld door ".$contactName."</h1>
     
@@ -20,6 +22,7 @@ if (isset($_POST['contactName']) && isset($_POST['contactEmail']) && isset($_POS
     $result = sendMail("Contactformulier van koor",$message,$contactEmail);
     
     if ($result == 1) {
+        // als mail verstuurd is de gegevens in de db zetten
         $stmt = $db->prepare("INSERT INTO contact (email, message, name, date) VALUES (:email, :message, :name, :date)");
         $stmt->bindParam(':email',$contactEmail);
         $stmt->bindParam(':message', $contactMessage);
@@ -41,4 +44,5 @@ if (isset($_POST['contactName']) && isset($_POST['contactEmail']) && isset($_POS
 else {
     echo "2";
 }
+// de index.php checkt of er 0/1/2 wordt weergegeven, 1: succes, 2: faal, 0: database fail
 ?>

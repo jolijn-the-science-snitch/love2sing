@@ -80,8 +80,7 @@ require 'header.php';
             var left = $(imgid).offset().left - $(imgidold).offset().left;
             left = "+=" + left;
             $("#slideshow").animate( { scrollLeft: left }, 200);
-            //$("#slideshow").animate( { scrollLeft: scroll }, 200);
-            //$("#slideshow").scrollLeft(scroll);
+
         }
     }
     var viewactive = false;

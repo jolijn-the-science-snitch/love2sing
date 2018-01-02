@@ -579,3 +579,9 @@ input:focus, textarea:focus {
 .contacttextarea {
     height: 116px;
 }
+
+.disabled {
+    opacity: .5;
+    cursor: not-allowed;
+
+}

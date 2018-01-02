@@ -3,7 +3,8 @@ $isHomepage = true;
 require 'header.php';
 ?>
 <?php
-if (isset($_POST)) {
+// tekst wijzigen als beheerder is ingelogd en gewijzigde tekst verstuurd
+if (isset($_POST) && adminpage()) {
     foreach ($_POST as $key => $value) {
         $content = $value;
         $stmt = $db->prepare("UPDATE text SET text = :text WHERE id = :id");
@@ -13,13 +14,16 @@ if (isset($_POST)) {
     }
 }
 
-
+// tekst voor de pagina ophalen h=uit de database
 $stmt = $db->prepare("SELECT * FROM text");
 $stmt->execute();
+
+// pagina bewerken voor admin
 $script = "";
 while ($row = $stmt->fetch())
 {
     if (adminpage() && isset($_GET["edit"])) {
+        // voor elke tekst op pagina een textarea maken
         $height = ceil(strlen($row[1]) / 55) * 18 + 15;
         $text[$row[0]] = "<form method='post'><textarea style='height: ".$height."px;' class='edittext' name='".$row[0]."'>".$row[1]."</textarea><br><button class='btn btn-secondary btn-md'  type='submit'>Oplslaan</button></form>";
         $script = '<script>$("a").removeAttr("href"); $("a").removeAttr("onclick"); $("#sendMessageButton").attr("type","button");
@@ -27,9 +31,9 @@ while ($row = $stmt->fetch())
         
     }
     else {
+        // tekst voorzien van <br> i.p.v. \n en \l
         $text[$row[0]] = nl2br($row[1]);
     }
-
 }
 ?>
 <!-- Navigation -->
@@ -133,7 +137,7 @@ while ($row = $stmt->fetch())
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <form id="contactForm" name="sentMessage" method="post" action="mail.php" target="contact" onsubmit="contactForm('Bericht versturen...','none',true,'<sendMessageButton></sendMessageButton>')">
+                <form id="contactForm" name="sentMessage" method="post" action="mail.php" target="contact" onsubmit="contactForm('Bericht versturen...','none',true,'sendMessageButton')">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">

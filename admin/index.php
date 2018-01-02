@@ -1,6 +1,6 @@
 <?php
 require '../includes/functions.php';
-// controleer of gebruiker admin rechten heeft
+// controleer of gebruiker admin rechten heeft, stuur hem anders terug naar login pagina
 if (!adminpage()) {
     header('Location: ../login.php?redirect='.$_SERVER[REQUEST_URI].'');
 }
@@ -72,12 +72,9 @@ if (!adminpage()) {
                             </li>
                             <li>
                                 <a href="uploadfoto.php" target="iframe" onClick="viewName(this,'componentsParent');">Foto's toevoegen fotoalbum</a>
-                            </li><li>
-                                <a href="register.php" target="iframe" onClick="viewName(this,'componentsParent');">Gebruikers toevoegen</a>
                             </li>
                             <li>
                                 <a href="register.php" target="iframe" onClick="viewName(this,'componentsParent');">Gebruikersaccount toevoegen</a>
-
                             </li>
                         </ul>
                     </li>
@@ -132,18 +129,6 @@ if (!adminpage()) {
                     </li>
 
                 </ul>
-
-
-                <!--
-<ul class="navbar-nav sidenav-toggler">
-<li class="nav-item">
-<a class="nav-link text-center" id="sidenavToggler">
-<i class="fa fa-fw fa-angle-left"></i>
-</a>
-</li>
-</ul>
--->
-
                 <?php 
                 $stmt = $db->prepare("SELECT * FROM ( (SELECT c.contactid AS id, c.email AS title, c.message AS content, c.date AS date, 'contact' as tableName, c.name AS name FROM contact c WHERE c.contactRead = 0) UNION ALL (SELECT g.guestbookId AS id, g.guestbookTitle AS title, g.guestbookMessage AS content, g.guestbookDate AS date, 'gastenboek' as tableName , 'null' AS name FROM guestbook g WHERE g.guestbookRead = 0) ) results ORDER BY date DESC ");
                 $stmt->execute();
