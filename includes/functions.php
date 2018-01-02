@@ -22,7 +22,9 @@ class DbHelper{
     //SELECT USER FUNCTION
 
     function selectUser(){
-   
+        if (!isset($_SESSION['loginAttempts'])) {
+            $_SESSION['loginAttempts'] = 0;
+        }
     
         if (isset($_SESSION["time"])) {
             if ($_SESSION["time"] < date("Hi")) {

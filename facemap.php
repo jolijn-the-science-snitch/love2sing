@@ -1,5 +1,8 @@
 <?php
 require_once 'header.php';
+if(!userpage() && !adminpage()) {
+    header("location: index.php");
+}
 $sql = 'SELECT * FROM facemap';
 ?>
 

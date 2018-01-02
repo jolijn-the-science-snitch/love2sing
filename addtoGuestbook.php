@@ -1,42 +1,20 @@
 <?php
 require 'header.php';
+if(!userpage() && !adminpage()) {
+    header("location: index.php");
+}
 ?>
-
-
-
-    <head>
-        <link rel="stylesheet" type="text/css" href="guestbook.css">
-        <link rel="stylesheet" type="text/css" href="css/creative.min.css">
-    </head>
-    <!--
-
-=======
-<!--
-=======
->>>>>>> origin/wim
-<head>
-<link rel="stylesheet" type="text/css" href="guestbook.css">
-<link rel="stylesheet" type="text/css" href="css/creative.min.css">
-</head>
-<!--
-
-<header>
-
-<h1 class="text-uppercase">
-<strong>Gastenboek</strong>
-</h1>
-</header> !-->
 
 <div id="form-main">
     <div id="form-div">
         <form class="form" id="form1" method="POST">
 
             <p class="name">
-                <input name="titel" type="text" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="Titel" id="name" />
+                <input name="titel" type="text" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="Titel" id="name" required/>
             </p>
 
             <p class="text">
-                <textarea name="bericht" class="validate[required,length[6,300]] feedback-input" id="comment" placeholder="Bericht"></textarea>
+                <textarea name="bericht" class="validate[required,length[6,300]] feedback-input" id="comment" placeholder="Bericht" required></textarea>
             </p>
 
 
@@ -53,18 +31,16 @@ require 'header.php';
     //script beveiligd tegen XSS injecties dmv htmlentities in combinatie met ENT_QUOTES
     //database is al geconnect in functions.php
 
-    if (isset($_POST['verzenden'])) {
+    if (isset($_POST['titel']) && isset($_POST["bericht"])) {
         $valid = true;
         $title = htmlentities(trim($_POST['titel'],ENT_QUOTES));
         //checken of er een titel is ingevuld
         if (empty($title)) {
-            echo "<p class='error'>Vul alstublieft een titel in</p>";
             $valid = false;
         }
         $gbmessage = htmlentities(trim($_POST['bericht'],ENT_QUOTES));
         //checken of er een bericht is ingevuld
         if (empty($gbmessage)) {
-            echo "<p class='error'>Vul alstublieft een bericht in</p>";
             $valid = false;
         }
         $date= date("Y-m-d H:i:s");
@@ -77,14 +53,17 @@ require 'header.php';
 
 
 
-            //veilige insert in de tabel dmv prepare, daardoor geen string escape meer nodig
-            $stmt= $db->prepare("INSERT INTO guestbook (guestbookTitle, guestbookMessage, guestbookDate) VALUES('$title','$gbmessage','$date')");
+            //veilige insert in de tabel dmv prepare en bindParam, daardoor geen string escape meer nodig
+            $stmt= $db->prepare("INSERT INTO guestbook (guestbookTitle, guestbookMessage, guestbookDate) VALUES(:title, :message, :date)");
+            $stmt->bindParam(":title", $title);
+            $stmt->bindParam(":message", $gbmessage);
+            $stmt->bindParam(":date", $date);
             $stmt->execute();
 
          
 //verstuur mail voor het goedkeuren van een gastenboekbericht
 
-            echo "<div class='guestbook-text'>Uw verzoek om een bericht te plaatsen in het gastenboek is verstuurd! Als deze wordt geaccepteerd, zal uw bericht in het gastenboek verschijnen.</div>";
+            //echo "<div class='guestbook-text'>Uw verzoek om een bericht te plaatsen in het gastenboek is verstuurd! Als deze wordt geaccepteerd, zal uw bericht in het gastenboek verschijnen.</div>";
 
 
             //verstuur mail voor het goedkeuren van een gastenboekbericht
@@ -140,23 +119,6 @@ require 'header.php';
             echo $approve->rowCount();
         }
    ?><?= $message ?>
-
-                <?php
-
-
-    // alleen bij het zojuist toegevoegde bericht de status aanpassen d.m.v. de WHERE
-    // $_GET, want een $_POST wil niet vanuit de mail
-    if(isset($_GET['toevoegen']) && isset($_GET['id'])){
-        $approve= $db->prepare("UPDATE guestbook SET guestbookApproved = 1 WHERE guestbookId = ?;");
-        $approve->execute(array($_GET['id']));
-        echo $approve->rowCount();
-    }             
-    if(isset($_GET['weigeren']) && isset($_GET['id'])){
-        $approve= $db->prepare("UPDATE guestbook SET guestbookApproved = 0 WHERE guestbookId = ?;");
-        $approve->execute(array($_GET['id']));
-        echo $approve->rowCount();
-    }
-    ?><?= $message ?>
 
     <?php
 
