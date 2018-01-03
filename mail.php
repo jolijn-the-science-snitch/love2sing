@@ -4,7 +4,7 @@ require("includes/functions.php");
 if (isset($_POST['contactName']) && isset($_POST['contactEmail']) && isset($_POST['contactMessage'])) {   
     $contactName = filter_input(INPUT_POST, 'contactName');
     $contactEmail = filter_input(INPUT_POST, 'contactEmail');
-    $contactMessage = nl2br(filter_input(INPUT_POST, 'contactMessage'));
+    $contactMessage = htmlentities(trim(nl2br(filter_input(INPUT_POST, 'contactMessage'))));
 
     // mail content genereren
     $message = "
