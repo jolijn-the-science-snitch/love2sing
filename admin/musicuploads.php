@@ -28,9 +28,13 @@ if ((isset($_POST["action"]) || isset($_GET["action"])) && (isset($_POST["id"]) 
         $stmt->bindParam(':id', $id);
         $stmt->execute();
         if ($stmt->rowCount() == 1) {
-            unlink($deletePdf);
-            unlink($deleteMp3);
-            
+            if(file_exists($deletePdf)) {
+                unlink($deletePdf);
+            }
+            if(file_exists($deleteMp3)) {
+                unlink($deleteMp3);
+            }
+
             message("success","Er is een muziekstuk verwijderd","Succesvol verwijderd");
             header('Location: musicuploads.php');
         }

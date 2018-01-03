@@ -35,22 +35,26 @@ if (isset($_GET["id"])) {
         // mp3
         if ($row["musicMp3"] != null) {
             $mp3 = '<p><a class="btn btn-info"  href="../'.$row["musicMp3"].'" download>Download</a></p>';
+            $mp3FileUrl = "../".$row["musicMp3"];
         }
         else {
             $mp3 = '<p class="text-info">Geen mp3 toegevoegd</p>';
+            $mp3FileUrl = null;
         }
         $mp3 .= '<p><a class="btn btn-info" href="#" onclick="edit(this,\'mp3\')">Wijzigen</a></p>';
-        $mp3FileUrl = "../".$row["musicMp3"];
+
 
         // pdf
         if ($row["musicPdf"] != null) {
             $pdf = '<p><a class="btn btn-info"  href="../'.$row["musicPdf"].'" download>Download</a></p>';
+            $pdfFileUrl = "../".$row["musicPdf"];
         }
         else {
             $pdf = '<p class="text-info">Geen pdf toegevoegd</p>';
+            $pdfFileUrl = null;
         }
         $pdf .= '<p><a class="btn btn-info" href="#" onclick="edit(this,\'pdf\')">Wijzigen</a></p>';
-        $pdfFileUrl = "../".$row["musicPdf"];
+
 
         $form = '<button id="uploadButton" class="btn btn-success btn-xl text-uppercase" type="submit" onclick="checkdatalist(1);">Opslaan</button>';
         $form .= ' <a class="btn btn-danger btn-xl" href="musicuploads.php?id='.$row["musicId"].'&action=2">Verwijderen</a>';
@@ -171,7 +175,9 @@ if (isset($_POST["title"]) && isset($_POST["componist"]) && isset($_POST["pitch"
             else {
                 $musicMp3 = $result[0];
                 if (isset($_GET["id"])) {
-                    unlink($mp3FileUrl);
+                    if(file_exists($mp3FileUrl)) {
+                        unlink($mp3FileUrl);
+                    }
                 }
             }
         }
@@ -195,7 +201,9 @@ if (isset($_POST["title"]) && isset($_POST["componist"]) && isset($_POST["pitch"
             else {
                 $musicPdf = $result[0];
                 if (isset($_GET["id"])) {
-                    unlink($pdfFileUrl);
+                    if(file_exists($pdfFileUrl)) {
+                        unlink($pdfFileUrl);
+                    }
                 }
             }
         }

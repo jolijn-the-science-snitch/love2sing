@@ -100,13 +100,13 @@ if(!userpage() && !adminpage()) {
                 echo '</p><p><b>Pitch: </b>';
                 echo $row['musicPitch'];
                 echo '</p><p>';
-                if ($row['musicMp3'] != "../../") {
+                if ($row['musicMp3'] != null) {
                     echo '<a href="' . $row['musicMp3'] . '" download><img src="img/mp3.jpg" alt="Download mp3" title="Download mp3" height=100px></a>';
                 }
                 else {
                     echo '<a class="disabled"><img src="img/mp3.jpg" alt="Geen mp3 beschikbaar" title="Geen mp3 beschikbaar" height=100px></a>';
                 }
-                if ($row['musicPdf'] != "../../") {
+                if ($row['musicPdf'] != null) {
                     echo '<a href="' . $row['musicPdf'] . '" download class="float-right" ><img src="img/pdf.jpg" alt="Download pdf" title="Download pdf" height=100px></a>';
                 }
                 else {
