@@ -4,28 +4,30 @@ session_start();
 
 //DATABASE CONNECT
 
-class DbHelper{
+class DbHelper
+{
     var $connect;
 
     //maakt de DB connectie aan
-    public function __construct(){
+    public function __construct()
+    {
         try {
-            $this -> connect = new PDO('mysql:host=localhost; dbname=love2sing;','root','');
-        }
-        catch (PDOException $Exception) {
+            $this->connect = new PDO('mysql:host=localhost; dbname=love2sing;', 'root', '');
+        } catch (PDOException $Exception) {
             echo '<div  class="alert alert-danger fade in message"><strong>Database error </strong>De database verbinding is mislukt</div>';
             exit;
         }
-    } 
+    }
 
 
     //SELECT USER FUNCTION
 
-    function selectUser(){
+    function selectUser()
+    {
         if (!isset($_SESSION['loginAttempts'])) {
             $_SESSION['loginAttempts'] = 1;
         }
-    
+
         if (isset($_SESSION["time"])) {
             if ($_SESSION["time"] < date("Hi")) {
                 $_SESSION['loginAttempts'] = 1;
@@ -33,7 +35,7 @@ class DbHelper{
             }
         }
 
-        if($_SESSION['loginAttempts'] < 3){
+        if ($_SESSION['loginAttempts'] < 3) {
 
 
             //hash ingevuld password
@@ -56,7 +58,7 @@ class DbHelper{
 
 
             //functie userrights
-            if(isset($result) && isset($result[0])){
+            if (isset($result) && isset($result[0])) {
                 $user = $result[0];
                 $_SESSION['logIn'] = 'true';
                 $_SESSION['username'] = $user[1];
@@ -65,9 +67,8 @@ class DbHelper{
 
                 if ($user["userRights"] == 1) {
                     // user is een gebruiker
-                    $_SESSION['userRights'] = 'user';                    
-                }
-                elseif ($user["userRights"] == 2) {
+                    $_SESSION['userRights'] = 'user';
+                } elseif ($user["userRights"] == 2) {
                     // user is een admin
                     $_SESSION['userRights'] = 'admin';
                 }
@@ -75,33 +76,31 @@ class DbHelper{
 
                 if (isset($_GET["redirect"])) {
                     $redirect = filter_input(INPUT_GET, "redirect");
-                    header('Location: '.$redirect.'');
+                    header('Location: ' . $redirect . '');
                     exit;
-                }
-                else {
+                } else {
                     header('Location: index.php');
                     exit;
                 }
-            }
-            else {
-                message("danger", "Onjuiste inloggegevens", "U bent niet ingelogd, controleer uw gegevens"); 
+            } else {
+                message("danger", "Onjuiste inloggegevens", "U bent niet ingelogd, controleer uw gegevens");
             }
             // laat melding(en) zien
             $_SESSION['loginAttempts']++;
 
-        }
-        else{
+        } else {
             message("danger", "Account voor 15 minuten geblokkeerd!", "U heeft uw wachtwoord meer dan 3 keer verkeerd ingevoerd. Over 15 minuten kunt u het weer proberen.");
             $_SESSION["time"] = date('Hi') + 15;
         }
     }
 
-    function editUserStart($case){
+    function editUserStart($case)
+    {
         //select query die de gegevens van de klant ophaald zodat hij/zij deze kan veranderen
         $create = "SELECT * FROM user WHERE userId = :id";
 
         //deze functie zorgt ervoor dat de gegevens uit de databse worden gehaald
-        $statement = $this-> connect -> prepare($create);
+        $statement = $this->connect->prepare($create);
 
         //zorgt ervoor dat het juiste id wordt gepakt
         $editId = $_SESSION['editPassword'];
@@ -110,7 +109,7 @@ class DbHelper{
         }
         $statement->bindParam(':id', $editId, PDO::PARAM_STR);
 
-        $statement -> execute();
+        $statement->execute();
 
         $user = $statement->fetchAll();
 
@@ -118,16 +117,17 @@ class DbHelper{
 
 
         //zorgt ervoor dat wanneer de klant iets vergeet, deze melding in beeld komt
-        if(!isset($case)){
+        if (!isset($case)) {
             echo "<p>Er is een fout opgetreden met het wijzigen van uw gegevens. Probeer het opnieuw.</p>";
-        }else{
+        } else {
             //zorgt ervoor dat wanneer alles correct is, de gegevens worden doorgestuurd naar de db
             print $userEdit[$case];
 
         }
     }
 
-    function editUser($editId = null){
+    function editUser($editId = null)
+    {
         //update query voor de gebruikers
         $edit = "UPDATE user SET  
     userPassword = :password
@@ -137,7 +137,7 @@ class DbHelper{
         $hash = hash('sha256', $_POST['password']);
 
         //bereid de db voor
-        $statement = $this -> connect ->prepare($edit);
+        $statement = $this->connect->prepare($edit);
 
         //de gegevens die gewijzigd mogen worden (het id wordt NIET aangepast)
 
@@ -158,48 +158,46 @@ class DbHelper{
 
         if ($statement->rowCount() == 1) {
             return 1;
-        }
-        else {
+        } else {
             return 0;
         }
     }
 
 
-
-    function returndb() {
-        return $this-> connect;
+    function returndb()
+    {
+        return $this->connect;
     }
 
-    function createUser(){
+    function createUser()
+    {
         //password hashen
-        if($_POST['userPassword'] == $_POST['repeatPassword']){
+        if ($_POST['userPassword'] == $_POST['repeatPassword']) {
             $hash = hash('sha256', $_POST['userPassword']);
-        
-        
-        //insert query om USERS toe te voegen
-        $create = 'INSERT INTO user (username , userEmail ,  userPassword , userRights) VALUES (:username , :userEmail , :userPassword , :rights)';
 
-        $statement = $this->connect->prepare($create);
 
-        //de gegevens die ingevuld moeten worden door de klant
-        $statement->bindParam(':username', $_POST['username'], PDO::PARAM_STR);
-        $statement->bindParam(':userEmail', $_POST['userEmail'], PDO::PARAM_STR);
-        $statement->bindParam(':userPassword', $hash, PDO::PARAM_STR);
-        $statement->bindParam(':rights', $_POST['addUseraccount'] , PDO::PARAM_STR);
-        //$statement->bindParam(':userRights', $_POST['userRights'], PDO::PARAM_STR);
+            //insert query om USERS toe te voegen
+            $create = 'INSERT INTO user (username , userEmail ,  userPassword , userRights) VALUES (:username , :userEmail , :userPassword , :rights)';
 
-        $statement->execute();
-        if($statement->rowCount() == 1) {
-            message("success","Account toegevoegd", " ");
+            $statement = $this->connect->prepare($create);
+
+            //de gegevens die ingevuld moeten worden door de klant
+            $statement->bindParam(':username', $_POST['username'], PDO::PARAM_STR);
+            $statement->bindParam(':userEmail', $_POST['userEmail'], PDO::PARAM_STR);
+            $statement->bindParam(':userPassword', $hash, PDO::PARAM_STR);
+            $statement->bindParam(':rights', $_POST['addUseraccount'], PDO::PARAM_STR);
+            //$statement->bindParam(':userRights', $_POST['userRights'], PDO::PARAM_STR);
+
+            $statement->execute();
+            if ($statement->rowCount() == 1) {
+                message("success", "Account toegevoegd", " ");
+            } else {
+                message("danger", "Account toevoegen mislukt", "");
+            }
+        } else {
+            message("danger", "Herhaling wachtwoord is niet gelijk", "");
         }
-        else {
-            message("danger","Account toevoegen mislukt", "");
-        }
-        }
-        else {
-            message("danger","Herhaling wachtwoord is niet gelijk", "");
-        }
-        }
+    }
 }
 
 // bestand uploaden
@@ -227,20 +225,20 @@ class DbHelper{
  * @param $type
  * @return array
  */
-function fileUpload($file, $type) {
+function fileUpload($file, $type)
+{
     if ($file["error"] == 4) {
-        return array(null,5);
-    }
-    else {
+        return array(null, 5);
+    } else {
         $target_dir = "uploads/";
 
         $uploadOk = 1;
-        $fileType = pathinfo(basename($file["name"]),PATHINFO_EXTENSION);
+        $fileType = pathinfo(basename($file["name"]), PATHINFO_EXTENSION);
         $result = "";
 
 
         while (true) {
-            $fileName = $fileType ."-". date("Y-m-d-h-i-s-u") . "-" . rand(1000,9999);
+            $fileName = $fileType . "-" . date("Y-m-d-h-i-s-u") . "-" . rand(1000, 9999);
             $target_file = $target_dir . $fileName . "." . $fileType;
             if (!file_exists($target_file)) {
                 break;
@@ -253,37 +251,34 @@ function fileUpload($file, $type) {
             $result .= "3";
 
 
-            message("warning", $file["name"] . " is niet opgeslagen", "Het bestand " . $file["name"] . " is te groot ". $file["size"] / 1000000 . "MB, max 10MB"); 
+            message("warning", $file["name"] . " is niet opgeslagen", "Het bestand " . $file["name"] . " is te groot " . $file["size"] / 1000000 . "MB, max 10MB");
             // check of het bestand te groot is, zo ja: foutcode 3
         }
         if (is_array($type)) {
-            if(!in_array($fileType,$type)) {
+            if (!in_array($fileType, $type)) {
                 $uploadOk = 0;
                 $result .= "4";
-                message("warning", $file["name"]. " is niet opgeslagen", "Het bestand " . $file["name"] . " is geen ".implode (", ", $type)); 
+                message("warning", $file["name"] . " is niet opgeslagen", "Het bestand " . $file["name"] . " is geen " . implode(", ", $type));
                 // check of het bestand geen $type type is, zo ja: foutcode 4
             }
-        }
-        elseif ($type != $fileType) {
+        } elseif ($type != $fileType) {
             $uploadOk = 0;
             $result .= "4";
-            message("warning", $file["name"]. " is niet opgeslagen", "Het bestand " . $file["name"] . " is geen ".$type); 
+            message("warning", $file["name"] . " is niet opgeslagen", "Het bestand " . $file["name"] . " is geen " . $type);
             // check of het bestand geen $type type is, zo ja: foutcode 4
         }
 
         if ($uploadOk == 0) {
-            return array($target_file,$result);
+            return array($target_file, $result);
             // er zijn fouten opgetreden, de foutcodes worden gereturnd
-        } 
-        else {            
-            if (move_uploaded_file($file["tmp_name"], "../".$target_file)) {
-                message("success", $file["name"]. " is geupload", "Het bestand " .$file["name"] . " is succesvol opgeslagen op de server"); 
-                return array($target_file,1);       
+        } else {
+            if (move_uploaded_file($file["tmp_name"], "../" . $target_file)) {
+                message("success", $file["name"] . " is geupload", "Het bestand " . $file["name"] . " is succesvol opgeslagen op de server");
+                return array($target_file, 1);
                 // bestand is succesvol geupload
-            }
-            else {
-                message("danger", $file["name"]." is niet opgeslagen", "Er is een technische fout opgetreden"); 
-                return array($target_file,0);
+            } else {
+                message("danger", $file["name"] . " is niet opgeslagen", "Er is een technische fout opgetreden");
+                return array($target_file, 0);
                 // er is een probleem opgetreden met uploaden
             }
         }
@@ -300,10 +295,11 @@ Plaats daaronder <?= $message ?>
 */
 
 $message = null;
-function message($type,$title,$content) {
+function message($type, $title, $content)
+{
     global $message;
     $message .= '<script>
-    message("'.$type.'","'.$title.'","'.$content.'");
+    message("' . $type . '","' . $title . '","' . $content . '");
     </script>';
 }
 
@@ -324,7 +320,8 @@ function message($type,$title,$content) {
 //  love2singmail
 //  php.ini en sendmail.ini aanpassen, zie trello->programming rules
 
-function sendMail($subject,$message,$replyTo,$to = null) {
+function sendMail($subject, $message, $replyTo, $to = null)
+{
     if ($to == null) {
         $to = "love2singtestmail@gmail.com";
     }
@@ -332,37 +329,37 @@ function sendMail($subject,$message,$replyTo,$to = null) {
         $replyTo = "love2singtestmail@gmail.com";
     }
     $headers = 'From: love2singtestmail@gmail.com' . "\r\n" .
-        'Reply-To: '.$replyTo.'' . "\r\n" .
+        'Reply-To: ' . $replyTo . '' . "\r\n" .
         'X-Mailer: PHP/' . phpversion();
     $headers .= "MIME-Version: 1.0\r\n";
-    $headers.="Content-type: text/html; charset=\"UTF-8\" \r\n";
+    $headers .= "Content-type: text/html; charset=\"UTF-8\" \r\n";
 
-    if(mail($to,$subject, $message, $headers)){
+    if (mail($to, $subject, $message, $headers)) {
         return 1;
-    }
-    else { 
+    } else {
         return 0;
     }
 }
+
 //EDIT USER FUNCTION
 
 
 // check of de gebruiker admin rechten heeft
-function adminpage() {
-    if(isset($_SESSION['logIn']) && $_SESSION['logIn'] == 'true' && $_SESSION['userRights'] == 'admin'){
+function adminpage()
+{
+    if (isset($_SESSION['logIn']) && $_SESSION['logIn'] == 'true' && $_SESSION['userRights'] == 'admin') {
         return true;
-    }
-    else {
+    } else {
         return false;
     }
 }
 
 // check of de gebruiker user rechten heeft
-function userpage() {
-    if(isset($_SESSION['logIn']) && $_SESSION['logIn'] == 'true' && $_SESSION['userRights'] == 'user') {
+function userpage()
+{
+    if (isset($_SESSION['logIn']) && $_SESSION['logIn'] == 'true' && $_SESSION['userRights'] == 'user') {
         return true;
-    }
-    else {
+    } else {
         return false;
     }
 }
@@ -370,6 +367,6 @@ function userpage() {
 
 // maak $db variabele
 $view = new DbHelper();
-$db = $view -> returndb();
+$db = $view->returndb();
 
 ?>
