@@ -37,8 +37,53 @@ function format_size($size) {
     return substr( $size, 0, $endIndex).' '.$units[$i];
 }
 
+$usedSpaceBytes = foldersize("../uploads");
+$usedSpace = format_size($usedSpaceBytes);
+$totalSpaceBytes = 1000000000;
+$totalSpace = format_size($totalSpaceBytes);
+if ($usedSpaceBytes > $totalSpaceBytes * .9) {
+    $spaceType = "danger";
+}
+elseif ($usedSpaceBytes > $totalSpaceBytes * .8) {
+    $spaceType = "warning";
+}
+else {
+    $spaceType = "success";
+}
 
-$usedSpace = format_size(foldersize("../uploads"));
+$percentUsed = round($usedSpaceBytes / $totalSpaceBytes * 100, 1);
+
+// aantallen selecteren
+
+$stmt = $db->prepare("SELECT COUNT(*) FROM guestbook WHERE guestbookRead = 0");
+$stmt->execute();
+
+while ($row = $stmt->fetch()) {
+    $unreadGuestbookPosts = $row[0];
+}
+if ($unreadGuestbookPosts == 0) {
+    $guestbookType = "success";
+}
+else {
+    $guestbookType = "warning";
+}
+
+
+$stmt = $db->prepare("SELECT COUNT(*) FROM contact WHERE contactRead = 0");
+$stmt->execute();
+
+while ($row = $stmt->fetch()) {
+    $unreadContactPosts = $row[0];
+}
+
+if ($unreadContactPosts == 0) {
+    $contactType = "success";
+}
+else {
+    $contactType = "warning";
+}
+
+
 ?>
 <!--Dit is de homepagina van het admin scherm-->
 <!--<p>-->
@@ -47,67 +92,53 @@ $usedSpace = format_size(foldersize("../uploads"));
 <!--</p>-->
 <section>
     <div class="container">
+        <h2 class="section-heading text-uppercase">Admin paneel</h2>
+        <h3>Hier kunt u de website bewerken, reacties inzien en muziek toevoegen</h3>
 <div class="row">
-    <div class="col-xl-3 col-sm-6 mb-3">
-        <div class="card text-white bg-primary o-hidden ">
+    <div class="col-xl-4 col-sm-6 mb-4">
+        <div class="card text-white bg-<?= $guestbookType ?> o-hidden ">
             <div class="card-body">
                 <div class="card-body-icon">
                     <i class="fa fa-fw fa-comments"></i>
                 </div>
-                <div class="mr-5">26 New Messages!</div>
+                <div class="mr-5"><?= $unreadGuestbookPosts ?> nieuwe gastenboek berichten</div>
             </div>
-            <a class="card-footer text-white clearfix small z-1" href="#">
-                <span class="float-left">View Details</span>
+            <a class="card-footer text-white clearfix small z-1" href="guestbookposts.php">
+                <span class="float-left">Overzicht</span>
                 <span class="float-right">
                 <i class="fa fa-angle-right"></i>
               </span>
             </a>
         </div>
     </div>
-    <div class="col-xl-3 col-sm-6 mb-3">
-        <div class="card text-white bg-warning o-hidden ">
+    <div class="col-xl-4 col-sm-6 mb-4">
+        <div class="card text-white bg-<?= $contactType ?> o-hidden ">
             <div class="card-body">
                 <div class="card-body-icon">
-                    <i class="fa fa-fw fa-list"></i>
+                    <i class="fa fa-fw fa-envelope"></i>
                 </div>
-                <div class="mr-5">11 New Tasks!</div>
+                <div class="mr-5"><?= $unreadContactPosts ?> nieuwe contactformulier berichten</div>
             </div>
-            <a class="card-footer text-white clearfix small z-1" href="#">
-                <span class="float-left">View Details</span>
+            <a class="card-footer text-white clearfix small z-1" href="contactformposts.php">
+                <span class="float-left">Overzicht</span>
                 <span class="float-right">
                 <i class="fa fa-angle-right"></i>
               </span>
             </a>
         </div>
     </div>
-    <div class="col-xl-3 col-sm-6 mb-3">
-        <div class="card text-white bg-success o-hidden">
+
+    <div class="col-xl-4 col-sm-6 mb-4">
+        <div class="card text-white bg-<?= $spaceType ?> o-hidden">
             <div class="card-body">
                 <div class="card-body-icon">
-                    <i class="fa fa-fw fa-shopping-cart"></i>
+                    <i class="fa fa-fw fa-cloud"></i>
                 </div>
-                <div class="mr-5">123 New Orders!</div>
+                <div class="mr-5">Gebruikte opslagruimte: <?= $usedSpace ?> van de <?= $totalSpace ?></div>
             </div>
-            <a class="card-footer text-white clearfix small z-1" href="#">
-                <span class="float-left">View Details</span>
+            <a class="card-footer text-white clearfix small z-1" >
+                <span class="float-left">Gebruikt: <?= $percentUsed ?>%</span>
                 <span class="float-right">
-                <i class="fa fa-angle-right"></i>
-              </span>
-            </a>
-        </div>
-    </div>
-    <div class="col-xl-3 col-sm-6 mb-3">
-        <div class="card text-white bg-danger o-hidden">
-            <div class="card-body">
-                <div class="card-body-icon">
-                    <i class="fa fa-fw fa-support"></i>
-                </div>
-                <div class="mr-5">Gebruikte opslagruimte: <?= $usedSpace ?></div>
-            </div>
-            <a class="card-footer text-white clearfix small z-1" href="#">
-                <span class="float-left">View Details</span>
-                <span class="float-right">
-                <i class="fa fa-angle-right"></i>
               </span>
             </a>
         </div>
