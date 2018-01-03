@@ -1,7 +1,7 @@
 <?php
 include("adminpageheader.php"); 
 
-// post manier
+// verwijderen
 if ((isset($_POST["action"]) || isset($_GET["action"])) && (isset($_POST["id"]) || isset($_GET["id"]))) {
     if (isset($_POST["action"])) {
         $status = filter_input(INPUT_POST, "action");
@@ -39,7 +39,7 @@ if ((isset($_POST["action"]) || isset($_GET["action"])) && (isset($_POST["id"]) 
 }
 
 $table = "";
-
+// gegevens ophalen uit db
 $stmt = $db->prepare("SELECT * FROM photoalbum ORDER BY photoalbumId DESC");
 $stmt->execute();
 $table = "";

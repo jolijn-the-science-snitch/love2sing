@@ -1,8 +1,5 @@
 <?php
 require 'header.php';
-if(!userpage() && !adminpage()) {
-    header("location: index.php");
-}
 ?>
 
 <div id="form-main">

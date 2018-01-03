@@ -1,7 +1,7 @@
 <?php
 include("adminpageheader.php"); 
 
-// post manier
+// verwijderen van muziek
 if ((isset($_POST["action"]) || isset($_GET["action"])) && (isset($_POST["id"]) || isset($_GET["id"]))) {
     if (isset($_POST["action"])) {
         $status = filter_input(INPUT_POST, "action");
@@ -41,7 +41,7 @@ if ((isset($_POST["action"]) || isset($_GET["action"])) && (isset($_POST["id"]) 
 }
 
 $table = "";
-
+// muziek ophalen uit db
 $stmt = $db->prepare("SELECT * FROM music m JOIN componist c ON m.componistId = c.componistId ORDER BY musicId DESC");
 $stmt->execute();
 $table = "";

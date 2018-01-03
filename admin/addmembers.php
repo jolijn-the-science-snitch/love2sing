@@ -5,7 +5,6 @@ $buttonstyle = "style='display: none;'";
 ?>
 
 <?php
-require_once '../includes/functions.php'; //connect database en functies
 $required = "required";
 $name = "";
 $filehtml = "";
@@ -47,7 +46,7 @@ if (isset($_GET["id"])) {
 
 if (isset($_POST['username']) && (isset($_FILES['fileToUpload']) || isset($_GET["id"])) ) {
     // als er een bestand is geupload een naam is ingevuld
-    $username = $_POST['username'];
+    $username = filter_input(INPUT_POST,'username');
     if (isset($_FILES['fileToUpload']) ) {
         $file = $_FILES['fileToUpload'];
         $type = array("jpg","jpeg");
@@ -90,6 +89,7 @@ if (isset($_POST['username']) && (isset($_FILES['fileToUpload']) || isset($_GET[
             }
         }
         else {
+            // persoon updaten
             $statement = $db->prepare("UPDATE facemap SET facemapUrl = :facemapUrl, facemapName = :facemapName WHERE facemapId = :id");
             $id = filter_input(INPUT_GET, "id");
             $statement->execute(array(
@@ -134,7 +134,7 @@ else {
                         <div class="form-group">
                             <label for="exampleFormControlFile1"> Selecteer een plaatje om toe te voegen:</label>
                             <?= $filehtml ?>
-                            <input type="file" class="form-control" name="fileToUpload" id="fileToUpload" <?= $required ?> <?= $fileInputStyle ?> ><br><br>
+                            <input type="file" class="form-control" name="fileToUpload" id="fileToUpload" accept=".jpeg, .jpg" <?= $required ?> <?= $fileInputStyle ?> ><br><br>
                             <input type="submit" value="Persoon toevoegen" name="submit" class="btn btn-primary btn-xl text-uppercase" <?= $fileInputStyle ?> >
                             <?= $form ?>
                         </div>
@@ -151,4 +151,4 @@ else {
 
 <?= $message ?>
 
-<? require_once '../footer.php' ?>
+<? require_once 'adminpagefooter.php' ?>

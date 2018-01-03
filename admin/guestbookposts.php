@@ -6,16 +6,11 @@ include("adminpageheader.php");
 if(isset($_GET['toevoegen']) && isset($_GET['id'])){
     $approve= $db->prepare("UPDATE guestbook SET guestbookRead = 1, guestbookApproved = 1 WHERE guestbookId = ?;");
     $approve->execute(array($_GET['id']));
-    //echo $approve->rowCount();
-    
 }             
 if(isset($_GET['weigeren']) && isset($_GET['id'])){
     $approve= $db->prepare("UPDATE guestbook SET guestbookRead = 1, guestbookApproved = 0 WHERE guestbookId = ?;");
     $approve->execute(array($_GET['id']));
-    //echo $approve->rowCount();
 }
-
-
 
 if (isset($_POST["action"]) && isset($_POST["id"])) {
     $status = filter_input(INPUT_POST, "action");
@@ -64,8 +59,6 @@ if (isset($_GET["id"])) {
     $stmt = $db->prepare("SELECT * FROM guestbook WHERE guestbookId = :id");
     $stmt->bindParam(':id', $id);
     $stmt->execute();
-
-    //echo $stmt->rowCount();
 
     while ($row = $stmt->fetch()) {
         if ($row["guestbookApproved"] == 0 && $row["guestbookRead"] == 0) {

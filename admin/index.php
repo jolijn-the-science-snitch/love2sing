@@ -129,7 +129,8 @@ if (!adminpage()) {
                     </li>
 
                 </ul>
-                <?php 
+                <?php
+                // 3 recentste meldingen ophalen
                 $stmt = $db->prepare("SELECT * FROM ( (SELECT c.contactid AS id, c.email AS title, c.message AS content, c.date AS date, 'contact' as tableName, c.name AS name FROM contact c WHERE c.contactRead = 0) UNION ALL (SELECT g.guestbookId AS id, g.guestbookTitle AS title, g.guestbookMessage AS content, g.guestbookDate AS date, 'gastenboek' as tableName , 'null' AS name FROM guestbook g WHERE g.guestbookRead = 0) ) results ORDER BY date DESC ");
                 $stmt->execute();
 

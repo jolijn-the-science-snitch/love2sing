@@ -1,7 +1,7 @@
 <?php
 // laad functies in, en start sessie
 require '../includes/functions.php';
-// controleer of gebruiker admin rechten heeft
+// controleer of gebruiker admin rechten heeft, stuur hem anders terug naar login
 if (!adminpage()) {
     header('Location: ../login.php?redirect='.$_SERVER[REQUEST_URI].'');
 }

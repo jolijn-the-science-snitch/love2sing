@@ -70,8 +70,6 @@ $title = "Gebruikersaccount toevoegen";
             
            
         </section>
-    
-
 <?php
 
 

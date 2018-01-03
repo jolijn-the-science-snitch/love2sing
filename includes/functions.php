@@ -347,7 +347,7 @@ function sendMail($subject,$message,$replyTo,$to = null) {
 //EDIT USER FUNCTION
 
 
-
+// check of de gebruiker admin rechten heeft
 function adminpage() {
     if(isset($_SESSION['logIn']) && $_SESSION['logIn'] == 'true' && $_SESSION['userRights'] == 'admin'){
         return true;
@@ -357,6 +357,7 @@ function adminpage() {
     }
 }
 
+// check of de gebruiker user rechten heeft
 function userpage() {
     if(isset($_SESSION['logIn']) && $_SESSION['logIn'] == 'true' && $_SESSION['userRights'] == 'user') {
         return true;
@@ -366,6 +367,8 @@ function userpage() {
     }
 }
 
+
+// maak $db variabele
 $view = new DbHelper();
 $db = $view -> returndb();
 

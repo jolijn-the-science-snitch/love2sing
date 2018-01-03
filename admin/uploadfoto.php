@@ -7,19 +7,19 @@ if (isset($_POST['text'])) {
     //Upload functie aanroepen
     $file = $_FILES['jpeg'];
     $type =  array ("jpg", "jpeg");
-    $name = "image";
-    $fileName = "test";
-    $resultaat = fileUpload($file,$type);
-    $imgurl = $resultaat[0];        
+    $result = fileUpload($file,$type);
+    $imgurl = $result[0];
 
     $formstyle = "style='display: none;'";
     $buttonstyle = "";
     //Beschrijving foto
     $text = $_POST['text'];
-    if ($resultaat[1] == 1) {
-
-        $sql = "INSERT INTO photoalbum(photoalbumUrl, photoalbumDescription) VALUES ('$imgurl', '$text')";
+    if ($result[1] == 1) {
+        // voeg foto toe aan db als foto geupload is
+        $sql = "INSERT INTO photoalbum(photoalbumUrl, photoalbumDescription) VALUES (:imgurl, :text)";
         $stmt = $db->prepare($sql);
+        $stmt->bindParam(":imgurl", $imgurl);
+        $stmt->bindParam(":text", $text);
         $stmt->execute();
         if ($stmt->rowCount()== 1) {
             message("Success","Opgeslagen in database", ""); 
