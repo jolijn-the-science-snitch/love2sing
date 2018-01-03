@@ -54,14 +54,14 @@
       <file leaf-file-name="home.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/admin/home.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="606">
-              <caret line="134" column="47" lean-forward="false" selection-start-line="134" selection-start-column="47" selection-end-line="134" selection-end-column="47" />
+            <state relative-caret-position="249">
+              <caret line="103" column="98" lean-forward="false" selection-start-line="103" selection-start-column="98" selection-end-line="103" selection-end-column="98" />
               <folding>
-                <marker date="1514977779688" expanded="true" signature="1325:1345" ph="SELECT COUNT... " />
-                <marker date="1514977779688" expanded="true" signature="1325:1379" ph="SELECT COUNT... guestbook" />
-                <marker date="1514977779688" expanded="true" signature="1325:2022" ph="SELECT COUNT... ?" />
-                <marker date="1514977779688" expanded="true" signature="1606:1656" ph="SELECT COUNT... contact" />
-                <marker date="1514977779688" expanded="true" signature="2005:2021" ph="..." />
+                <marker date="1514978275517" expanded="true" signature="1325:1345" ph="SELECT COUNT... " />
+                <marker date="1514978275517" expanded="true" signature="1325:1379" ph="SELECT COUNT... guestbook" />
+                <marker date="1514978275517" expanded="true" signature="1325:2022" ph="SELECT COUNT... ?" />
+                <marker date="1514978275517" expanded="true" signature="1606:1656" ph="SELECT COUNT... contact" />
+                <marker date="1514978275517" expanded="true" signature="2005:2021" ph="..." />
               </folding>
             </state>
           </provider>
@@ -312,12 +312,12 @@
       <option name="presentableId" value="Default" />
       <updated>1514886105426</updated>
       <workItem from="1514886106563" duration="11459000" />
-      <workItem from="1514973718111" duration="3988000" />
+      <workItem from="1514973718111" duration="4487000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15447000" />
+    <option name="totallyTimeSpent" value="15946000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -399,11 +399,11 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1514977779688" expanded="true" signature="1325:1345" ph="SELECT COUNT... " />
-            <marker date="1514977779688" expanded="true" signature="1325:1379" ph="SELECT COUNT... guestbook" />
-            <marker date="1514977779688" expanded="true" signature="1325:2022" ph="SELECT COUNT... ?" />
-            <marker date="1514977779688" expanded="true" signature="1606:1656" ph="SELECT COUNT... contact" />
-            <marker date="1514977779688" expanded="true" signature="2005:2021" ph="..." />
+            <marker date="1514978275517" expanded="true" signature="1325:1345" ph="SELECT COUNT... " />
+            <marker date="1514978275517" expanded="true" signature="1325:1379" ph="SELECT COUNT... guestbook" />
+            <marker date="1514978275517" expanded="true" signature="1325:2022" ph="SELECT COUNT... ?" />
+            <marker date="1514978275517" expanded="true" signature="1606:1656" ph="SELECT COUNT... contact" />
+            <marker date="1514978275517" expanded="true" signature="2005:2021" ph="..." />
           </folding>
         </state>
       </provider>
@@ -756,14 +756,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/admin/home.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="606">
-          <caret line="134" column="47" lean-forward="false" selection-start-line="134" selection-start-column="47" selection-end-line="134" selection-end-column="47" />
+        <state relative-caret-position="249">
+          <caret line="103" column="98" lean-forward="false" selection-start-line="103" selection-start-column="98" selection-end-line="103" selection-end-column="98" />
           <folding>
-            <marker date="1514977779688" expanded="true" signature="1325:1345" ph="SELECT COUNT... " />
-            <marker date="1514977779688" expanded="true" signature="1325:1379" ph="SELECT COUNT... guestbook" />
-            <marker date="1514977779688" expanded="true" signature="1325:2022" ph="SELECT COUNT... ?" />
-            <marker date="1514977779688" expanded="true" signature="1606:1656" ph="SELECT COUNT... contact" />
-            <marker date="1514977779688" expanded="true" signature="2005:2021" ph="..." />
+            <marker date="1514978275517" expanded="true" signature="1325:1345" ph="SELECT COUNT... " />
+            <marker date="1514978275517" expanded="true" signature="1325:1379" ph="SELECT COUNT... guestbook" />
+            <marker date="1514978275517" expanded="true" signature="1325:2022" ph="SELECT COUNT... ?" />
+            <marker date="1514978275517" expanded="true" signature="1606:1656" ph="SELECT COUNT... contact" />
+            <marker date="1514978275517" expanded="true" signature="2005:2021" ph="..." />
           </folding>
         </state>
       </provider>

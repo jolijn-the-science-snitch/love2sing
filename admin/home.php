@@ -101,7 +101,7 @@ else {
                 <div class="card-body-icon">
                     <i class="fa fa-fw fa-comments"></i>
                 </div>
-                <div class="mr-5"><?= $unreadGuestbookPosts ?> nieuwe gastenboek berichten</div>
+                <div class="mr-5"><?= $unreadGuestbookPosts ?> nieuw<?php if($unreadGuestbookPosts != 1) { echo "e"; } ?> gastenboek berichten</div>
             </div>
             <a class="card-footer text-white clearfix small z-1" href="guestbookposts.php">
                 <span class="float-left">Overzicht</span>
@@ -117,7 +117,7 @@ else {
                 <div class="card-body-icon">
                     <i class="fa fa-fw fa-envelope"></i>
                 </div>
-                <div class="mr-5"><?= $unreadContactPosts ?> nieuwe contactformulier berichten</div>
+                <div class="mr-5"><?= $unreadContactPosts ?> nieuw<?php if($unreadContactPosts != 1) { echo "e"; } ?> contactformulier berichten</div>
             </div>
             <a class="card-footer text-white clearfix small z-1" href="contactformposts.php">
                 <span class="float-left">Overzicht</span>
