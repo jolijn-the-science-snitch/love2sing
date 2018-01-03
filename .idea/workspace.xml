@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="07943347-544c-4985-bacd-6fc29ff816b6" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/admin/cards.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/admin/charts.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/admin/musicupload.php" afterPath="$PROJECT_DIR$/admin/musicupload.php" />
-      <change beforePath="$PROJECT_DIR$/admin/musicuploads.php" afterPath="$PROJECT_DIR$/admin/musicuploads.php" />
-      <change beforePath="$PROJECT_DIR$/music.php" afterPath="$PROJECT_DIR$/music.php" />
-      <change beforePath="$PROJECT_DIR$/uploads/mp3-2017-12-12-02-57-18-000000-3872.mp3" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/uploads/pdf-2017-12-12-02-57-18-000000-3314.pdf" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/addtoGuestbook.php" afterPath="$PROJECT_DIR$/addtoGuestbook.php" />
+      <change beforePath="$PROJECT_DIR$/css/style.css" afterPath="$PROJECT_DIR$/css/style.css" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -25,32 +19,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="204">
               <caret line="12" column="39" lean-forward="false" selection-start-line="12" selection-start-column="39" selection-end-line="12" selection-end-column="39" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="contactformposts.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/admin/contactformposts.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3230">
-              <caret line="190" column="0" lean-forward="false" selection-start-line="190" selection-start-column="0" selection-end-line="192" selection-end-column="2" />
-              <folding>
-                <marker date="1513259196798" expanded="true" signature="283:324" ph="DELETE FROM contact... " />
-                <marker date="1513259196798" expanded="true" signature="752:814" ph="UPDATE contact... " />
-                <marker date="1513259196798" expanded="true" signature="1472:1515" ph="SELECT * FRO... contact" />
-                <marker date="1513259196798" expanded="true" signature="3712:3768" ph="UPDATE contact... " />
-                <marker date="1513259196798" expanded="true" signature="3863:3903" ph="SELECT * FRO... contact" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="adminpagefooter.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/admin/adminpagefooter.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -79,20 +47,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/admin/index.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2244">
-              <caret line="132" column="48" lean-forward="false" selection-start-line="132" selection-start-column="48" selection-end-line="132" selection-end-column="48" />
-              <folding>
-                <marker date="1514907058393" expanded="true" signature="8168:8583" ph="SELECT * FRO... contactid" />
-                <marker date="1514907058393" expanded="true" signature="8185:8344" ph="SELECT c.con... " />
-                <marker date="1514907058393" expanded="true" signature="8357:8553" ph="SELECT g.gue... " />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="functions.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/includes/functions.php">
           <provider selected="true" editor-type-id="text-editor">
@@ -109,10 +63,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="musicupload.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="musicupload.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/admin/musicupload.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="560">
+            <state relative-caret-position="305">
               <caret line="205" column="21" lean-forward="false" selection-start-line="205" selection-start-column="21" selection-end-line="205" selection-end-column="21" />
               <folding>
                 <marker date="1514985501752" expanded="true" signature="628:719" ph="SELECT * FRO... music" />
@@ -122,6 +76,52 @@
                 <marker date="1514985501752" expanded="true" signature="5119:5276" ph="UPDATE music... " />
                 <marker date="1514985501752" expanded="true" signature="5431:5573" ph="INSERT INTO music... " />
                 <marker date="1514985501752" expanded="true" signature="9126:9184" ph="SELECT compo... componist" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="addtoGuestbook.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/addtoGuestbook.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="561">
+              <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+              <folding>
+                <marker date="1514986294764" expanded="true" signature="2182:2261" ph="INSERT INTO guestbook... " />
+                <marker date="1514986294764" expanded="true" signature="2182:2285" ph="INSERT INTO guestbook... " />
+                <marker date="1514986294764" expanded="true" signature="2182:2287" ph="INSERT INTO guestbook... " />
+                <marker date="1514986294764" expanded="true" signature="2985:3638" ph="..." />
+                <marker date="1514986294764" expanded="true" signature="2997:3629" ph="..." />
+                <marker date="1514986294764" expanded="true" signature="3116:3165" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/css/style.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="526">
+              <caret line="253" column="0" lean-forward="false" selection-start-line="253" selection-start-column="0" selection-end-line="253" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="viewGuestbook.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/viewGuestbook.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="8" column="21" lean-forward="true" selection-start-line="7" selection-start-column="4" selection-end-line="8" selection-end-column="21" />
+              <folding>
+                <marker date="1513762640020" expanded="true" signature="523:602" ph="SELECT * FRO... guestbook" />
+                <marker date="1513762640020" expanded="true" signature="782:1251" ph="..." />
+                <marker date="1513762640020" expanded="true" signature="816:1053" ph="..." />
+                <marker date="1513762640020" expanded="true" signature="856:867" ph="..." />
+                <marker date="1513762640020" expanded="true" signature="907:1044" ph="..." />
+                <marker date="1513762640020" expanded="true" signature="955:1003" ph="..." />
+                <marker date="1513762640020" expanded="true" signature="1090:1240" ph="..." />
+                <marker date="1513762640020" expanded="true" signature="1125:1231" ph="..." />
               </folding>
             </state>
           </provider>
@@ -165,6 +165,7 @@
       <find>button-purple</find>
       <find>$mp3FileUrl</find>
       <find>unlink</find>
+      <find>formd</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -179,7 +180,6 @@
         <option value="$PROJECT_DIR$/photoalbum.php" />
         <option value="$PROJECT_DIR$/mail.php" />
         <option value="$PROJECT_DIR$/css/sb-admin.css" />
-        <option value="$PROJECT_DIR$/css/style.css" />
         <option value="$PROJECT_DIR$/admin/addmembers.php" />
         <option value="$PROJECT_DIR$/admin/uploadfoto.php" />
         <option value="$PROJECT_DIR$/admin/facemapoverview.php" />
@@ -189,13 +189,14 @@
         <option value="$PROJECT_DIR$/admin/adminpageheader.php" />
         <option value="$PROJECT_DIR$/admin/navbar.php" />
         <option value="$PROJECT_DIR$/admin/index.php" />
-        <option value="$PROJECT_DIR$/addtoGuestbook.php" />
         <option value="$PROJECT_DIR$/admin/home.php" />
         <option value="$PROJECT_DIR$/includes/functions.php" />
         <option value="$PROJECT_DIR$/admin/register.php" />
         <option value="$PROJECT_DIR$/admin/musicuploads.php" />
         <option value="$PROJECT_DIR$/music.php" />
         <option value="$PROJECT_DIR$/admin/musicupload.php" />
+        <option value="$PROJECT_DIR$/css/style.css" />
+        <option value="$PROJECT_DIR$/addtoGuestbook.php" />
       </list>
     </option>
   </component>
@@ -320,12 +321,12 @@
       <updated>1514886105426</updated>
       <workItem from="1514886106563" duration="11459000" />
       <workItem from="1514973718111" duration="6187000" />
-      <workItem from="1514980009356" duration="1431000" />
+      <workItem from="1514980009356" duration="2205000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19077000" />
+    <option name="totallyTimeSpent" value="19851000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -362,20 +363,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/includes/functions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3332">
-          <caret line="196" column="9" lean-forward="false" selection-start-line="196" selection-start-column="9" selection-end-line="196" selection-end-column="9" />
-          <folding>
-            <marker date="1514979093007" expanded="true" signature="1057:1127" ph="SELECT * FRO... user" />
-            <marker date="1514979093007" expanded="true" signature="3159:3196" ph="SELECT * FRO... user" />
-            <marker date="1514979093007" expanded="true" signature="4199:4268" ph="UPDATE user... " />
-            <marker date="1514979093007" expanded="true" signature="5375:5501" ph="INSERT INTO user... " />
-            <marker date="1514979093007" expanded="true" signature="9696:9776" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/admin/musicupload.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
@@ -397,12 +384,12 @@
         <state relative-caret-position="17">
           <caret line="1" column="21" lean-forward="false" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
           <folding>
-            <marker date="1514973732378" expanded="true" signature="1889:1968" ph="INSERT INTO guestbook... " />
-            <marker date="1514973732378" expanded="true" signature="1889:1992" ph="INSERT INTO guestbook... " />
-            <marker date="1514973732378" expanded="true" signature="1889:1994" ph="INSERT INTO guestbook... " />
-            <marker date="1514973732378" expanded="true" signature="2735:3368" ph="..." />
-            <marker date="1514973732378" expanded="true" signature="2747:3359" ph="..." />
-            <marker date="1514973732378" expanded="true" signature="2862:2903" ph="..." />
+            <marker date="1514986294764" expanded="true" signature="2182:2261" ph="INSERT INTO guestbook... " />
+            <marker date="1514986294764" expanded="true" signature="2182:2285" ph="INSERT INTO guestbook... " />
+            <marker date="1514986294764" expanded="true" signature="2182:2287" ph="INSERT INTO guestbook... " />
+            <marker date="1514986294764" expanded="true" signature="2985:3638" ph="..." />
+            <marker date="1514986294764" expanded="true" signature="2997:3629" ph="..." />
+            <marker date="1514986294764" expanded="true" signature="3116:3165" ph="..." />
           </folding>
         </state>
       </provider>
@@ -564,13 +551,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="861">
-          <caret line="585" column="0" lean-forward="false" selection-start-line="585" selection-start-column="0" selection-end-line="585" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/photoalbum.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1394">
@@ -656,21 +636,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/addtoGuestbook.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="21" lean-forward="false" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
-          <folding>
-            <marker date="1514973732378" expanded="true" signature="1889:1968" ph="INSERT INTO guestbook... " />
-            <marker date="1514973732378" expanded="true" signature="1889:1992" ph="INSERT INTO guestbook... " />
-            <marker date="1514973732378" expanded="true" signature="1889:1994" ph="INSERT INTO guestbook... " />
-            <marker date="1514973732378" expanded="true" signature="2735:3368" ph="..." />
-            <marker date="1514973732378" expanded="true" signature="2747:3359" ph="..." />
-            <marker date="1514973732378" expanded="true" signature="2862:2903" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -784,7 +749,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/admin/musicupload.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="560">
+        <state relative-caret-position="305">
           <caret line="205" column="21" lean-forward="false" selection-start-line="205" selection-start-column="21" selection-end-line="205" selection-end-column="21" />
           <folding>
             <marker date="1514985501752" expanded="true" signature="628:719" ph="SELECT * FRO... music" />
@@ -794,6 +759,46 @@
             <marker date="1514985501752" expanded="true" signature="5119:5276" ph="UPDATE music... " />
             <marker date="1514985501752" expanded="true" signature="5431:5573" ph="INSERT INTO music... " />
             <marker date="1514985501752" expanded="true" signature="9126:9184" ph="SELECT compo... componist" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="526">
+          <caret line="253" column="0" lean-forward="false" selection-start-line="253" selection-start-column="0" selection-end-line="253" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/viewGuestbook.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="21" lean-forward="true" selection-start-line="7" selection-start-column="4" selection-end-line="8" selection-end-column="21" />
+          <folding>
+            <marker date="1513762640020" expanded="true" signature="523:602" ph="SELECT * FRO... guestbook" />
+            <marker date="1513762640020" expanded="true" signature="782:1251" ph="..." />
+            <marker date="1513762640020" expanded="true" signature="816:1053" ph="..." />
+            <marker date="1513762640020" expanded="true" signature="856:867" ph="..." />
+            <marker date="1513762640020" expanded="true" signature="907:1044" ph="..." />
+            <marker date="1513762640020" expanded="true" signature="955:1003" ph="..." />
+            <marker date="1513762640020" expanded="true" signature="1090:1240" ph="..." />
+            <marker date="1513762640020" expanded="true" signature="1125:1231" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addtoGuestbook.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <folding>
+            <marker date="1514986294764" expanded="true" signature="2182:2261" ph="INSERT INTO guestbook... " />
+            <marker date="1514986294764" expanded="true" signature="2182:2285" ph="INSERT INTO guestbook... " />
+            <marker date="1514986294764" expanded="true" signature="2182:2287" ph="INSERT INTO guestbook... " />
+            <marker date="1514986294764" expanded="true" signature="2985:3638" ph="..." />
+            <marker date="1514986294764" expanded="true" signature="2997:3629" ph="..." />
+            <marker date="1514986294764" expanded="true" signature="3116:3165" ph="..." />
           </folding>
         </state>
       </provider>

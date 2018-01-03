@@ -246,19 +246,11 @@ body{
 }
 
 #form-div {
-    background-color:#FFFFFF;
-    padding-left:35px;
-    padding-right:35px;
-    padding-top:35px;
-    padding-bottom:50px;
+    background-color: #FFFFFF;
     width: 450px;
-    float: left;
-    left: 50%;
-    position: absolute;
-    margin-top:30px;
-    margin-left: -260px;
+    margin: auto;
+    padding: 50px;
     -moz-border-radius: 7px;
-    -webkit-border-radius: 7px;
 }
 
 .feedback-input {
